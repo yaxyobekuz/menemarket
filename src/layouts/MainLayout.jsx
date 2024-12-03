@@ -4,15 +4,17 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 
 // Components
+import Top from "../components/Top";
 import Header from "../components/Header";
 
 const MainLayout = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      {/* header */}
+      {/* Top */}
+      <Top />
       <Header />
 
-      {/* main */}
+      {/* Main */}
       <main className="">
         <Outlet />
       </main>
