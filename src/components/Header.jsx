@@ -8,7 +8,7 @@ import Icon from "./Icon";
 import logoIcon from "../assets/images/icons/logo.svg";
 import searchIcon from "../assets/images/icons/search.svg";
 import catalogIcon from "../assets/images/icons/catalog.svg";
-import loginIcon from "../assets/images/icons/login-white.svg";
+import loginIcon  from "../assets/images/icons/login-white.svg";
 
 const Header = () => {
   return (
