@@ -2,11 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  user-select: none;
+}
+
 /* --- Base --- */
 
 @layer base {
   body {
     @apply bg-white font-Inter text-base text-neutral-dark font-normal;
+  }
+
+  h2 {
+    @apply text-[32px] leading-normal font-bold;
   }
 }
 
