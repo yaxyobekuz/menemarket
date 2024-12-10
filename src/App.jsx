@@ -17,7 +17,7 @@ import MainLayout from "./layouts/MainLayout";
 const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<MainLayout />}>
+      <Route path="/:d?" element={<MainLayout />}>
         <Route index element={<Home />} />
       </Route>
     )

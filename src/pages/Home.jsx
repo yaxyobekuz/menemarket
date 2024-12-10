@@ -8,12 +8,10 @@ import features from "../data/features";
 
 // Data
 import products from "../data/products";
-import payments from "../data/payments";
 import categories from "../data/categories";
 
 // Components
 import Icon from "../components/Icon";
-import Divider from "../components/Divider";
 import NewsItem from "../components/NewsItem";
 import ProductItem from "../components/ProductItem";
 
@@ -25,15 +23,11 @@ import magicSticker from "../assets/stickers/magic.json";
 import "swiper/css";
 import "../css/swiper.css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";``
+import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 // Images
-import telIcon from "../assets/images/icons/tel.svg";
-import logoIcon from "../assets/images/icons/logo.svg";
-import emailIcon from "../assets/images/icons/email.svg";
-import locationIcon from "../assets/images/icons/location.svg";
 import topProductsBg from "../assets/images/backgrounds/top.jpg";
 import arrowRightIcon from "../assets/images/icons/solid-arrow-right.svg";
 
@@ -51,18 +45,26 @@ const imagesUrl = [
 const Home = () => {
   return (
     <div className="">
-      {/* Hero (Swiper) */}
-      <div className="pt-8 pb-10">
-        <div className="container space-y-5">
+      {/* Hero */}
+      <div className="py-6 sm:pb-10 sm:pt-8">
+        <div className="container space-y-3.5 sm:space-y-4 md:space-y-5">
           {/* swiper */}
           <Swiper
             loop={true}
             navigation={true}
-            spaceBetween={20}
+            spaceBetween={14}
             autoplay={autoplay}
             modules={[Navigation, Pagination, Autoplay]}
-            className="default-swiper-navigation-buttons w-full h-96 rounded-xl"
-            pagination={{ el: ".default-pagination", clickable: true }}
+            pagination={{ el: ".main-swiper-pagination", clickable: true }}
+            className="default-swiper-navigation-buttons w-full h-auto aspect-[16/7] xs:aspect-[16/6] rounded-xl"
+            breakpoints={{
+              640: {
+                spaceBetween: 16,
+              },
+              768: {
+                spaceBetween: 20,
+              },
+            }}
           >
             {imagesUrl.map((url, index) => (
               <SwiperSlide
@@ -74,12 +76,12 @@ const Home = () => {
           </Swiper>
 
           {/* swiper pagination */}
-          <div className="default-pagination"></div>
+          <div className="main-swiper-pagination default-pagination"></div>
         </div>
       </div>
 
       {/* Categories */}
-      <section className="pb-8">
+      <section className="pb-8 sm:pb-8">
         <div className="container space-y-6">
           {/* Section header (Title wrapper) */}
           <div className="flex items-center justify-between">
@@ -87,7 +89,7 @@ const Home = () => {
 
             {/* all products link */}
             <Link to="/products/all" className="group btn">
-              <span className="text-neutral-600 transition-colors duration-200 group-hover:text-black">
+              <span className="text-neutral-600 text-sm transition-colors duration-200 group-hover:text-black sm:text-base">
                 Barcha mahsulotlar
               </span>
 
@@ -95,7 +97,7 @@ const Home = () => {
                 size={20}
                 src={arrowRightIcon}
                 alt="Right arrow icon"
-                className="size-5 -translate-x-0.5 transition-transform duration-200 group-hover:translate-x-0.5"
+                className="size-4 -translate-x-0.5 transition-transform duration-200 group-hover:translate-x-0.5 sm:size-5"
               />
             </Link>
           </div>
@@ -104,8 +106,18 @@ const Home = () => {
           <Swiper
             loop={true}
             navigation={true}
-            spaceBetween={20}
-            slidesPerView={5}
+            spaceBetween={14}
+            breakpoints={{
+              640: {
+                spaceBetween: 16,
+                slidesPerView: 4,
+              },
+              1024: {
+                spaceBetween: 20,
+                slidesPerView: 5,
+              },
+            }}
+            slidesPerView={3}
             autoplay={autoplay}
             modules={[Navigation, Autoplay]}
             className="default-swiper-navigation-buttons w-full h-auto rounded-xl"
@@ -118,9 +130,9 @@ const Home = () => {
               >
                 <Link
                   to={`/products/${category.link}`}
-                  className="flex items-end relative size-full p-4"
+                  className="flex items-end relative size-full p-2.5 sm:p-3.5 md:p-4"
                 >
-                  <h3 className="z-10 text-xl font-semibold text-white">
+                  <h3 className="z-10 text-sm leading-4 font-semibold text-white sm:leading-7 sm:text-lg md:text-xl">
                     {category.title}
                   </h3>
 
@@ -132,12 +144,16 @@ const Home = () => {
         </div>
       </section>
 
-      <div className="container pt-10 pb-8">
-        <img src={topProductsBg} alt="" className="rounded-xl object-cover" />
+      <div className="container pb-6 sm:pt-10 sm:pb-8">
+        <img
+          src={topProductsBg}
+          alt=""
+          className="w-full rounded-xl object-cover h-12 xs:h-16 sm:h-20 md:h-24 lg:h-28"
+        />
       </div>
 
       {/* New products */}
-      <section className="py-10">
+      <section className="pb-8 sm:py-10">
         <div className="container space-y-6">
           {/* Section title */}
           <h2 className="flex items-center gap-3.5">
@@ -146,14 +162,14 @@ const Home = () => {
           </h2>
 
           {/* Section content */}
-          <ul className="grid grid-cols-2 gap-4 gap-y-6 sm:grid-cols-3 md:grid-cols-5 md:gap-y-8 md:gap-5">
+          <ul className="grid grid-cols-2 gap-x-3.5 gap-y-6 sm:grid-cols-3 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-8 lg:grid-cols-5">
             {products.map((product, index) => (
               <ProductItem key={index} data={product} />
             ))}
           </ul>
 
-          <div className="flex justify-center w-full pt-5">
-            <button className="bg-gray-light px-32 py-2 rounded-xl text-lg transition-colors duration-200 hover:bg-gray-medium/50">
+          <div className="flex justify-center w-full pt-3.5 xs:pt-5">
+            <button className="w-full bg-gray-light px-5 py-2 rounded-xl text-base font-medium transition-colors duration-200 hover:bg-gray-medium/50 sm:w-auto sm:px-28 sm:text-lg md:px-32">
               Ko'proq ko'rsatish
             </button>
           </div>
@@ -161,20 +177,20 @@ const Home = () => {
       </section>
 
       {/* Popular products */}
-      <section className="pt-10 pb-14">
+      <section className="py-8 sm:pt-10 sm:pb-14">
         <div className="container space-y-6">
           {/* Section title */}
           <h2>Ommabop mahsulotlar</h2>
 
           {/* Section content */}
-          <ul className="grid grid-cols-2 gap-4 gap-y-6 sm:grid-cols-3 md:grid-cols-5 md:gap-y-8 md:gap-5">
+          <ul className="grid grid-cols-2 gap-x-3.5 gap-y-6 sm:grid-cols-3 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-8 lg:grid-cols-5">
             {products.map((product, index) => (
               <ProductItem key={index} data={product} />
             ))}
           </ul>
 
-          <div className="flex justify-center w-full pt-5">
-            <button className="bg-gray-light px-32 py-2 rounded-xl text-lg transition-colors duration-200 hover:bg-gray-medium/50">
+          <div className="flex justify-center w-full pt-3.5 xs:pt-5">
+            <button className="w-full bg-gray-light px-5 py-2 rounded-xl text-base font-medium transition-colors duration-200 hover:bg-gray-medium/50 sm:w-auto sm:px-28 sm:text-lg md:px-32">
               Ko'proq ko'rsatish
             </button>
           </div>
@@ -182,7 +198,7 @@ const Home = () => {
       </section>
 
       {/* Brands */}
-      <section className="bg-gray-light py-14">
+      <section className="bg-gray-light py-8 sm:py-14">
         <div className="container space-y-6">
           {/* Section header (Title wrapper) */}
           <div className="flex items-center justify-between">
@@ -190,7 +206,7 @@ const Home = () => {
 
             {/* brands page link */}
             <Link to="/brands" className="group btn">
-              <span className="text-neutral-600 transition-colors duration-200 group-hover:text-black">
+              <span className="text-neutral-600 text-sm transition-colors duration-200 group-hover:text-black sm:text-base">
                 Barcha brendlar
               </span>
 
@@ -198,20 +214,28 @@ const Home = () => {
                 size={20}
                 src={arrowRightIcon}
                 alt="Right arrow icon"
-                className="size-5 -translate-x-0.5 transition-transform duration-200 group-hover:translate-x-0.5"
+                className="size-4 -translate-x-0.5 transition-transform duration-200 group-hover:translate-x-0.5 sm:size-5"
               />
             </Link>
           </div>
 
           {/* Section content */}
-          <ul className="grid grid-cols-1 gap-4 gap-y-6 sm:grid-cols-2 md:gap-5 md:grid-cols-3">
+          <ul className="grid grid-cols-1 gap-4 md:gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {brands.map((brand, index) => (
-              <li key={index} className="bg-white px-5 py-6 rounded-xl">
+              <li
+                key={index}
+                className="bg-white rounded-xl sm:p-4 p-3.5 md:px-5 md:py-6"
+              >
                 <div className="flex items-center justify-between mb-5">
-                  <Icon src={brand.logo} className="size-12" />
+                  <Icon
+                    size={48}
+                    alt="Brand logo"
+                    src={brand.logo}
+                    className="size-10 sm:size-11 md:size-12"
+                  />
 
                   <Link to="/brands" className="group btn">
-                    <span className="text-neutral-600 transition-colors duration-200 group-hover:text-black">
+                    <span className="text-neutral-600 text-sm transition-colors duration-200 group-hover:text-black sm:text-base">
                       Brend mahsulotlari
                     </span>
 
@@ -219,15 +243,17 @@ const Home = () => {
                       size={20}
                       src={arrowRightIcon}
                       alt="Right arrow icon"
-                      className="size-5 -translate-x-0.5 transition-transform duration-200 group-hover:translate-x-0.5"
+                      className="size-4 -translate-x-0.5 transition-transform duration-200 group-hover:translate-x-0.5 sm:size-5"
                     />
                   </Link>
                 </div>
 
                 <img
+                  width={360}
+                  height={128}
                   src={brand.image}
-                  alt=""
-                  className="w-full h-32 bg-gray-light"
+                  alt="Brand products image"
+                  className="w-full h-auto object-cover aspect-[45/16] bg-gray-light"
                 />
               </li>
             ))}
@@ -236,20 +262,20 @@ const Home = () => {
       </section>
 
       {/* Discount products */}
-      <section className="py-10">
+      <section className="py-8 sm:py-10">
         <div className="container space-y-6">
           {/* Section title */}
           <h2>Chegirmadagi mahsulotlar</h2>
 
           {/* Section content */}
-          <ul className="grid grid-cols-2 gap-4 gap-y-6 sm:grid-cols-3 md:grid-cols-5 md:gap-y-8 md:gap-5">
+          <ul className="grid grid-cols-2 gap-x-3.5 gap-y-6 sm:grid-cols-3 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-8 lg:grid-cols-5">
             {products.map((product, index) => (
               <ProductItem key={index} data={product} />
             ))}
           </ul>
 
-          <div className="flex justify-center w-full pt-5">
-            <button className="bg-gray-light px-32 py-2 rounded-xl text-lg transition-colors duration-200 hover:bg-gray-medium/50">
+          <div className="flex justify-center w-full pt-3.5 xs:pt-5">
+            <button className="w-full bg-gray-light px-5 py-2 rounded-xl text-base font-medium transition-colors duration-200 hover:bg-gray-medium/50 sm:w-auto sm:px-28 sm:text-lg md:px-32">
               Ko'proq ko'rsatish
             </button>
           </div>
@@ -257,7 +283,7 @@ const Home = () => {
       </section>
 
       {/* Latest news */}
-      <section className="py-10">
+      <section className="py-8 sm:py-10">
         <div className="container space-y-6">
           {/* Section title */}
           <div className="flex items-center justify-between">
@@ -265,7 +291,7 @@ const Home = () => {
 
             {/* brands page link */}
             <Link to="/news" className="group btn">
-              <span className="text-neutral-600 transition-colors duration-200 group-hover:text-black">
+              <span className="text-neutral-600 text-sm transition-colors duration-200 group-hover:text-black sm:text-base">
                 Barcha yangiliklar
               </span>
 
@@ -273,13 +299,13 @@ const Home = () => {
                 size={20}
                 src={arrowRightIcon}
                 alt="Right arrow icon"
-                className="size-5 -translate-x-0.5 transition-transform duration-200 group-hover:translate-x-0.5"
+                className="size-4 -translate-x-0.5 transition-transform duration-200 group-hover:translate-x-0.5 sm:size-5"
               />
             </Link>
           </div>
 
           {/* News */}
-          <ul className="grid grid-cols-1 gap-3.5 sm:gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
+          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
             {news.slice(0, 3).map((data, index) => (
               <NewsItem key={index} data={data} />
             ))}
@@ -288,16 +314,16 @@ const Home = () => {
       </section>
 
       {/* Features */}
-      <section className="bg-gradient-to-b from-white to-gray-light pt-10 pb-14">
+      <section className="bg-gradient-to-b from-white to-gray-light pb-10 pt-0 sm:pt-10 sm:pb-14">
         <div className="container">
-          <ul className="grid grid-cols-2 gap-3.5 md:grid-cols-2 md:gap-5 lg:grid-cols-3 bg-white px-5 py-8 rounded-xl">
+          <ul className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 bg-white px-3.5 py-5 rounded-xl sm:px-4 md:px-5 sm:py-8">
             {features.map((feature, index) => (
               <li key={index} className="flex items-center gap-3.5">
                 <Icon
                   size={48}
                   src={feature.icon}
                   alt="Feature icon"
-                  className="size-12"
+                  className="size-10 sm:size-11 md:size-12"
                 />
 
                 <div className="space-y-1.5">
@@ -311,209 +337,6 @@ const Home = () => {
           </ul>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-light">
-        {/* Main content */}
-        <div className="container pt-6 pb-14">
-          <div className="flex items-start justify-between gap-5">
-            <div className="space-y-5">
-              {/* Logo */}
-              <Link to="/" className="flex items-center gap-1">
-                {/* logo icon */}
-                <img
-                  width={90}
-                  height={48}
-                  src={logoIcon}
-                  className="h-12"
-                  alt="Mene Market logo svg icon"
-                />
-              </Link>
-
-              <div className="space-y-2.5">
-                {/* Tel */}
-                <div className="flex items-center gap-2.5">
-                  <Icon
-                    size={20}
-                    src={telIcon}
-                    alt="Phone icon"
-                    className="size-5"
-                  />
-                  <a href="tel:+998990000000" className="font-medium">
-                    +998 (99) 000-00-00
-                  </a>
-                </div>
-
-                {/* Email */}
-                <div className="flex items-center gap-2.5">
-                  <Icon
-                    size={20}
-                    src={emailIcon}
-                    alt="Email icon"
-                    className="size-5"
-                  />
-                  <a
-                    className="text-neutral-500"
-                    href="mailto:menemarketuz@gmail.com"
-                  >
-                    menemarketuz@gmail.com
-                  </a>
-                </div>
-
-                {/* Address */}
-                <div className="flex items-center gap-2.5">
-                  <Icon
-                    size={20}
-                    src={locationIcon}
-                    alt="Phone icon"
-                    className="size-5"
-                  />
-
-                  <address className="text-neutral-500 not-italic">
-                    Chilonzor, Toshkent
-                  </address>
-                </div>
-              </div>
-            </div>
-
-            {/* Nav */}
-            <nav>
-              <ul className="flex gap-10">
-                {/* For users */}
-                <li className="space-y-5">
-                  <h3 className="text-lg font-medium">Foydalanuvchilarga</h3>
-                  <ul className="space-y-1.5">
-                    <li>
-                      <Link
-                        to="/about"
-                        className="text-neutral-500 transition-colors duration-200 hover:text-primary-default"
-                      >
-                        Asosiy sahifa
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/products"
-                        className="text-neutral-500 transition-colors duration-200 hover:text-primary-default"
-                      >
-                        Mahsulotlar
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/about"
-                        className="text-neutral-500 transition-colors duration-200 hover:text-primary-default"
-                      >
-                        Kompaniya haqida
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/about"
-                        className="text-neutral-500 transition-colors duration-200 hover:text-primary-default"
-                      >
-                        Blog
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/contact"
-                        className="text-neutral-500 transition-colors duration-200 hover:text-primary-default"
-                      >
-                        Yordam olish
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
-
-                {/* For partners */}
-                <li className="space-y-5">
-                  <h3 className="text-lg font-medium">
-                    Hamkorlar & Tadbirkorlarga
-                  </h3>
-                  <ul className="space-y-1.5">
-                    <li>
-                      <Link
-                        to="/"
-                        className="text-neutral-500 transition-colors duration-200 hover:text-primary-default"
-                      >
-                        Targetologga aylaning
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/admin/dashboard/"
-                        className="text-neutral-500 transition-colors duration-200 hover:text-primary-default"
-                      >
-                        Targetolog kabineti
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/about"
-                        className="text-primary-default hover:underline"
-                      >
-                        Bizda mahsulotlaringizni soting
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
-
-            {/* Payments */}
-            <ul className="grid grid-cols-3 gap-5">
-              {payments.map((pay, index) => (
-                <li key={index} className="max-h-max">
-                  <a
-                    href={pay.link}
-                    target="_blank"
-                    title={pay.name}
-                    aria-label={pay.name}
-                    className="inline-block bg-white p-3.5 rounded-xl transition-colors duration-200 hover:bg-neutral-200"
-                  >
-                    <img
-                      width={72}
-                      height={24}
-                      src={pay.icon}
-                      alt={pay.name}
-                      className="w-[72px] h-6"
-                    />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <Divider />
-
-        {/* Sub content */}
-        <div className="container py-5">
-          <div className="flex items-center justify-between gap-5 text-neutral-500">
-            <p className="text-inherit">© 2023-2024. "Mene Market"</p>
-
-            {/* Privacy Policy */}
-            <div className="flex items-center gap-3.5">
-              <Link
-                to="/"
-                className="text-inherit transition-colors duration-200 hover:text-primary-default"
-              >
-                Ommaviy oferta
-              </Link>
-
-              <span>•</span>
-
-              <Link
-                to="/"
-                className="text-inherit transition-colors duration-200 hover:text-primary-default"
-              >
-                Maxfiylik siyosati
-              </Link>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };

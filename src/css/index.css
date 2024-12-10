@@ -14,7 +14,7 @@
   }
 
   h2 {
-    @apply text-[32px] leading-normal font-bold;
+    @apply font-semibold text-xl xs:text-2xl sm:text-3xl  md:text-[32px] md:leading-normal md:font-bold;
   }
 }
 
@@ -34,10 +34,18 @@
   }
 }
 
+.main-layout-tabs a {
+  color: #999999;
+}
+
+.main-layout-tabs a.active {
+  color: #0085ff;
+}
+
 /* --- Utilities --- */
 
 @layer utilities {
   .container {
-    @apply max-w-7xl w-full px-5 mx-auto;
+    @apply max-w-7xl w-full px-3.5 mx-auto sm:px-4 md:px-5;
   }
 }

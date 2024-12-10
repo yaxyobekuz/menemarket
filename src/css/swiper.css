@@ -60,3 +60,15 @@
   background: #0085ff;
   width: 24px;
 }
+
+@media only screen and (max-width: 640px) {
+  /* Navigation */
+  .default-swiper-navigation-buttons .swiper-button-next,
+  .default-swiper-navigation-buttons .swiper-button-prev {
+    display: none;
+  }
+
+  .default-pagination .swiper-pagination-bullet {
+    scale: 0.7;
+  }
+}
