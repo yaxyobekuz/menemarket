@@ -16,6 +16,7 @@ const MainLayoutTabs = () => {
               height="28"
               fill="currentColor"
               viewBox="0 0 28 28"
+              className="size-[26px] xs:size-7"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -28,7 +29,7 @@ const MainLayoutTabs = () => {
               />
             </svg>
 
-            <span className="text-sm text-inherit transition-colors duration-300">
+            <span className="text-[13px] leading-normal text-inherit transition-colors duration-300 xs:text-sm">
               Asosiy
             </span>
           </NavLink>
@@ -44,6 +45,7 @@ const MainLayoutTabs = () => {
               width="28"
               height="28"
               fill="currentColor"
+              className="size-[26px] xs:size-7"
               viewBox="0 0 28 28"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -77,7 +79,7 @@ const MainLayoutTabs = () => {
               />
             </svg>
 
-            <span className="text-sm text-inherit transition-colors duration-300">
+            <span className="text-[13px] leading-normal text-inherit transition-colors duration-300 xs:text-sm">
               Mahsulotlar
             </span>
           </NavLink>
@@ -93,6 +95,7 @@ const MainLayoutTabs = () => {
               width="28"
               height="28"
               fill="currentColor"
+              className="size-[26px] xs:size-7"
               viewBox="0 0 28 28"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -115,7 +118,7 @@ const MainLayoutTabs = () => {
               />
             </svg>
 
-            <span className="text-sm text-inherit transition-colors duration-300">
+            <span className="text-[13px] leading-normal text-inherit transition-colors duration-300 xs:text-sm">
               Qidirish
             </span>
           </NavLink>
@@ -131,6 +134,7 @@ const MainLayoutTabs = () => {
               width="28"
               height="28"
               fill="currentColor"
+              className="size-[26px] xs:size-7"
               viewBox="0 0 28 28"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -144,7 +148,7 @@ const MainLayoutTabs = () => {
               />
             </svg>
 
-            <span className="text-sm text-inherit transition-colors duration-300">
+            <span className="text-[13px] leading-normal text-inherit transition-colors duration-300 xs:text-sm">
               Kirish
             </span>
           </NavLink>
