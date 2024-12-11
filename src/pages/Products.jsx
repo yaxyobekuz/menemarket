@@ -15,7 +15,7 @@ const Products = () => {
 
           {/* Filter */}
           <nav className="products-layout-tabs mb-8 sm:mb-14">
-            <ul className="flex gap-5 relative w-full overflow-x-auto scroll-x-primary scroll-smooth p-0.5 pb-5">
+            <ul className="flex gap-x-3.5 relative w-full overflow-x-auto scroll-x-primary scroll-smooth p-0.5 pb-5 sm:gap-x-4 md:gap-x-5">
               <li className="shrink-0">
                 <NavLink
                   end
@@ -30,7 +30,7 @@ const Products = () => {
                 <li key={index} className="shrink-0">
                   <NavLink
                     to={`/products/${category.link.toLowerCase()}`}
-                    className="btn bg-gray-light px-5 py-2.5 text-sm hover:bg-neutral-200 sm:text-base"
+                    className="btn bg-gray-light px-5 py-2.5 font-normal text-sm hover:bg-neutral-200 sm:font-medium sm:text-base"
                   >
                     {category.title}
                   </NavLink>
