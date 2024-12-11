@@ -13,6 +13,10 @@
     @apply bg-white font-Inter text-base text-neutral-dark font-normal;
   }
 
+  h1 {
+    @apply font-semibold text-2xl xs:text-3xl md:text-4xl md:font-bold;
+  }
+
   h2 {
     @apply font-semibold text-xl xs:text-2xl sm:text-3xl  md:text-[32px] md:leading-normal md:font-bold;
   }
@@ -21,6 +25,18 @@
 /* --- Components --- */
 
 @layer components {
+  .scroll-x-primary::-webkit-scrollbar {
+    @apply bg-gray-light h-0.5 rounded-full;
+  }
+
+  .scroll-x-primary::-webkit-scrollbar-thumb {
+    @apply bg-primary-default/70 rounded-full;
+  }
+
+  .scroll-x-primary:hover::-webkit-scrollbar-thumb {
+    @apply bg-primary-default;
+  }
+
   .btn {
     @apply flex items-center justify-center gap-2.5 rounded-lg font-medium transition-colors duration-200;
   }
@@ -40,6 +56,11 @@
 
 .main-layout-tabs a.active {
   color: #0085ff;
+}
+
+.products-layout-tabs a.active {
+  background: #0085ff;
+  color: white;
 }
 
 /* --- Utilities --- */

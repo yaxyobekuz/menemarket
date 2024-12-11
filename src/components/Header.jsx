@@ -6,6 +6,7 @@ import Icon from "./Icon";
 
 // Images
 import logoIcon from "../assets/images/icons/logo.svg";
+import appsIcon from "../assets/images/icons/apps.svg";
 import searchIcon from "../assets/images/icons/search.svg";
 import catalogIcon from "../assets/images/icons/catalog.svg";
 import loginIcon from "../assets/images/icons/login-white.svg";
@@ -36,7 +37,7 @@ const Header = () => {
                   to="/products"
                   className="btn-stroke h-10 px-5 border-none"
                 >
-                  <Icon src={catalogIcon} alt="Catalog icon" />
+                  <Icon src={appsIcon} alt="Apps icon" />
                   <span>Mahsulotlar</span>
                 </Link>
               </li>
