@@ -4,14 +4,35 @@ import { Link } from "react-router-dom";
 // Components
 import Icon from "./Icon";
 
+// Redux
+import { useDispatch } from "react-redux";
+import { updateModal } from "../store/features/modalSlice";
+
 // Images
 import logoIcon from "../assets/images/icons/logo.svg";
 import appsIcon from "../assets/images/icons/apps.svg";
 import searchIcon from "../assets/images/icons/search.svg";
-import catalogIcon from "../assets/images/icons/catalog.svg";
 import loginIcon from "../assets/images/icons/login-white.svg";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const handleOpenContactModal = () => {
+    dispatch(
+      updateModal({
+        data: null,
+        isOpen: true,
+        name: "contact",
+        title: "Bog'lanish",
+        buttons: {
+          primary: false,
+          secondary: {
+            label: "Yopish",
+          },
+        },
+      })
+    );
+  };
+
   return (
     <header className="flex items-center sticky top-0 inset-x-0 z-10 bg-white border-b h-16 sm:h-[72px] md:h-20">
       <div className="container">
@@ -44,10 +65,14 @@ const Header = () => {
 
               {/* contact */}
               <li>
-                <Link to="/contact" className="btn-stroke h-10 px-5">
+                <button
+                  onClick={handleOpenContactModal}
+                  className="btn-stroke h-10 px-5"
+                >
                   <span className="text-primary-default">Bog'lanish</span>
-                </Link>
+                </button>
               </li>
+
               {/* search */}
               <li>
                 <Link to="/search" className="btn-stroke h-10 px-5">
@@ -67,14 +92,14 @@ const Header = () => {
           </nav>
 
           {/* Mobile contact link */}
-          <Link
-            to="/contact"
+          <button
+            onClick={handleOpenContactModal}
             className="btn-stroke py-1.5 px-4 sm:h-10 sm:px-5 md:hidden"
           >
             <span className="text-primary-default text-sm xs:text-base">
               Bog'lanish
             </span>
-          </Link>
+          </button>
         </div>
       </div>
     </header>
