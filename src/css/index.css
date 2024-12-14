@@ -20,21 +20,42 @@
   h2 {
     @apply font-semibold text-xl xs:text-2xl sm:text-3xl  md:text-[32px] md:leading-normal md:font-bold;
   }
+
+  input,
+  textarea {
+    @apply w-full bg-gray-light outline-none rounded-xl;
+  }
+
+  textarea {
+    @apply py-2.5 min-h-40 max-h-96 xs:min-h-32;
+  }
 }
 
 /* --- Components --- */
 
 @layer components {
-  .scroll-x-primary::-webkit-scrollbar {
-    @apply bg-gray-light h-0.5 rounded-full;
+  :is(.scroll-x-primary, .scroll-y-primary)::-webkit-scrollbar {
+    @apply bg-gray-light rounded-full;
   }
 
-  .scroll-x-primary::-webkit-scrollbar-thumb {
+  :is(.scroll-x-primary, .scroll-y-primary)::-webkit-scrollbar-thumb {
     @apply bg-primary-default/70 rounded-full;
   }
 
-  .scroll-x-primary:hover::-webkit-scrollbar-thumb {
+  :is(.scroll-x-primary, .scroll-y-primary):hover::-webkit-scrollbar-thumb {
     @apply bg-primary-default;
+  }
+
+  .scroll-x-primary::-webkit-scrollbar {
+    @apply h-0.5;
+  }
+
+  .scroll-y-primary::-webkit-scrollbar {
+    @apply w-0.5;
+  }
+
+  .scroll-hidden::-webkit-scrollbar {
+    @apply w-0 opacity-0 bg-transparent;
   }
 
   .btn {
@@ -77,4 +98,51 @@
 ::-webkit-search-results-button,
 ::-webkit-search-results-decoration {
   display: none;
+}
+
+/* Animations */
+@keyframes animate-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+.animate-up {
+  animation: animate-up 500ms ease;
+}
+
+@keyframes animate-smooth-opening {
+  0%,
+  72% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-smooth-opening {
+  animation: animate-smooth-opening 700ms ease;
+}
+
+/* Modal styles  */
+.modal-content-container-inner {
+  @apply h-[calc(100%-48px)] xs:h-auto;
+}
+
+.modal-main-content {
+  @apply max-h-full h-auto xs:max-h-96;
+}
+
+@media only screen and (max-height: 532px) {
+  .modal-content-container-inner {
+    @apply xs:h-full;
+  }
+
+  .modal-main-content {
+    @apply max-h-[calc(100%-116px)] h-auto;
+  }
 }
