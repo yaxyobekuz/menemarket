@@ -1,0 +1,108 @@
+import React, { useState, useCallback } from "react";
+
+// UUID (Id generator)
+import { v4 as uuidv4 } from "uuid";
+
+// Input mask
+import { InputMask } from "@react-input/mask";
+
+const FormInputWrapper = ({
+  id,
+  label = "",
+  as = "input",
+  type = "text",
+  name = "input",
+  className = "",
+  placeholder = "",
+  maxLength = 2048,
+  defaultValue = "",
+  autoFocus = false,
+  autoComplete = "off",
+  onChange = () => {},
+}) => {
+  const [value, setValue] = useState(defaultValue);
+  const [inputId, setInputId] = useState(id || uuidv4());
+
+  const handleChange = useCallback(
+    (newValue) => {
+      setValue(newValue);
+      onChange(newValue);
+    },
+    [onChange]
+  );
+
+  // Render input based on type and element type
+  const renderInput = () => {
+    if (as === "textarea") {
+      return (
+        <textarea
+          name={name}
+          id={inputId}
+          value={value}
+          maxLength={maxLength}
+          placeholder={placeholder}
+          autoComplete={autoComplete}
+          className="px-3.5 scroll-hidden"
+          onChange={(e) => handleChange(e.target.value)}
+        />
+      );
+    }
+
+    if (as === "input" && type === "tel") {
+      return (
+        <InputMask
+          type="tel"
+          name={name}
+          id={inputId}
+          value={value}
+          autoFocus={autoFocus}
+          maxLength={maxLength}
+          className="h-11 px-3.5"
+          placeholder={placeholder}
+          mask="+998 (__) ___-__-__"
+          replacement={{ _: /\d/ }}
+          autoComplete={autoComplete}
+          onChange={(e) => handleChange(e.target.value)}
+        />
+      );
+    }
+
+    return (
+      <input
+        type={type}
+        name={name}
+        id={inputId}
+        value={value}
+        autoFocus={autoFocus}
+        maxLength={maxLength}
+        className="h-11 px-3.5"
+        placeholder={placeholder}
+        autoComplete={autoComplete}
+        onChange={(e) => handleChange(e.target.value)}
+      />
+    );
+  };
+
+  return (
+    <div
+      className={`group flex flex-col items-center justify-center gap-1.5 relative overflow-hidden rounded-b-xl ${className}`}
+    >
+      {/* Label */}
+      {label && (
+        <div className="w-full">
+          <label htmlFor={inputId} className="pl-1.5">
+            {label}
+          </label>
+        </div>
+      )}
+
+      {/* Render Input */}
+      {renderInput()}
+
+      {/* Active Line */}
+      <div className="absolute bottom-0 w-0 h-0.5 bg-transparent transition-[width,background-color] duration-300 group-focus-within:w-full group-focus-within:bg-primary-default" />
+    </div>
+  );
+};
+
+export default FormInputWrapper;
