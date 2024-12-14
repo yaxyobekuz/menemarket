@@ -6,12 +6,10 @@
   justify-content: center;
   width: 44px;
   height: 44px;
-  scale: 0;
-  rotate: 45deg;
   background-color: rgba(255, 255, 255, 1);
   backdrop-filter: blur(10px);
   border-radius: 100px;
-  transition: scale 200ms, rotate 200ms;
+  transition: scale 200ms ease;
 }
 
 .default-swiper-navigation-buttons .swiper-button-prev {
@@ -29,14 +27,8 @@
   background-repeat: no-repeat;
 }
 
-.default-swiper-navigation-buttons:hover .swiper-button-next,
-.default-swiper-navigation-buttons:hover .swiper-button-prev {
-  scale: 1;
-  rotate: 0deg;
-}
-
-.default-swiper-navigation-buttons .swiper-button-next::after:active,
-.default-swiper-navigation-buttons .swiper-button-prev::after:active {
+.default-swiper-navigation-buttons .swiper-button-next:active,
+.default-swiper-navigation-buttons .swiper-button-prev:active {
   scale: 0.8;
 }
 
