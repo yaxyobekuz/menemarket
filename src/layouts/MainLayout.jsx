@@ -1,10 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 
 // Redux
 import { useSelector } from "react-redux";
-
-// Router
-import { Outlet } from "react-router-dom";
 
 // Components
 import Top from "../components/Top";
@@ -14,7 +12,9 @@ import Footer from "../components/Footer";
 import MainLayoutTabs from "../components/MainLayoutTabs";
 
 const MainLayout = () => {
+  const location = useLocation();
   const modal = useSelector((state) => state.modal);
+  useEffect(() => window.scrollTo(0, 0), [location.pathname]);
 
   return (
     <div className="flex flex-col min-h-screen pb-16 md:pb-0">

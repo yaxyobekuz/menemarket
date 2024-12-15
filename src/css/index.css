@@ -9,6 +9,10 @@
 /* --- Base --- */
 
 @layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
   body {
     @apply bg-white font-Inter text-base text-neutral-dark font-normal;
   }
