@@ -8,11 +8,14 @@ import {
 
 // Pages
 import Home from "./pages/Home";
+import Login from "./pages/Login";
 import Search from "./pages/Search";
 import Products from "./pages/Products";
+import Register from "./pages/Register";
 
 // Layouts
 import MainLayout from "./layouts/MainLayout";
+import AuthLayout from "./layouts/AuthLayout";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -21,6 +24,10 @@ const App = () => {
         <Route index element={<Home />} />
         <Route path="products/:x?" element={<Products />} />
         <Route path="search" element={<Search />} />
+        <Route path="auth" element={<AuthLayout />}>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+        </Route>
       </Route>
     )
   );
