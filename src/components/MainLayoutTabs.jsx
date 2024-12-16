@@ -127,7 +127,7 @@ const MainLayoutTabs = () => {
         {/* Account */}
         <li className="w-1/4 h-full">
           <NavLink
-            to="/login"
+            to="/auth/login"
             className="flex flex-col items-center justify-center gap-0.5 size-full"
           >
             <svg

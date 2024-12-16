@@ -83,7 +83,7 @@ const Header = () => {
 
               {/* login */}
               <li>
-                <Link to="/login" className="btn-primary py-2 px-5">
+                <Link to="/auth/login" className="btn-primary py-2 px-5">
                   <span>Kirish</span>
                   <Icon src={loginIcon} alt="Login icon" />
                 </Link>

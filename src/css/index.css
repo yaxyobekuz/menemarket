@@ -63,7 +63,7 @@
   }
 
   .btn {
-    @apply flex items-center justify-center gap-2.5 rounded-lg font-medium transition-colors duration-200;
+    @apply flex items-center justify-center gap-2.5 rounded-lg font-medium transition-colors duration-200 disabled:opacity-70 disabled:cursor-not-allowed;
   }
 
   .btn-primary {
@@ -83,7 +83,7 @@
   color: #0085ff;
 }
 
-.products-layout-tabs a.active {
+:is(.products-layout-tabs, .auth-layout-tabs) a.active {
   background: #0085ff;
   color: white;
 }
