@@ -10,6 +10,7 @@ import {
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Search from "./pages/Search";
+import Product from "./pages/Product";
 import Products from "./pages/Products";
 import Register from "./pages/Register";
 
@@ -22,7 +23,8 @@ const App = () => {
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
         <Route index element={<Home />} />
-        <Route path="products/:x?" element={<Products />} />
+        <Route path="products/:productType?" element={<Products />} />
+        <Route path="products/product/:productId" element={<Product />} />
         <Route path="search" element={<Search />} />
         <Route path="auth" element={<AuthLayout />}>
           <Route path="login" element={<Login />} />

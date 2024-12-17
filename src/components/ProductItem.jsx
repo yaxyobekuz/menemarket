@@ -1,7 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-import starIcon from "../assets/images/icons/mono-star-filled.svg";
+// Components
 import Icon from "./Icon";
+
+// Images
+import starIcon from "../assets/images/icons/mono-star-filled.svg";
 
 const ProductItem = ({ data = {} }) => {
   return (
@@ -52,6 +56,12 @@ const ProductItem = ({ data = {} }) => {
           </div>
         </div>
       </div>
+
+      {/* Link */}
+      <Link
+        to="/products/product/productId"
+        className="absolute inset-0 size-full rounded-xl"
+      />
     </li>
   );
 };
