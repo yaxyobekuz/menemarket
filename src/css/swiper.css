@@ -53,6 +53,18 @@
   width: 24px;
 }
 
+/* Product page swiper */
+.product-page-swiper .swiper-slide {
+  filter: brightness(50%) !important;
+  transform: scale(0.9);
+  transition: transform 350ms, filter 150ms;
+}
+
+.product-page-swiper .swiper-slide-active {
+  filter: brightness(100%) !important;
+  transform: scale(1);
+}
+
 @media only screen and (max-width: 640px) {
   /* Navigation */
   .default-swiper-navigation-buttons .swiper-button-next,
