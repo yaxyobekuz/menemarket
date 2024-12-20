@@ -1,28 +1,30 @@
-import React, { act, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 
-// Components
-import Icon from "../components/Icon";
+// Data
+import products from "../data/products";
+
+// Utils
+import { getRandomNumber } from "../utils";
 
 // Swiper
 import "swiper/css";
 import "../css/swiper.css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
+import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
+
+// Components
+import Icon from "../components/Icon";
+import ProductItem from "../components/ProductItem";
+import FormInputWrapper from "../components/FormInputWrapper";
 
 // Images
 import likeIcon from "../assets/images/icons/like.svg";
-import shareIcon from "../assets/images/icons/share.svg";
 import copyIcon from "../assets/images/icons/copy.svg";
+import shareIcon from "../assets/images/icons/share.svg";
 import complaintIcon from "../assets/images/icons/complaint.svg";
 import yellowStarIcon from "../assets/images/icons/mono-star-filled.svg";
 import grayStarIcon from "../assets/images/icons/mono-gray-star-filled.svg";
-import FormInputWrapper from "../components/FormInputWrapper";
-import axios from "axios";
-import { getRandomNumber } from "../utils";
-import products from "../data/products";
-import ProductItem from "../components/ProductItem";
 
 const renderStars = (rating = 5, showRatingValue = true, size = 16) => {
   const value = Number(Math.round(rating)) || 5;
@@ -192,7 +194,7 @@ const Product = () => {
               <div>
                 <p className="text-lg">Mahsulot narxi:</p>
 
-                <div className="">
+                <div>
                   {/* discount price */}
                   <del className="text-neutral-400">
                     {(150000).toLocaleString()}
@@ -250,7 +252,7 @@ const Product = () => {
           {/* Nav Buttons */}
           <div className="flex items-center gap-5">
             {navButtons.map((btn, index) => (
-              <div key={index} className="">
+              <div key={index}>
                 <button
                   onClick={() => setActiveNavButton(btn.name)}
                   className="btn text-neutral-500 py-2 text-base sm:text-lg"
@@ -346,7 +348,9 @@ const Product = () => {
                       const randomNumber = getRandomNumber(10, 100);
                       return (
                         <li key={index} className="flex items-center gap-3.5">
-                          <span className="w-2 text-center xs:w-2.5">{index + 1}</span>
+                          <span className="w-2 text-center xs:w-2.5">
+                            {index + 1}
+                          </span>
                           <div className="grow h-2.5 bg-gray-light rounded-full xs:h-3.5">
                             <div
                               style={{ width: `${randomNumber}%` }}
