@@ -1,8 +1,21 @@
 import React from "react";
 
-const Icon = ({ src, size = 24, alt = "icon", className = "size-6" }) => {
+const Icon = ({
+  src,
+  size = 24,
+  style = {},
+  alt = "icon",
+  className = "size-6",
+}) => {
   return (
-    <img width={size} height={size} src={src} alt={alt} className={className} />
+    <img
+      src={src}
+      alt={alt}
+      width={size}
+      height={size}
+      style={style}
+      className={className}
+    />
   );
 };
 
