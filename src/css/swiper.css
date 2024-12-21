@@ -55,13 +55,13 @@
 
 /* Product page swiper */
 .product-page-swiper .swiper-slide {
-  filter: brightness(50%) !important;
+  filter: brightness(50%);
   transform: scale(0.9);
   transition: transform 350ms, filter 150ms;
 }
 
 .product-page-swiper .swiper-slide-active {
-  filter: brightness(100%) !important;
+  filter: brightness(100%);
   transform: scale(1);
 }
 
@@ -74,5 +74,10 @@
 
   .default-pagination .swiper-pagination-bullet {
     scale: 0.7;
+  }
+  
+  /* Product page swiper */
+  .product-page-swiper .swiper-slide {
+    filter: brightness(100%);
   }
 }

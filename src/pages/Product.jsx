@@ -94,9 +94,9 @@ const Product = () => {
     <div className="py-6 sm:py-10">
       {/* Product Main Content */}
       <div className="pb-4 sm:pb-8">
-        <div className="container space-y-6 !px-0 md:space-y-8 md:!px-5">
-          {/* Page title */}
-          <div className="flex flex-col items-start gap-5 px-3.5 xs:px-4 sm:flex-row sm:gap-10 md:px-0">
+        <div className="container !px-0 sm:space-y-6 md:space-y-8 md:!px-5">
+          {/* Product title & Actions */}
+          <div className="hidden flex-col items-start gap-5 px-3.5 sm:flex xs:px-4 sm:flex-row sm:gap-10 md:px-0">
             {/* Product Title */}
             <h1 className="text-lg leading-6 sm:leading-7 sm:text-xl md:leading-8 md:text-2xl">
               Sochlar uchun shampun Head & Shoulders 2 tasi 1 da asosiy
@@ -143,7 +143,7 @@ const Product = () => {
             </div>
           </div>
 
-          {/* Page main content */}
+          {/* Product main content */}
           <div className="flex flex-col gap-6 md:flex-row">
             {/* Product images */}
             <div className="flex gap-5 w-full h-96 sm:h-[425px] md:h-auto">
@@ -183,11 +183,63 @@ const Product = () => {
                   <span className="inline-block max-w-24 truncate overflow-hidden text-neutral-400">
                     1f885cdc-20f3-4c98-aa34-c314d80cf1e3
                   </span>
-                  <Icon src={copyIcon} alt="Copy icon" />
+                  <Icon
+                    src={copyIcon}
+                    alt="Copy icon"
+                    className="size-5 xs:size-6"
+                  />
                 </button>
 
                 {/* Rating */}
                 {renderStars(4.1)}
+              </div>
+
+              {/* Product title & Actions (For mobile) */}
+              <div className="flex flex-col items-start gap-5 sm:hidden">
+                {/* Product Title */}
+                <h1 className="text-lg leading-6">
+                  Sochlar uchun shampun Head & Shoulders 2 tasi 1 da asosiy
+                  parvarish qazg'oqqa qarshi,400ml
+                </h1>
+
+                {/* Actions */}
+                <div className="flex items-center justify-end gap-3.5 w-full sm:justify-normal sm:w-auto">
+                  {/* Like */}
+                  <button
+                    aria-label="Toggle like button"
+                    className="btn size-10 bg-gray-light rounded-full hover:bg-neutral-200 xs:size-11"
+                  >
+                    <Icon
+                      src={likeIcon}
+                      alt="Like icon"
+                      className="size-5 xs:size-6"
+                    />
+                  </button>
+
+                  {/* Share */}
+                  <button
+                    aria-label="Toggle like button"
+                    className="btn size-10 bg-gray-light rounded-full hover:bg-neutral-200 xs:size-11"
+                  >
+                    <Icon
+                      src={shareIcon}
+                      alt="Share icon"
+                      className="size-5 xs:size-6"
+                    />
+                  </button>
+
+                  {/* Complaint */}
+                  <button
+                    aria-label="Open complaint modal button"
+                    className="btn size-10 bg-red-50 rounded-full hover:bg-red-100 xs:size-11"
+                  >
+                    <Icon
+                      src={complaintIcon}
+                      alt="Complaint icon"
+                      className="size-5 xs:size-6"
+                    />
+                  </button>
+                </div>
               </div>
 
               {/* Price */}
