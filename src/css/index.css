@@ -73,19 +73,10 @@
   .btn-stroke {
     @apply btn border border-gray-200 hover:bg-gray-light;
   }
-}
 
-.main-layout-tabs a {
-  color: #999999;
-}
-
-.main-layout-tabs a.active {
-  color: #0085ff;
-}
-
-:is(.products-layout-tabs, .auth-layout-tabs) a.active {
-  background: #0085ff;
-  color: white;
+  .bg-gradient-gray {
+    @apply bg-gradient-to-b from-gray-light to-gray-medium/20;
+  }
 }
 
 /* --- Utilities --- */
@@ -95,6 +86,37 @@
     @apply max-w-7xl w-full px-3.5 mx-auto sm:px-4 md:px-5;
   }
 }
+
+.main-layout-tabs a {
+  @apply text-neutral-500;
+}
+
+.main-layout-tabs a.active {
+  @apply text-primary-default;
+}
+
+:is(.products-layout-tabs, .auth-layout-tabs) a.active {
+  @apply text-white bg-primary-default;
+}
+
+/* Sidebar layout styles */
+.sidebar-layout-tabs a {
+  @apply relative text-neutral-500;
+}
+
+.sidebar-layout-tabs a::before {
+  content: "";
+  @apply inline-block absolute left-0 w-1 h-0 bg-transparent rounded-r-full transition-all duration-300;
+}
+
+.sidebar-layout-tabs a.active {
+  @apply text-primary-default;
+}
+
+.sidebar-layout-tabs a.active::before {
+  @apply h-6 bg-primary-default;
+}
+
 
 /* Clears the ‘X’ from search input */
 :is(input[type="search"])::-webkit-search-decoration,
