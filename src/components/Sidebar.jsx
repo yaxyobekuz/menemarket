@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 // Components
@@ -11,11 +11,21 @@ import { getRandomNumber } from "../utils";
 import emailIcon from "../assets/images/icons/email-gradient.svg";
 
 const Sidebar = () => {
+  const [iIsCollapse, setIsCollapse] = useState(false);
+
   return (
-    <div className="sticky inset-y-0 left-0 shrink-0 w-80 h-screen p-3.5 pr-0">
-      <div className="size-full bg-gradient-gray rounded-xl overflow-x-auto">
+    <div
+      className={`${
+        iIsCollapse ? "w-24" : "w-80"
+      } sticky inset-y-0 left-0 shrink-0 h-screen p-3.5 pr-0`}
+    >
+      <div className="size-full bg-gradient-gray rounded-xl">
         {/* Header */}
-        <div className="flex items-center justify-between px-3.5 py-3">
+        <div
+          className={`${
+            iIsCollapse ? "flex-col" : ""
+          } flex items-center justify-between gap-4 px-3.5 py-3`}
+        >
           {/* Logo */}
           <Link to="/">
             <svg
@@ -36,6 +46,7 @@ const Sidebar = () => {
           <button
             className="group p-1.5 rounded-sm"
             aria-label="Collapse sidebar button"
+            onClick={() => setIsCollapse((_) => !_)}
           >
             <svg
               width="22"
@@ -62,17 +73,26 @@ const Sidebar = () => {
         <div className="w-full h-0.5 bg-white rounded-full" />
 
         {/* Main */}
-        <div className="flex flex-col justify-between max-h-full h-[calc(100%-62px)]">
+        <div
+          className={`${
+            iIsCollapse ? "max-h-[calc(100%-112px)]" : "max-h-[calc(100%-62px)]"
+          } flex flex-col justify-between overflow-y-auto scroll-hidden h-full`}
+        >
           <div>
             {/* Profile */}
-            <div className="flex items-center gap-2.5 p-4">
+            <div
+              className={`${
+                iIsCollapse ? "justify-center" : "justify-normal"
+              } flex items-center gap-2.5 p-4`}
+            >
               <Icon
                 size={48}
                 alt="User avatar"
                 className="size-8 rounded-full"
                 src="https://i1.sndcdn.com/artworks-000360728946-bilq7t-t500x500.jpg"
               />
-              <p className="font-medium">
+
+              <p className={`${iIsCollapse ? "hidden" : ""} font-medium`}>
                 Samandar
                 {getRandomNumber(0, 9)}
                 {getRandomNumber(0, 9)}
@@ -87,7 +107,9 @@ const Sidebar = () => {
                 <li>
                   <NavLink
                     to="/admin/dashboard"
-                    className="flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50"
+                    className={`${
+                      iIsCollapse ? "justify-center" : "justify-normal"
+                    } flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
                   >
                     {/* icon */}
                     <svg
@@ -109,7 +131,11 @@ const Sidebar = () => {
                     </svg>
 
                     {/* text */}
-                    <span className="transition-colors duration-300">
+                    <span
+                      className={`${
+                        iIsCollapse ? "!hidden" : ""
+                      } transition-colors duration-300`}
+                    >
                       Asosiy
                     </span>
                   </NavLink>
@@ -119,7 +145,9 @@ const Sidebar = () => {
                 <li>
                   <NavLink
                     to="/admin/new-stream"
-                    className="flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50"
+                    className={`${
+                      iIsCollapse ? "justify-center" : "justify-normal"
+                    } flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
                   >
                     {/* icon */}
                     <svg
@@ -138,7 +166,11 @@ const Sidebar = () => {
                     </svg>
 
                     {/* text */}
-                    <span className="transition-colors duration-300">
+                    <span
+                      className={`${
+                        iIsCollapse ? "!hidden" : ""
+                      } transition-colors duration-300`}
+                    >
                       Yangi oqim
                     </span>
                   </NavLink>
@@ -148,7 +180,9 @@ const Sidebar = () => {
                 <li>
                   <NavLink
                     to="/admin/streams"
-                    className="flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50"
+                    className={`${
+                      iIsCollapse ? "justify-center" : "justify-normal"
+                    } flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
                   >
                     <svg
                       width="24"
@@ -168,7 +202,11 @@ const Sidebar = () => {
                     </svg>
 
                     {/* text */}
-                    <span className="transition-colors duration-300">
+                    <span
+                      className={`${
+                        iIsCollapse ? "!hidden" : ""
+                      } transition-colors duration-300`}
+                    >
                       Oqimlar
                     </span>
                   </NavLink>
@@ -178,7 +216,9 @@ const Sidebar = () => {
                 <li>
                   <NavLink
                     to="/admin/statistics"
-                    className="flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50"
+                    className={`${
+                      iIsCollapse ? "justify-center" : "justify-normal"
+                    } flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
                   >
                     {/* icon */}
                     <svg
@@ -199,7 +239,11 @@ const Sidebar = () => {
                     </svg>
 
                     {/* text */}
-                    <span className="transition-colors duration-300">
+                    <span
+                      className={`${
+                        iIsCollapse ? "!hidden" : ""
+                      } transition-colors duration-300`}
+                    >
                       Statistika
                     </span>
                   </NavLink>
@@ -209,7 +253,9 @@ const Sidebar = () => {
                 <li>
                   <NavLink
                     to="/admin/payment"
-                    className="flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50"
+                    className={`${
+                      iIsCollapse ? "justify-center" : "justify-normal"
+                    } flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
                   >
                     {/* icon */}
                     <svg
@@ -233,7 +279,11 @@ const Sidebar = () => {
                     </svg>
 
                     {/* text */}
-                    <span className="transition-colors duration-300">
+                    <span
+                      className={`${
+                        iIsCollapse ? "!hidden" : ""
+                      } transition-colors duration-300`}
+                    >
                       To'lov
                     </span>
                   </NavLink>
@@ -243,7 +293,9 @@ const Sidebar = () => {
                 <li>
                   <NavLink
                     to="/admin/profile"
-                    className="flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50"
+                    className={`${
+                      iIsCollapse ? "justify-center" : "justify-normal"
+                    } flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
                   >
                     {/* icon */}
                     <svg
@@ -281,7 +333,11 @@ const Sidebar = () => {
                     </svg>
 
                     {/* text */}
-                    <span className="transition-colors duration-300">
+                    <span
+                      className={`${
+                        iIsCollapse ? "!hidden" : ""
+                      } transition-colors duration-300`}
+                    >
                       Profil
                     </span>
                   </NavLink>
@@ -292,19 +348,35 @@ const Sidebar = () => {
 
           {/* Sub */}
           <div className="p-4 space-y-4">
-            <button disabled className="btn-primary w-full h-9 font-normal">
+            <button
+              disabled
+              className={`${
+                iIsCollapse ? "!hidden" : ""
+              } btn-primary w-full h-9 font-normal`}
+            >
               Premium akkaunt
             </button>
 
             {/* Email */}
-            <div className="flex items-center gap-3.5">
+            <div
+              className={`${
+                iIsCollapse ? "justify-center" : "justify-normal"
+              } flex items-center gap-3.5`}
+            >
               <Icon
                 size={48}
                 src={emailIcon}
                 alt="Email image"
                 className="size-8 rounded-full"
               />
-              <p className="text-sm text-neutral-400">example@gmail.com</p>
+
+              <p
+                className={`${
+                  iIsCollapse ? "!hidden" : ""
+                } text-sm text-neutral-400`}
+              >
+                example@gmail.com
+              </p>
             </div>
           </div>
         </div>
