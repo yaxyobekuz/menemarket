@@ -1,8 +1,11 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-import categories from "../data/categories";
+// Data
 import products from "../data/products";
+import categories from "../data/categories";
+
+// Components
 import ProductItem from "../components/ProductItem";
 
 const Products = () => {
