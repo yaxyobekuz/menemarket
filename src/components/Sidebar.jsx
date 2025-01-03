@@ -10,9 +10,7 @@ import { getRandomNumber } from "../utils";
 // Images
 import emailIcon from "../assets/images/icons/email-gradient.svg";
 
-const Sidebar = () => {
-  const [iIsCollapse, setIsCollapse] = useState(false);
-
+const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
   return (
     <div
       className={`${
