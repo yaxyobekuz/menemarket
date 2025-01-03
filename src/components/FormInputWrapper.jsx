@@ -67,6 +67,25 @@ const FormInputWrapper = ({
       );
     }
 
+    if (as === "input" && type === "card") {
+      return (
+        <InputMask
+          type="tel"
+          name={name}
+          id={inputId}
+          value={value}
+          autoFocus={autoFocus}
+          maxLength={maxLength}
+          className="h-11 px-3.5"
+          placeholder={placeholder}
+          mask="____ ____ ____ ____"
+          replacement={{ _: /\d/ }}
+          autoComplete={autoComplete}
+          onChange={(e) => handleChange(e.target.value)}
+        />
+      );
+    }
+
     return (
       <input
         type={type}
