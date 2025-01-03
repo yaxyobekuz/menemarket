@@ -11,10 +11,14 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Search from "./pages/Search";
 import Product from "./pages/Product";
+import Streams from "./pages/Streams";
+import Payment from "./pages/Payment";
+import Profile from "./pages/Profile";
 import Products from "./pages/Products";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import NewStream from "./pages/NewStream";
+import Statistics from "./pages/Statistics";
 
 // Layouts
 import MainLayout from "./layouts/MainLayout";
@@ -25,7 +29,7 @@ const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
-        {/* FOR USER */}
+        {/* For user */}
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
           <Route path="products/:productType?" element={<Products />} />
@@ -37,10 +41,14 @@ const App = () => {
           </Route>
         </Route>
 
-        {/* FOR ADMIN */}
+        {/* For admin */}
         <Route path="/admin/:a?" element={<AdminLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="new-stream" element={<NewStream />} />
+          <Route path="streams" element={<Streams />} />
+          <Route path="statistics" element={<Statistics />} />
+          <Route path="payment" element={<Payment />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
       </Route>
     )

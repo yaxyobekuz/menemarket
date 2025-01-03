@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 // Components
 import Icon from "../components/Icon";
+import ToggleEyeButton from "../components/ToggleEyeBtn";
 
 // Images
 import boxIcon from "../assets/images/icons/box-gradient.svg";
@@ -16,6 +17,14 @@ import messagesIcon from "../assets/images/icons/messages-gradient.svg";
 import telegramIcon from "../assets/images/icons/telegram-gradient.svg";
 
 const Dashboard = () => {
+  const hideBalanceStorage = localStorage.getItem("hideBalance");
+  const [hideBalance, setHideBalance] = useState(hideBalanceStorage === "true");
+
+  const handleChangeHideBalance = () => {
+    setHideBalance(!hideBalance);
+    localStorage.setItem("hideBalance", String(!hideBalance));
+  };
+
   return (
     <div className="w-full pt-3.5 pb-8">
       <div className="container space-y-4">
@@ -47,14 +56,21 @@ const Dashboard = () => {
           </div>
 
           {/* Balance */}
-          <div className="flex flex-col justify-between gap-1.5 bg-gradient-to-r from-gray-light to-gray-medium/20 p-5 rounded-xl">
+          <div className="flex flex-col justify-between gap-1.5 relative bg-gradient-to-r from-gray-light to-gray-medium/20 p-5 rounded-xl">
             <div className="text-base text-neutral-500 sm:text-lg">
               Balansingiz
             </div>
 
             <div className="text-lg font-medium sm:text-xl">
-              {(1099328).toLocaleString()} so'm
+              {hideBalance ? "********" : (1099328).toLocaleString()} so'm
             </div>
+
+            {/* Toggle eye button */}
+            <ToggleEyeButton
+              hide={hideBalance}
+              onClick={handleChangeHideBalance}
+              className="absolute size-12 top-1 right-1"
+            />
           </div>
         </div>
 

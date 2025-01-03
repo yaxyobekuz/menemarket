@@ -117,7 +117,6 @@
   @apply h-6 bg-primary-default;
 }
 
-
 /* Clears the ‘X’ from search input */
 :is(input[type="search"])::-webkit-search-decoration,
 ::-webkit-search-cancel-button,
@@ -171,4 +170,14 @@
   .modal-main-content {
     @apply max-h-[calc(100%-116px)] h-auto;
   }
+}
+
+.custom-active-border-r::after {
+  content: "";
+  width: 2px;
+  @apply inline-block absolute right-0 inset-y-0 h-12 bg-white;
+}
+
+.white-input input {
+  @apply bg-white rounded-lg;
 }
