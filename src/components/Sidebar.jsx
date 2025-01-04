@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
 // Components
@@ -10,18 +10,18 @@ import { getRandomNumber } from "../utils";
 // Images
 import emailIcon from "../assets/images/icons/email-gradient.svg";
 
-const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
+const Sidebar = ({ isCollapse, setIsCollapse }) => {
   return (
     <div
       className={`${
-        iIsCollapse ? "w-24" : "w-80"
+        isCollapse ? "w-24" : "w-80"
       } sticky inset-y-0 left-0 shrink-0 h-screen p-3.5 pr-0`}
     >
       <div className="size-full bg-gradient-gray rounded-xl">
         {/* Header */}
         <div
           className={`${
-            iIsCollapse ? "flex-col" : ""
+            isCollapse ? "flex-col" : ""
           } flex items-center justify-between gap-4 px-3.5 py-3`}
         >
           {/* Logo */}
@@ -44,7 +44,10 @@ const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
           <button
             className="group p-1.5 rounded-sm"
             aria-label="Collapse sidebar button"
-            onClick={() => setIsCollapse((_) => !_)}
+            onClick={() => {
+              setIsCollapse(!isCollapse);
+              localStorage.setItem("isCollapse", !isCollapse);
+            }}
           >
             <svg
               width="22"
@@ -73,14 +76,14 @@ const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
         {/* Main */}
         <div
           className={`${
-            iIsCollapse ? "max-h-[calc(100%-112px)]" : "max-h-[calc(100%-62px)]"
+            isCollapse ? "max-h-[calc(100%-112px)]" : "max-h-[calc(100%-62px)]"
           } flex flex-col justify-between overflow-y-auto scroll-hidden h-full`}
         >
           <div>
             {/* Profile */}
             <div
               className={`${
-                iIsCollapse ? "justify-center" : "justify-normal"
+                isCollapse ? "justify-center" : "justify-normal"
               } flex items-center gap-2.5 p-4`}
             >
               <Icon
@@ -90,7 +93,7 @@ const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
                 src="https://i1.sndcdn.com/artworks-000360728946-bilq7t-t500x500.jpg"
               />
 
-              <p className={`${iIsCollapse ? "hidden" : ""} font-medium`}>
+              <p className={`${isCollapse ? "hidden" : ""} font-medium`}>
                 Samandar
                 {getRandomNumber(0, 9)}
                 {getRandomNumber(0, 9)}
@@ -106,7 +109,7 @@ const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
                   <NavLink
                     to="/admin/dashboard"
                     className={`${
-                      iIsCollapse ? "justify-center" : "justify-normal"
+                      isCollapse ? "justify-center" : "justify-normal"
                     } flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
                   >
                     {/* icon */}
@@ -131,7 +134,7 @@ const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
                     {/* text */}
                     <span
                       className={`${
-                        iIsCollapse ? "!hidden" : ""
+                        isCollapse ? "!hidden" : ""
                       } transition-colors duration-300`}
                     >
                       Asosiy
@@ -144,7 +147,7 @@ const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
                   <NavLink
                     to="/admin/new-stream"
                     className={`${
-                      iIsCollapse ? "justify-center" : "justify-normal"
+                      isCollapse ? "justify-center" : "justify-normal"
                     } flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
                   >
                     {/* icon */}
@@ -166,7 +169,7 @@ const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
                     {/* text */}
                     <span
                       className={`${
-                        iIsCollapse ? "!hidden" : ""
+                        isCollapse ? "!hidden" : ""
                       } transition-colors duration-300`}
                     >
                       Yangi oqim
@@ -179,7 +182,7 @@ const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
                   <NavLink
                     to="/admin/streams"
                     className={`${
-                      iIsCollapse ? "justify-center" : "justify-normal"
+                      isCollapse ? "justify-center" : "justify-normal"
                     } flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
                   >
                     <svg
@@ -202,7 +205,7 @@ const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
                     {/* text */}
                     <span
                       className={`${
-                        iIsCollapse ? "!hidden" : ""
+                        isCollapse ? "!hidden" : ""
                       } transition-colors duration-300`}
                     >
                       Oqimlar
@@ -215,7 +218,7 @@ const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
                   <NavLink
                     to="/admin/statistics"
                     className={`${
-                      iIsCollapse ? "justify-center" : "justify-normal"
+                      isCollapse ? "justify-center" : "justify-normal"
                     } flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
                   >
                     {/* icon */}
@@ -239,7 +242,7 @@ const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
                     {/* text */}
                     <span
                       className={`${
-                        iIsCollapse ? "!hidden" : ""
+                        isCollapse ? "!hidden" : ""
                       } transition-colors duration-300`}
                     >
                       Statistika
@@ -252,7 +255,7 @@ const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
                   <NavLink
                     to="/admin/payment"
                     className={`${
-                      iIsCollapse ? "justify-center" : "justify-normal"
+                      isCollapse ? "justify-center" : "justify-normal"
                     } flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
                   >
                     {/* icon */}
@@ -279,7 +282,7 @@ const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
                     {/* text */}
                     <span
                       className={`${
-                        iIsCollapse ? "!hidden" : ""
+                        isCollapse ? "!hidden" : ""
                       } transition-colors duration-300`}
                     >
                       To'lov
@@ -292,7 +295,7 @@ const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
                   <NavLink
                     to="/admin/profile"
                     className={`${
-                      iIsCollapse ? "justify-center" : "justify-normal"
+                      isCollapse ? "justify-center" : "justify-normal"
                     } flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
                   >
                     {/* icon */}
@@ -333,7 +336,7 @@ const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
                     {/* text */}
                     <span
                       className={`${
-                        iIsCollapse ? "!hidden" : ""
+                        isCollapse ? "!hidden" : ""
                       } transition-colors duration-300`}
                     >
                       Profil
@@ -349,7 +352,7 @@ const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
             <button
               disabled
               className={`${
-                iIsCollapse ? "!hidden" : ""
+                isCollapse ? "!hidden" : ""
               } btn-primary w-full h-9 font-normal`}
             >
               Premium akkaunt
@@ -358,7 +361,7 @@ const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
             {/* Email */}
             <div
               className={`${
-                iIsCollapse ? "justify-center" : "justify-normal"
+                isCollapse ? "justify-center" : "justify-normal"
               } flex items-center gap-3.5`}
             >
               <Icon
@@ -370,7 +373,7 @@ const Sidebar = ({ iIsCollapse, setIsCollapse }) => {
 
               <p
                 className={`${
-                  iIsCollapse ? "!hidden" : ""
+                  isCollapse ? "!hidden" : ""
                 } text-sm text-neutral-400`}
               >
                 example@gmail.com

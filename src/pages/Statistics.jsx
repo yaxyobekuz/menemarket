@@ -16,16 +16,19 @@ const Statistics = () => {
   return (
     <div className="w-full pt-3.5 pb-8">
       <div className="container">
-        <div className="bg-gradient-gray py-4 space-y-5 rounded-xl">
+        <div className="bg-gradient-gray pb-4 rounded-xl">
           {/* Title */}
-          <div className="px-4">
+          <div className="flex items-center h-[60px] px-4">
             <h1 className="text-2xl">Statistika</h1>
           </div>
+
+          {/* Line */}
+          <div className="h-0.5 w-full bg-white" />
 
           {/* Content */}
           <div
             onScroll={handleScroll}
-            className="w-full max-w-full overflow-x-auto scroll-x-primary border-y-2 border-white"
+            className="w-full max-w-full overflow-x-auto scroll-x-primary"
           >
             <table className="w-[1240px] table-fixed">
               {/* Head */}

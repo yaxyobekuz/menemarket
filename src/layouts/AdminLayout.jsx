@@ -5,15 +5,16 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 
 const AdminLayout = () => {
-  const [iIsCollapse, setIsCollapse] = useState(false);
+  const isCollapseStorage = localStorage.getItem("isCollapse");
+  const [isCollapse, setIsCollapse] = useState(isCollapseStorage === "true");
 
   return (
     <div className="flex min-h-screen">
-      <Sidebar iIsCollapse={iIsCollapse} setIsCollapse={setIsCollapse} />
+      <Sidebar isCollapse={isCollapse} setIsCollapse={setIsCollapse} />
 
       <main
         className={`${
-          iIsCollapse ? "w-[calc(100%-96px)]" : "w-[calc(100%-320px)]"
+          isCollapse ? "w-[calc(100%-96px)]" : "w-[calc(100%-320px)]"
         }`}
       >
         <Outlet />

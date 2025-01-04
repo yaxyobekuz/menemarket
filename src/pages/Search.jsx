@@ -3,15 +3,15 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 // Components
 import Icon from "../components/Icon";
+import ProductItem from "../components/ProductItem";
 
 // Data
+import products from "../data/products";
 import searchSuggestions from "../data/searchSuggestions";
 
 // Images
 import crossIcon from "../assets/images/icons/cross.svg";
 import searchIcon from "../assets/images/icons/search.svg";
-import products from "../data/products";
-import ProductItem from "../components/ProductItem";
 
 const Search = () => {
   const navigate = useNavigate();
