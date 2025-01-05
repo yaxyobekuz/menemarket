@@ -3,6 +3,7 @@ import React from "react";
 const ToggleEyeButton = ({
   hide = false,
   iconSize = 32,
+  iconClassName = "",
   onClick = () => {},
   className = "size-12",
   iconPrimaryColor = "#333333",
@@ -15,6 +16,7 @@ const ToggleEyeButton = ({
         width={iconSize}
         height={iconSize}
         viewBox="0 0 24 24"
+        className={iconClassName}
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
