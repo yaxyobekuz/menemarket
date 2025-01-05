@@ -12,7 +12,7 @@ const NewStream = () => {
   return (
     <div className="w-full pt-3.5 pb-8">
       <div className="container">
-        <div className="space-y-4 mb-8">
+        <div className="space-y-3 mb-6 sm:space-y-4 sm:mb-8">
           {/* Title */}
           <h1 className="text-2xl">Yangi oqim yaratish</h1>
 
@@ -50,7 +50,7 @@ const NewStream = () => {
         </nav>
 
         {/* Section content */}
-        <ul className="grid grid-cols-2 gap-x-3.5 gap-y-6 sm:grid-cols-3 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-8 lg:grid-cols-5">
+        <ul className="grid grid-cols-2 gap-x-3.5 gap-y-6 sm:grid-cols-3 sm:gap-x-4 md:gap-x-5 md:gap-y-8 xl:grid-cols-4 2xl:grid-cols-5">
           {products.map((product, index) => (
             <ProductItem key={index} data={product} />
           ))}
