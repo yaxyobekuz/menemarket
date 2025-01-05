@@ -106,7 +106,7 @@
 
 .sidebar-layout-tabs a::before {
   content: "";
-  @apply inline-block absolute left-0 w-1 h-0 bg-transparent rounded-r-full transition-all duration-300;
+  @apply hidden absolute left-0 w-1 h-0 bg-transparent rounded-r-full transition-all duration-300 sm:inline-block;
 }
 
 .sidebar-layout-tabs a.active {
