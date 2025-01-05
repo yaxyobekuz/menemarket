@@ -9,7 +9,7 @@ import StreamItem from "../components/StreamItem";
 const Streams = () => {
   return (
     <div className="w-full pt-3.5 pb-8">
-      <div className="container max-sm:px-1 ">
+      <div className="container max-sm:px-1">
         <div className="bg-gradient-gray rounded-xl">
           {/* Title */}
           <div className="flex items-center h-[60px] px-2.5 sm:px-4">
