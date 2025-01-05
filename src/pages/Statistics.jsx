@@ -15,10 +15,10 @@ const Statistics = () => {
 
   return (
     <div className="w-full pt-3.5 pb-8">
-      <div className="container">
+      <div className="container max-sm:px-1">
         <div className="bg-gradient-gray pb-4 rounded-xl">
           {/* Title */}
-          <div className="flex items-center h-[60px] px-4">
+          <div className="flex items-center h-[60px] px-2.5 sm:px-4">
             <h1 className="text-2xl">Statistika</h1>
           </div>
 
