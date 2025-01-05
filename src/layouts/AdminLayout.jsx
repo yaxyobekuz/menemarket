@@ -14,7 +14,9 @@ const AdminLayout = () => {
 
       <main
         className={`${
-          isCollapse ? "w-[calc(100%-96px)]" : "w-[calc(100%-320px)]"
+          isCollapse
+            ? "sm:w-[calc(100%-96px)]"
+            : "sm:w-[calc(100%-96px)] lg:w-[calc(100%-320px)]"
         }`}
       >
         <Outlet />
