@@ -17,7 +17,7 @@ const AdminLayout = () => {
           isCollapse
             ? "sm:w-[calc(100%-96px)]"
             : "sm:w-[calc(100%-96px)] lg:w-[calc(100%-320px)]"
-        }`}
+        } max-sm:w-full`}
       >
         <Outlet />
       </main>
