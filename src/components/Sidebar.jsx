@@ -14,36 +14,36 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
   return (
     <div
       className={`${
-        isCollapse ? "w-24" : "w-80"
-      } sticky inset-y-0 left-0 shrink-0 h-screen p-3.5 pr-0`}
+        isCollapse ? "w-24" : "w-24 lg:w-80"
+      } hidden sticky inset-y-0 left-0 shrink-0 h-screen p-3.5 pr-0 sm:block`}
     >
       <div className="size-full bg-gradient-gray rounded-xl">
         {/* Header */}
         <div
           className={`${
-            isCollapse ? "flex-col" : ""
-          } flex items-center justify-between gap-4 px-3.5 py-3`}
+            isCollapse ? "flex-col" : "max-lg:flex-col"
+          } flex items-center justify-between gap-4 px-3.5 py-[13px] lg:py-3`}
         >
           {/* Logo */}
           <Link to="/">
             <svg
               width="36"
               height="36"
-              viewBox="0 0 48 48"
               fill="none"
+              viewBox="0 0 48 48"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M20 1V13H21L29 5H31V17.0237L32 17L40 9H42V40L33 48H32V21H31V36L22 44H21V17H20V32L11 40H10V14L8 16H6V13L10 9L18 1H20Z"
                 fill="#0085FF"
+                d="M20 1V13H21L29 5H31V17.0237L32 17L40 9H42V40L33 48H32V21H31V36L22 44H21V17H20V32L11 40H10V14L8 16H6V13L10 9L18 1H20Z"
               />
             </svg>
           </Link>
 
           {/* Collapse btn */}
           <button
-            className="group p-1.5 rounded-sm"
             aria-label="Collapse sidebar button"
+            className="hidden group p-1.5 rounded-sm lg:inline-block"
             onClick={() => {
               setIsCollapse(!isCollapse);
               localStorage.setItem("isCollapse", !isCollapse);
@@ -76,15 +76,15 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
         {/* Main */}
         <div
           className={`${
-            isCollapse ? "max-h-[calc(100%-112px)]" : "max-h-[calc(100%-62px)]"
+            isCollapse ? "max-h-[calc(100%-62px)] lg:max-h-[calc(100%-112px)]" : "max-h-[calc(100%-62px)]"
           } flex flex-col justify-between overflow-y-auto scroll-hidden h-full`}
         >
           <div>
             {/* Profile */}
             <div
               className={`${
-                isCollapse ? "justify-center" : "justify-normal"
-              } flex items-center gap-2.5 p-4`}
+                isCollapse ? "" : "lg:justify-normal"
+              } flex items-center justify-center gap-2.5 p-4`}
             >
               <Icon
                 size={48}
@@ -93,7 +93,11 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
                 src="https://i1.sndcdn.com/artworks-000360728946-bilq7t-t500x500.jpg"
               />
 
-              <p className={`${isCollapse ? "hidden" : ""} font-medium`}>
+              <p
+                className={`${
+                  isCollapse ? "hidden" : ""
+                } max-lg:hidden font-medium`}
+              >
                 Samandar
                 {getRandomNumber(0, 9)}
                 {getRandomNumber(0, 9)}
@@ -109,8 +113,8 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
                   <NavLink
                     to="/admin/dashboard"
                     className={`${
-                      isCollapse ? "justify-center" : "justify-normal"
-                    } flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
+                      isCollapse ? "" : "lg:justify-normal"
+                    } flex items-center justify-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
                   >
                     {/* icon */}
                     <svg
@@ -134,7 +138,7 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
                     {/* text */}
                     <span
                       className={`${
-                        isCollapse ? "!hidden" : ""
+                        isCollapse ? "hidden" : "max-lg:hidden"
                       } transition-colors duration-300`}
                     >
                       Asosiy
@@ -147,8 +151,8 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
                   <NavLink
                     to="/admin/new-stream"
                     className={`${
-                      isCollapse ? "justify-center" : "justify-normal"
-                    } flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
+                      isCollapse ? "" : "lg:justify-normal"
+                    } flex items-center justify-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
                   >
                     {/* icon */}
                     <svg
@@ -169,7 +173,7 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
                     {/* text */}
                     <span
                       className={`${
-                        isCollapse ? "!hidden" : ""
+                        isCollapse ? "hidden" : "max-lg:hidden"
                       } transition-colors duration-300`}
                     >
                       Yangi oqim
@@ -182,8 +186,8 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
                   <NavLink
                     to="/admin/streams"
                     className={`${
-                      isCollapse ? "justify-center" : "justify-normal"
-                    } flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
+                      isCollapse ? "" : "lg:justify-normal"
+                    } flex items-center justify-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
                   >
                     <svg
                       width="24"
@@ -205,7 +209,7 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
                     {/* text */}
                     <span
                       className={`${
-                        isCollapse ? "!hidden" : ""
+                        isCollapse ? "hidden" : "max-lg:hidden"
                       } transition-colors duration-300`}
                     >
                       Oqimlar
@@ -218,8 +222,8 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
                   <NavLink
                     to="/admin/statistics"
                     className={`${
-                      isCollapse ? "justify-center" : "justify-normal"
-                    } flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
+                      isCollapse ? "" : "lg:justify-normal"
+                    } flex items-center justify-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
                   >
                     {/* icon */}
                     <svg
@@ -242,7 +246,7 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
                     {/* text */}
                     <span
                       className={`${
-                        isCollapse ? "!hidden" : ""
+                        isCollapse ? "hidden" : "max-lg:hidden"
                       } transition-colors duration-300`}
                     >
                       Statistika
@@ -255,8 +259,8 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
                   <NavLink
                     to="/admin/payment"
                     className={`${
-                      isCollapse ? "justify-center" : "justify-normal"
-                    } flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
+                      isCollapse ? "" : "lg:justify-normal"
+                    } flex items-center justify-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
                   >
                     {/* icon */}
                     <svg
@@ -282,7 +286,7 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
                     {/* text */}
                     <span
                       className={`${
-                        isCollapse ? "!hidden" : ""
+                        isCollapse ? "hidden" : "max-lg:hidden"
                       } transition-colors duration-300`}
                     >
                       To'lov
@@ -295,8 +299,8 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
                   <NavLink
                     to="/admin/profile"
                     className={`${
-                      isCollapse ? "justify-center" : "justify-normal"
-                    } flex items-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
+                      isCollapse ? "" : "lg:justify-normal"
+                    } flex items-center justify-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
                   >
                     {/* icon */}
                     <svg
@@ -336,7 +340,7 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
                     {/* text */}
                     <span
                       className={`${
-                        isCollapse ? "!hidden" : ""
+                        isCollapse ? "hidden" : "max-lg:hidden"
                       } transition-colors duration-300`}
                     >
                       Profil
@@ -352,7 +356,7 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
             <button
               disabled
               className={`${
-                isCollapse ? "!hidden" : ""
+                isCollapse ? "hidden" : "max-lg:hidden"
               } btn-primary w-full h-9 font-normal`}
             >
               Premium akkaunt
@@ -361,8 +365,8 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
             {/* Email */}
             <div
               className={`${
-                isCollapse ? "justify-center" : "justify-normal"
-              } flex items-center gap-3.5`}
+                isCollapse ? "" : "lg:justify-normal"
+              } flex items-center justify-center gap-3.5`}
             >
               <Icon
                 size={48}
@@ -373,7 +377,7 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
 
               <p
                 className={`${
-                  isCollapse ? "!hidden" : ""
+                  isCollapse ? "hidden" : "max-lg:hidden"
                 } text-sm text-neutral-400`}
               >
                 example@gmail.com
