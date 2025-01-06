@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react";
+import { Link } from "react-router-dom";
 
 // Utils
 import { getRandomNumber } from "../utils";
@@ -11,6 +12,7 @@ import FormInputWrapper from "../components/FormInputWrapper";
 // Images
 import sendIcon from "../assets/images/icons/send.svg";
 import receiveIcon from "../assets/images/icons/receive.svg";
+import waveBlueGradientBg from "../assets/images/backgrounds/wave-blue-gradient.avif";
 
 const Payment = () => {
   const [balance] = useState(getRandomNumber(0, 9999999));
@@ -38,24 +40,46 @@ const Payment = () => {
 
   return (
     <div className="w-full pt-3.5 pb-8">
-      <div className="container space-y-4">
+      <div className="container space-y-4 max-sm:px-1">
         {/* Top */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {/* Payment card */}
           <div
-            style={{
-              backgroundImage:
-                "url(https://img.freepik.com/free-vector/wave-blue-gradient-modern-abstract-background_343694-3710.jpg)",
-            }}
-            className="flex items-center relative h-56 bg-gradient-gray bg-center bg-cover p- rounded-xl overflow-hidden"
+            style={{ backgroundImage: `url(${waveBlueGradientBg})` }}
+            className="flex flex-col justify-between relative h-56 bg-gradient-gray bg-center bg-cover p-4 pb-5 rounded-xl overflow-hidden xs:p-5 xs:pb-6"
           >
-            <div
-              style={{
-                backgroundImage:
-                  "url(https://s44885.pcdn.co/wp-content/uploads/2023/06/WP-FILs-VV-QA-Image-800x416-1.jpg)",
-              }}
-              className="w-2/3 h-full rounded-xl bg-center bg-cover"
-            ></div>
+            {/* header content */}
+            <div className="flex items-center justify-between">
+              <b className="text-xl font-medium text-white xs:font-semibold">
+                Oxirgi kartangiz
+              </b>
+
+              <Link to="/">
+                <svg
+                  width="36"
+                  height="36"
+                  fill="none"
+                  viewBox="0 0 48 48"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill="#ffffff"
+                    d="M20 1V13H21L29 5H31V17.0237L32 17L40 9H42V40L33 48H32V21H31V36L22 44H21V17H20V32L11 40H10V14L8 16H6V13L10 9L18 1H20Z"
+                  />
+                </svg>
+              </Link>
+            </div>
+
+            {/* Sub content */}
+            <div className="space-y-3.5">
+              <p className="text-xl font-medium text-white sm:text-2xl">
+                0000 0000 0000 0000
+              </p>
+
+              <p className="text-lg font-medium text-white sm:text-xl">
+                Falonchiyev Falonchi
+              </p>
+            </div>
           </div>
 
           {/* Balance */}
@@ -101,7 +125,7 @@ const Payment = () => {
         </div>
 
         {/* Main */}
-        <section className="bg-gradient-gray p-4 rounded-xl space-y-5">
+        <section className="bg-gradient-gray px-3.5 py-4 rounded-xl space-y-5 xs:p-4">
           <h2 className="font-semibold text-xl">
             To'lov uchun so'rov yuborish
           </h2>
@@ -154,14 +178,14 @@ const Payment = () => {
             </div>
 
             {/* Btn */}
-            <button className="btn-primary h-10 px-16 font-normal">
+            <button className="btn-primary w-full h-10 px-16 font-normal xs:w-auto">
               Yuborish
             </button>
           </form>
         </section>
 
         {/* Balance history */}
-        <section className="bg-gradient-gray p-4 space-y-4 rounded-xl">
+        <section className="bg-gradient-gray px-3.5 py-4 space-y-4 rounded-xl xs:p-4">
           <h2 className="font-semibold text-xl">Balans tarixi</h2>
 
           <ul className="space-y-3.5">
@@ -170,39 +194,42 @@ const Payment = () => {
               return (
                 <li
                   key={index}
-                  className="flex items-center justify-between gap-4"
+                  className="flex items-center justify-between gap-1 xs:gap-3.5 sm:gap-4"
                 >
-                  <div className="flex items-center gap-3.5">
+                  <div className="flex items-center gap-2 xs:gap-3.5">
                     <Icon
                       size={48}
-                      className="size-12"
                       src={isOdd ? receiveIcon : sendIcon}
+                      className="size-10 xs:size-11 sm:size-12"
+                      alt={isOdd ? "Receive icon" : "Send icon"}
                     />
 
-                    <div className="space-y-0.5">
+                    <div className="space-y-1 sm:space-y-0.5">
                       <h3
                         className={`${
                           isOdd ? "text-green-500" : "text-red-500"
-                        } font-medium text-[17px]`}
+                        } font-medium sm:text-[17px]`}
                       >
                         {isOdd ? "Qabul qilindi" : "Yuborildi"}
                       </h3>
 
-                      <p className="text-neutral-500">O'tkazma izohi</p>
+                      <p className="text-neutral-500 line-clamp-1 text-sm sm:text-base">
+                        O'tkazma izohi
+                      </p>
                     </div>
                   </div>
 
-                  <div className="space-y-0.5">
-                    <h3
+                  <div className="space-y-1 sm:space-y-0.5">
+                    <p
                       className={`${
                         isOdd ? "text-green-500" : "text-red-500"
-                      } font-medium text-[17px] text-right`}
+                      } font-medium sm:text-[17px] text-right`}
                     >
                       {isOdd ? "+" : "-"}
                       {getRandomNumber(0, 999999).toLocaleString()}
-                    </h3>
+                    </p>
 
-                    <div className="flex items-center gap-3.5">
+                    <div className="flex items-center gap-2.5 text-sm sm:gap-3.5 sm:text-base">
                       <span className="text-neutral-500">12/08/2025</span>
                       <span className="text-neutral-500">12:00</span>
                     </div>

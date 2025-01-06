@@ -13,11 +13,11 @@ const AdminLayout = () => {
   const [isCollapse, setIsCollapse] = useState(isCollapseStorage === "true");
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen sm:flex-row">
       <Sidebar isCollapse={isCollapse} setIsCollapse={setIsCollapse} />
 
       {/* Header */}
-      <header className="flex items-center sticky top-0 inset-x-0 z-20   w-full h-16 bg-white border-b sm:hidden">
+      <header className="flex items-center sticky top-0 inset-x-0 z-20 w-full h-16 bg-white border-b sm:hidden">
         <div className="container">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-1">
