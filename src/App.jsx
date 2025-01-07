@@ -24,6 +24,7 @@ import Statistics from "./pages/Statistics";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import AdminLayout from "./layouts/AdminLayout";
+import News from "./pages/News";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -44,6 +45,7 @@ const App = () => {
         {/* For admin */}
         <Route path="/admin/:a?" element={<AdminLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard/news" element={<News />} />
           <Route path="new-stream" element={<NewStream />} />
           <Route path="streams" element={<Streams />} />
           <Route path="statistics" element={<Statistics />} />
