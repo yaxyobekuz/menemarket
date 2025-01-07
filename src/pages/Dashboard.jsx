@@ -50,7 +50,7 @@ const Dashboard = () => {
 
             {/* Settings */}
             <Link
-              to="/admin/settings"
+              to="/admin/dashboard/settings"
               aria-label="Settings"
               className="btn shrink-0 size-10 bg-white rounded-full sm:size-12"
             >
@@ -105,7 +105,7 @@ const Dashboard = () => {
           {/* Contests */}
           <li>
             <Link
-              to="/admin/contests"
+              to="/admin/dashboard/contests"
               className="flex flex-col items-center gap-3.5 bg-gradient-gray rounded-xl px-3.5 py-4 sm:px-4 sm:py-5"
             >
               {/* icon */}
@@ -126,7 +126,7 @@ const Dashboard = () => {
           {/* History */}
           <li>
             <Link
-              to="/admin/balance-history"
+              to="/admin/dashboard/balance-history"
               className="flex flex-col items-center gap-3.5 bg-gradient-gray rounded-xl px-3.5 py-4 sm:px-4 sm:py-5"
             >
               {/* icon */}
@@ -147,7 +147,7 @@ const Dashboard = () => {
           {/* Appeals */}
           <li>
             <Link
-              to="/admin/donate"
+              to="/admin/dashboard/donate"
               className="flex flex-col items-center gap-3.5 bg-gradient-gray rounded-xl px-3.5 py-4 sm:px-4 sm:py-5"
             >
               {/* icon */}
@@ -168,7 +168,7 @@ const Dashboard = () => {
           {/* About */}
           <li>
             <Link
-              to="/admin/about"
+              to="/admin/dashboard/about"
               className="flex flex-col items-center gap-3.5 bg-gradient-gray rounded-xl px-3.5 py-4 sm:px-4 sm:py-5"
             >
               {/* icon */}
@@ -211,7 +211,7 @@ const Dashboard = () => {
           {/* News */}
           <li>
             <Link
-              to="/admin/news"
+              to="/admin/dashboard/news"
               className="flex flex-col items-center gap-3.5 bg-gradient-gray rounded-xl px-3.5 py-4 sm:px-4 sm:py-5"
             >
               {/* icon */}
@@ -232,7 +232,7 @@ const Dashboard = () => {
           {/* Telegram */}
           <li>
             <Link
-              to="/admin/telegram"
+              to="/admin/dashboard/telegram"
               className="flex flex-col items-center gap-3.5 bg-gradient-gray rounded-xl px-3.5 py-4 sm:px-4 sm:py-5"
             >
               {/* icon */}
