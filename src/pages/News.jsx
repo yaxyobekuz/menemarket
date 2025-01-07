@@ -1,13 +1,17 @@
 import React from "react";
-import AdminPagesHeader from "../components/AdminPagesHeader";
 import { Link } from "react-router-dom";
+
+// Components
 import Icon from "../components/Icon";
+import AdminPagesHeader from "../components/AdminPagesHeader";
 
 const News = () => {
   return (
     <div className="w-full pt-3.5 space-y-2 xs:space-y-4 xs:pb-8">
+      {/* Header */}
       <AdminPagesHeader title="Yangiliklar" />
 
+      {/* Main content */}
       <div className="container max-xs:!px-0">
         <div className="bg-gradient-to-b p-3.5 pb-8 space-y-4 from-transparent to-gray-medium xs:p-4 xs:pb-4 xs:from-gray-light xs:to-gray-medium/20 xs:rounded-xl">
           <ul className="space-y-3.5">
