@@ -40,9 +40,9 @@ const Payment = () => {
 
   return (
     <div className="w-full pt-3.5 pb-8">
-      <div className="container space-y-4 max-sm:px-1">
+      <div className="container space-y-8 xs:space-y-6 sm:space-y-4 max-sm:px-1">
         {/* Top */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 xs:gap-6 sm:gap-4 md:grid-cols-2">
           {/* Payment card */}
           <div
             style={{ backgroundImage: `url(${waveBlueGradientBg})` }}

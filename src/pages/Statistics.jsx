@@ -10,7 +10,7 @@ const Statistics = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const handleScroll = (e) => {
-    setIsScrolled(e.target.scrollLeft > 32);
+    setIsScrolled(e.target.scrollLeft > 1);
   };
 
   return (
@@ -37,10 +37,11 @@ const Statistics = () => {
                   <th
                     className={`${
                       isScrolled ? "custom-active-border-r" : null
-                    }  sticky left-0 inset-y-0 bg-neutral-50 font-semibold transition-colors duration-200`}
+                    } sticky left-0 inset-y-0 w-14 bg-neutral-50 font-semibold transition-colors duration-200`}
                   >
-                    Oqim nomi
+                    No
                   </th>
+                  <th className="font-semibold">Oqim nomi</th>
                   <th className="font-semibold">Tashrif</th>
                   <th className="font-semibold">Qabul qilindi</th>
                   <th className="font-semibold">Yetkazilmoqda</th>
@@ -63,9 +64,12 @@ const Statistics = () => {
                       <td
                         className={`${
                           isScrolled ? "custom-active-border-r" : null
-                        } sticky left-0 inset-y-0 bg-gray-light px-2 transition-colors duration-200 group-even:bg-neutral-50`}
+                        } sticky left-0 inset-y-0 bg-gray-light text-center transition-colors duration-200 group-even:bg-neutral-50`}
                       >
-                        <span className="line-clamp-1 text-center font-medium">
+                        {index + 1}
+                      </td>
+                      <td className="pl-2">
+                        <span className="line-clamp-1 font-medium">
                           Mening oqimim #{getRandomNumber(0, 999)}
                         </span>
                       </td>

@@ -43,7 +43,11 @@ const Profile = () => {
               aria-label="Edit profile"
               className="btn shrink-0 size-10 bg-white rounded-full sm:size-12"
             >
-              <Icon src={editIcon} alt="Edit icon" />
+              <Icon
+                src={editIcon}
+                alt="Edit icon"
+                className="size-[21px] xs:size-6"
+              />
             </button>
           </div>
 
@@ -71,7 +75,11 @@ const Profile = () => {
               aria-label="Edit profile"
               className="btn shrink-0 size-10 bg-white rounded-full sm:size-12"
             >
-              <Icon src={editIcon} alt="Edit icon" />
+              <Icon
+                src={editIcon}
+                alt="Edit icon"
+                className="size-[21px] xs:size-6"
+              />
             </button>
           </section>
 
@@ -114,7 +122,11 @@ const Profile = () => {
             </div>
 
             <button className="btn shrink-0 size-10 bg-white rounded-full sm:size-12">
-              <Icon src={linkIcon} alt="Link icon" />
+              <Icon
+                src={linkIcon}
+                alt="Link icon"
+                className="size-[21px] xs:size-6"
+              />
             </button>
           </section>
         </div>
