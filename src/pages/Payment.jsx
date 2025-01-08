@@ -13,6 +13,7 @@ import FormInputWrapper from "../components/FormInputWrapper";
 import sendIcon from "../assets/images/icons/send.svg";
 import receiveIcon from "../assets/images/icons/receive.svg";
 import waveBlueGradientBg from "../assets/images/backgrounds/wave-blue-gradient.avif";
+import TransactionItem from "../components/TransactionItem";
 
 const Payment = () => {
   const [balance] = useState(getRandomNumber(0, 9999999));
@@ -40,9 +41,9 @@ const Payment = () => {
 
   return (
     <div className="w-full pt-3.5 pb-8">
-      <div className="container space-y-8 xs:space-y-6 sm:space-y-4 max-sm:px-1">
+      <div className="container space-y-4 max-sm:px-1">
         {/* Top */}
-        <div className="grid grid-cols-1 gap-8 xs:gap-6 sm:gap-4 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {/* Payment card */}
           <div
             style={{ backgroundImage: `url(${waveBlueGradientBg})` }}
@@ -138,7 +139,7 @@ const Payment = () => {
                 maxLength="19"
                 name="Full name"
                 label="Karta raqam *"
-                className="white-input"
+                className="white-input !rounded-lg overflow-hidden"
                 placeholder="0000 0000 0000 0000"
                 onChange={(value) => handleInputChange("fullName", value)}
               />
@@ -148,7 +149,7 @@ const Payment = () => {
                 maxLength="72"
                 name="Card number"
                 label="Karta egasi *"
-                className="white-input"
+                className="white-input !rounded-lg overflow-hidden"
                 placeholder="Falonchi Falonchiyev"
                 onChange={(value) => handleInputChange("fullName", value)}
               />
@@ -161,7 +162,7 @@ const Payment = () => {
                 name="Amount"
                 maxLength="7"
                 label="Qiymat *"
-                className="white-input"
+                className="white-input !rounded-lg overflow-hidden"
                 placeholder="Max 5,000,000 so'm"
                 onChange={(value) => handleInputChange("fullName", value)}
               />
@@ -171,7 +172,7 @@ const Payment = () => {
                 label="Izoh"
                 maxLength="72"
                 name="Description"
-                className="white-input"
+                className="white-input !rounded-lg overflow-hidden"
                 placeholder="Ixtiyoriy"
                 onChange={(value) => handleInputChange("description", value)}
               />
@@ -185,56 +186,23 @@ const Payment = () => {
         </section>
 
         {/* Balance history */}
-        <section className="bg-gradient-gray px-3.5 py-4 space-y-4 rounded-xl xs:p-4">
-          <h2 className="font-semibold text-xl">Balans tarixi</h2>
+        <section className="bg-gradient-gray rounded-xl">
+          <div className="flex items-center h-[62px] border-b-2 border-white">
+            <h2 className="px-4 font-semibold text-xl">Balans tarixi</h2>
+          </div>
 
-          <ul className="space-y-3.5">
+          <ul className="py-3.5">
             {Array.from({ length: 6 }).map((_, index) => {
               const isOdd = getRandomNumber() % 2 === 0;
               return (
-                <li
+                <TransactionItem
                   key={index}
-                  className="flex items-center justify-between gap-1 xs:gap-3.5 sm:gap-4"
-                >
-                  <div className="flex items-center gap-2 xs:gap-3.5">
-                    <Icon
-                      size={48}
-                      src={isOdd ? receiveIcon : sendIcon}
-                      className="size-10 xs:size-11 sm:size-12"
-                      alt={isOdd ? "Receive icon" : "Send icon"}
-                    />
-
-                    <div className="space-y-1 sm:space-y-0.5">
-                      <h3
-                        className={`${
-                          isOdd ? "text-green-500" : "text-red-500"
-                        } font-medium sm:text-[17px]`}
-                      >
-                        {isOdd ? "Qabul qilindi" : "Yuborildi"}
-                      </h3>
-
-                      <p className="text-neutral-500 line-clamp-1 text-sm sm:text-base">
-                        O'tkazma izohi
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="space-y-1 sm:space-y-0.5">
-                    <p
-                      className={`${
-                        isOdd ? "text-green-500" : "text-red-500"
-                      } font-medium sm:text-[17px] text-right`}
-                    >
-                      {isOdd ? "+" : "-"}
-                      {getRandomNumber(0, 999999).toLocaleString()}
-                    </p>
-
-                    <div className="flex items-center gap-2.5 text-sm sm:gap-3.5 sm:text-base">
-                      <span className="text-neutral-500">12/08/2025</span>
-                      <span className="text-neutral-500">12:00</span>
-                    </div>
-                  </div>
-                </li>
+                  type={isOdd ? "receive" : "send"}
+                  amount={getRandomNumber(0, 999999)}
+                  icon={isOdd ? receiveIcon : sendIcon}
+                  alt={isOdd ? "Receive icon" : "Send icon"}
+                  title={isOdd ? "Qabul qilindi" : "Yuborildi"}
+                />
               );
             })}
           </ul>
