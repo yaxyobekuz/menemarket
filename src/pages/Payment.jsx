@@ -5,15 +5,14 @@ import { Link } from "react-router-dom";
 import { getRandomNumber } from "../utils";
 
 // Components
-import Icon from "../components/Icon";
 import ToggleEyeButton from "../components/ToggleEyeBtn";
+import TransactionItem from "../components/TransactionItem";
 import FormInputWrapper from "../components/FormInputWrapper";
 
 // Images
 import sendIcon from "../assets/images/icons/send.svg";
 import receiveIcon from "../assets/images/icons/receive.svg";
 import waveBlueGradientBg from "../assets/images/backgrounds/wave-blue-gradient.avif";
-import TransactionItem from "../components/TransactionItem";
 
 const Payment = () => {
   const [balance] = useState(getRandomNumber(0, 9999999));

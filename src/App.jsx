@@ -6,6 +6,11 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 
+// Layouts
+import MainLayout from "./layouts/MainLayout";
+import AuthLayout from "./layouts/AuthLayout";
+import AdminLayout from "./layouts/AdminLayout";
+
 // Pages
 import Home from "./pages/Home";
 import News from "./pages/News";
@@ -21,11 +26,7 @@ import DonateBox from "./pages/DonateBox";
 import Dashboard from "./pages/Dashboard";
 import NewStream from "./pages/NewStream";
 import Statistics from "./pages/Statistics";
-
-// Layouts
-import MainLayout from "./layouts/MainLayout";
-import AuthLayout from "./layouts/AuthLayout";
-import AdminLayout from "./layouts/AdminLayout";
+import BalanceHistory from "./pages/BalanceHistory";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -48,6 +49,10 @@ const App = () => {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="dashboard/news" element={<News />} />
           <Route path="dashboard/donate" element={<DonateBox />} />
+          <Route
+            path="dashboard/balance-history"
+            element={<BalanceHistory />}
+          />
           <Route path="new-stream" element={<NewStream />} />
           <Route path="streams" element={<Streams />} />
           <Route path="statistics" element={<Statistics />} />
