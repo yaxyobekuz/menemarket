@@ -8,7 +8,7 @@ import Icon from "./Icon";
 const AdminPagesHeader = ({ title = "Sahifa sarlavhasi" }) => {
   return (
     <div className="container">
-      <div className="flex items-center justify-center relative bg-gradient-gray pl-14 pr-4 py-5 rounded-xl xs:py-6 sm:py-7">
+      <div className="flex items-center justify-center relative bg-gradient-gray px-11 py-5 rounded-xl xs:px-12 xs:py-6 sm:py-7">
         {/* Back to dashboard */}
         <Link
           to="/admin/dashboard/"

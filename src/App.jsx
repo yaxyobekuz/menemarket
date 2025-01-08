@@ -8,6 +8,7 @@ import {
 
 // Pages
 import Home from "./pages/Home";
+import News from "./pages/News";
 import Login from "./pages/Login";
 import Search from "./pages/Search";
 import Product from "./pages/Product";
@@ -16,6 +17,7 @@ import Payment from "./pages/Payment";
 import Profile from "./pages/Profile";
 import Products from "./pages/Products";
 import Register from "./pages/Register";
+import DonateBox from "./pages/DonateBox";
 import Dashboard from "./pages/Dashboard";
 import NewStream from "./pages/NewStream";
 import Statistics from "./pages/Statistics";
@@ -24,7 +26,6 @@ import Statistics from "./pages/Statistics";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import AdminLayout from "./layouts/AdminLayout";
-import News from "./pages/News";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -46,6 +47,7 @@ const App = () => {
         <Route path="/admin/:a?" element={<AdminLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="dashboard/news" element={<News />} />
+          <Route path="dashboard/donate" element={<DonateBox />} />
           <Route path="new-stream" element={<NewStream />} />
           <Route path="streams" element={<Streams />} />
           <Route path="statistics" element={<Statistics />} />
