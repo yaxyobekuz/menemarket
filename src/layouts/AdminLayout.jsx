@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, Outlet, useLocation } from "react-router-dom";
 
 // Images
 import logoIcon from "../assets/images/icons/logo.svg";
@@ -9,8 +9,11 @@ import Sidebar from "../components/Sidebar";
 import AdminLayoutTabs from "../components/AdminLayoutTabs";
 
 const AdminLayout = () => {
+  const location = useLocation();
   const isCollapseStorage = localStorage.getItem("isCollapse");
   const [isCollapse, setIsCollapse] = useState(isCollapseStorage === "true");
+
+  useEffect(() => window.scrollTo(0, 0), [location.pathname]);
 
   return (
     <div className="flex flex-col min-h-screen sm:flex-row">
