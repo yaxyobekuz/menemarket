@@ -27,6 +27,7 @@ import Dashboard from "./pages/Dashboard";
 import NewStream from "./pages/NewStream";
 import Statistics from "./pages/Statistics";
 import BalanceHistory from "./pages/BalanceHistory";
+import Contests from "./pages/Contests";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -50,9 +51,10 @@ const App = () => {
           <Route path="dashboard/news" element={<News />} />
           <Route path="dashboard/donate" element={<DonateBox />} />
           <Route
-            path="dashboard/balance-history"
             element={<BalanceHistory />}
+            path="dashboard/balance-history"
           />
+          <Route element={<Contests />} path="dashboard/contests" />
           <Route path="new-stream" element={<NewStream />} />
           <Route path="streams" element={<Streams />} />
           <Route path="statistics" element={<Statistics />} />
