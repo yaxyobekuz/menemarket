@@ -32,26 +32,29 @@ const TransactionItem = ({
           className="size-10 rounded-full object-cover xs:size-11 sm:size-12"
         />
 
-        <div className="flex items-center justify-between size-full pr-3.5 border-b border-neutral-300/70 group-last:border-b-0 xs:pr-4">
-          <div className="space-y-1 sm:space-y-0.5">
-            <h3 className={`${getTextColor()} font-medium sm:text-[17px]`}>
+        <div className="flex flex-col justify-center gap-1 w-[calc(100%-48px)] h-full pr-3.5 border-b border-neutral-300/70 group-last:border-b-0 xs:pr-4 xs:w-[calc(100%-58px)] sm:w-[calc(100%-62px)]">
+          {/* Top */}
+          <div className="flex items-center justify-between gap-1.5">
+            <h3
+              className={`${getTextColor()} font-medium truncate sm:text-[17px]`}
+            >
               {title}
             </h3>
 
-            <p className="text-neutral-500 line-clamp-1 text-sm sm:text-base">
-              {description}
-            </p>
-          </div>
-
-          {/* Amount */}
-          <div className="space-y-1 sm:space-y-0.5">
             <p
               className={`${getTextColor()} font-medium text-[15px] xs:text-base text-right sm:text-[17px]`}
             >
               {amount.toLocaleString()}
             </p>
+          </div>
 
-            <div className="flex items-center gap-2.5 text-sm sm:gap-3.5 sm:text-base">
+          {/* Bottom */}
+          <div className="flex items-center justify-between gap-1.5">
+            <p className="text-neutral-500 truncate text-sm sm:text-base">
+              {description}
+            </p>
+
+            <div className="flex items-center gap-2.5 shrink-0 text-sm sm:gap-3.5 sm:text-base">
               {time.split(",").map((time, index) => (
                 <span key={index} className="text-neutral-500">
                   {time}
