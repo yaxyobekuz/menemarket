@@ -18,7 +18,7 @@ const AdminPagesHeader = ({ title = "Sahifa sarlavhasi" }) => {
         </Link>
 
         {/* Title */}
-        <h1 className="text-lg font-semibold truncate sm:text-xl">{title}</h1>
+        <h1 className="text-lg font-semibold truncate">{title}</h1>
       </div>
     </div>
   );
