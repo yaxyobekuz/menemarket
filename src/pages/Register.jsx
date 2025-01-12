@@ -1,19 +1,79 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useCallback, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+// Toaster (For notification)
+import { notification } from "../notification";
+
+// Services
+import userService from "../api/services/userService";
 
 // Images
 import logoIcon from "../assets/images/icons/logo.svg";
 
 // Components
+import LoadingText from "../components/LoadingText";
 import FormCheckbox from "../components/FormCheckbox";
 import FormInputWrapper from "../components/FormInputWrapper";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [isAgree, setIsAgree] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  // Update form data based on input changes
+  const handleInputChange = useCallback((field, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  }, []);
+
+  // Handle form submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!isAgree && isLoading) return;
+
+    setIsLoading(true);
+
+    // Call the API to create a new user
+    userService
+      .createUser(formData)
+      .then((res) => {
+        const { userid, email } = res.data;
+
+        // Save OTP data to local storage+
+        localStorage.setItem(
+          "otpData",
+          JSON.stringify({
+            ...formData,
+            email,
+            userId: userid,
+            timestamp: new Date(),
+          })
+        );
+
+        // Navigate to Verify OTP
+        navigate("/auth/verify-otp");
+      })
+      .catch((err) => {
+        console.log("Errorbek: ", err);
+        notification.error("Noma'lum xatolik yuz berdi");
+      })
+      .finally(() => setIsLoading(false));
+  };
 
   return (
     <div className="flex justify-center gap-3.5 size-full">
-      <div className="max-w-[476px] w-full my-auto py-5 space-y-5">
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-[476px] w-full my-auto py-5 space-y-5"
+      >
         {/* Logo */}
         <Link to="/" className="flex items-center gap-1 max-w-max">
           {/* logo icon */}
@@ -40,28 +100,34 @@ const Register = () => {
         <FormInputWrapper
           label="Ism *"
           maxLength="72"
-          name="first name"
+          required={true}
           autoFocus={true}
+          name="first name"
+          disabled={isLoading}
           placeholder="Falonchi"
-          onChange={(value) => handleInputChange("firstName", value)}
+          onChange={(value) => handleInputChange("name", value)}
         />
 
         {/* Telephone number */}
         <FormInputWrapper
-          type="tel"
-          maxLength="19"
+          type="email"
+          maxLength="244"
+          required={true}
           name="phone number"
-          label="Telegram raqam *"
-          placeholder="+998 (__) ___-__-__"
-          onChange={(value) => handleInputChange("phoneNumber", value)}
+          label="E-pochta *"
+          disabled={isLoading}
+          placeholder="misol@gmail.com"
+          onChange={(value) => handleInputChange("email", value)}
         />
 
         {/* Password */}
         <FormInputWrapper
-          maxLength="80"
+          maxLength="244"
           type="password"
           name="password"
           label="Parol *"
+          required={true}
+          disabled={isLoading}
           placeholder="Kamida 8ta belgi"
           onChange={(value) => handleInputChange("password", value)}
         />
@@ -83,14 +149,14 @@ const Register = () => {
         </div>
 
         <button
-          disabled={!isAgree}
+          disabled={!isAgree || isLoading}
           className="btn-primary w-full h-11 rounded-xl"
         >
-          Davom etish
+          <LoadingText loader={isLoading} text="Davom etish" />
         </button>
 
         <p className="text-neutral-400">© 2023-2024. "Mene Market"</p>
-      </div>
+      </form>
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import { createRoot } from "react-dom/client";
 
 // CSS (styles)
-import "./css/index.css";
 import "./css/fonts.css";
+import "./css/index.css";
 
 // Components
 import App from "./App.jsx";
