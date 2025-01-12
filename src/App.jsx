@@ -6,6 +6,9 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 
+// Toaster (For notification)
+import { Toaster } from "react-hot-toast";
+
 // Layouts
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
@@ -22,12 +25,13 @@ import Payment from "./pages/Payment";
 import Profile from "./pages/Profile";
 import Products from "./pages/Products";
 import Register from "./pages/Register";
+import Contests from "./pages/Contests";
+import VerifyOTP from "./pages/VerifyOTP";
 import DonateBox from "./pages/DonateBox";
 import Dashboard from "./pages/Dashboard";
 import NewStream from "./pages/NewStream";
 import Statistics from "./pages/Statistics";
 import BalanceHistory from "./pages/BalanceHistory";
-import Contests from "./pages/Contests";
 
 const App = () => {
   const router = createBrowserRouter(
@@ -42,6 +46,7 @@ const App = () => {
           <Route path="auth" element={<AuthLayout />}>
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
+            <Route path="verify-otp" element={<VerifyOTP />} />
           </Route>
         </Route>
 
@@ -65,7 +70,12 @@ const App = () => {
     )
   );
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <Toaster />
+    </>
+  );
 };
 
 export default App;
