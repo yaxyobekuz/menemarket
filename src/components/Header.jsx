@@ -16,6 +16,7 @@ import loginIcon from "../assets/images/icons/login-white.svg";
 
 const Header = () => {
   const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
   const handleOpenContactModal = () => {
     dispatch(
       updateModal({
@@ -81,10 +82,13 @@ const Header = () => {
                 </Link>
               </li>
 
-              {/* login */}
+              {/* login/admin */}
               <li>
-                <Link to="/auth/login" className="btn-primary py-2 px-5">
-                  <span>Kirish</span>
+                <Link
+                  className="btn-primary py-2 px-5"
+                  to={token ? "/admin/dashboard" : "/auth/login"}
+                >
+                  <span>{token ? "Profil" : "Kirish"}</span>
                   <Icon src={loginIcon} alt="Login icon" />
                 </Link>
               </li>
