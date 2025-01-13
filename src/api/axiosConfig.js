@@ -13,7 +13,7 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     // Tokenni localStorage'dan olish
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("token");
 
     // Agar token bo'lsa, uni "Authorization" headerga qo'shamiz
     if (token) {
@@ -35,11 +35,11 @@ api.interceptors.response.use(
   },
   (error) => {
     // Xatolikni boshqarish
-    console.error("Axios error:", error.response || error.message);
+    console.log("Axios error:", error.response || error.message);
 
     // Agar xatolik 401 bo'lsa (Unauthorized), foydalanuvchini login sahifasiga qaytarish
     if (error.response && error.response.status === 401) {
-      localStorage.removeItem("authToken"); // Tokenni o'chirish
+      localStorage.removeItem("token"); // Tokenni o'chirish
       alert("Avtorizatsiyadan qayta o'ting");
     }
 
