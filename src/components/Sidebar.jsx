@@ -4,13 +4,16 @@ import { Link, NavLink } from "react-router-dom";
 // Components
 import Icon from "./Icon";
 
-// Utils
-import { getRandomNumber } from "../utils";
+// Redux
+import { useSelector } from "react-redux";
 
 // Images
 import emailIcon from "../assets/images/icons/email-gradient.svg";
 
 const Sidebar = ({ isCollapse, setIsCollapse }) => {
+  const userData = useSelector((state) => state.userData.data);
+  const { name, email } = userData || {};
+
   return (
     <div
       className={`${
@@ -76,7 +79,9 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
         {/* Main */}
         <div
           className={`${
-            isCollapse ? "max-h-[calc(100%-62px)] lg:max-h-[calc(100%-112px)]" : "max-h-[calc(100%-62px)]"
+            isCollapse
+              ? "max-h-[calc(100%-62px)] lg:max-h-[calc(100%-112px)]"
+              : "max-h-[calc(100%-62px)]"
           } flex flex-col justify-between overflow-y-auto scroll-hidden h-full`}
         >
           <div>
@@ -98,10 +103,7 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
                   isCollapse ? "hidden" : ""
                 } max-lg:hidden font-medium`}
               >
-                Samandar
-                {getRandomNumber(0, 9)}
-                {getRandomNumber(0, 9)}
-                {getRandomNumber(0, 9)}
+                {name || "Foydalanuvchi"}
               </p>
             </div>
 
@@ -380,7 +382,7 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
                   isCollapse ? "hidden" : "max-lg:hidden"
                 } text-sm text-neutral-400`}
               >
-                example@gmail.com
+                {email || "misol@gmail.com"}
               </p>
             </div>
           </div>
