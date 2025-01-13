@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+// Redux
+import { useSelector } from "react-redux";
+
 // Components
 import Icon from "../components/Icon";
 import ToggleEyeButton from "../components/ToggleEyeBtn";
@@ -17,6 +20,8 @@ import messagesIcon from "../assets/images/icons/messages-gradient.svg";
 import telegramIcon from "../assets/images/icons/telegram-gradient.svg";
 
 const Dashboard = () => {
+  const userData = useSelector((state) => state.userData.data);
+  const { balance, name, username } = userData || {};
   const hideBalanceStorage = localStorage.getItem("hideBalance");
   const [hideBalance, setHideBalance] = useState(hideBalanceStorage === "true");
 
@@ -42,16 +47,20 @@ const Dashboard = () => {
               {/* Details */}
               <div className="space-y-0.5 xs:space-y-1">
                 <h1 className="line-clamp-1 text-[19px] font-semibold max-xs:leading-[30px] xs:text-xl md:text-[22px] lg:text-2xl">
-                  Samandar
+                  {name || "Foydalanuvchi"}
                 </h1>
-                <p className="text-neutral-400 line-clamp-1">@samandar345</p>
+
+                {/* Username */}
+                <p className="text-neutral-400 line-clamp-1">
+                  @{username || "foydalanuvchi_nomi"}
+                </p>
               </div>
             </div>
 
             {/* Settings */}
             <Link
-              to="/admin/dashboard/settings"
               aria-label="Settings"
+              to="/admin/dashboard/settings"
               className="btn shrink-0 size-10 bg-white rounded-full sm:size-12"
             >
               <Icon src={settingsIcon} alt="Settings icon" />
@@ -66,7 +75,8 @@ const Dashboard = () => {
               </div>
 
               <div className="text-lg font-medium sm:text-xl">
-                {hideBalance ? "********" : (1099328).toLocaleString()} so'm
+                {hideBalance ? "****" : Number(balance || 0).toLocaleString()}
+                <span> so'm</span>
               </div>
             </div>
 
