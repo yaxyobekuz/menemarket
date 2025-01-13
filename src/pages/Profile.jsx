@@ -1,10 +1,10 @@
 import React from "react";
 
-// UUID
-import { v4 as uuidv4 } from "uuid";
-
 // Components
 import Icon from "../components/Icon";
+
+// Redux
+import { useSelector } from "react-redux";
 
 // Images
 import editIcon from "../assets/images/icons/edit.svg";
@@ -12,8 +12,22 @@ import linkIcon from "../assets/images/icons/link.svg";
 import copyIcon from "../assets/images/icons/copy.svg";
 import emailIcon from "../assets/images/icons/email-gradient.svg";
 import telegramLogo from "../assets/images/others/telegram-logo.png";
+import { notification } from "../notification";
 
 const Profile = () => {
+  const userData = useSelector((state) => state.userData.data);
+  const { _id, name, username, email } = userData || {};
+
+  const handleCopyId = (e) => {
+    e.currentTarget.disabled = true;
+    navigator.clipboard.writeText(_id);
+    notification.success("ID raqam nusxa olindi");
+    setTimeout(() => {
+      e.target.disabled = "false";
+      console.log(e);
+    }, 3000);
+  };
+
   return (
     <div className="w-full pt-3.5 pb-8">
       <div className="container space-y-4">
@@ -31,11 +45,13 @@ const Profile = () => {
               {/* Details */}
               <div className="overflow-hidden space-y-1">
                 <h1 className="text-lg font-semibold truncate md:text-xl lg:text-2xl">
-                  Samandar
+                  {name || "Foydalanuvchi"}
                 </h1>
 
                 {/* username */}
-                <p className="text-neutral-400 truncate">@samandar345</p>
+                <p className="text-neutral-400 truncate">
+                  @{username || "foydalanuvchi_nomi"}
+                </p>
               </div>
             </div>
 
@@ -66,7 +82,9 @@ const Profile = () => {
                 <h2 className="text-lg font-semibold truncate md:text-xl lg:text-2xl">
                   E-pochta
                 </h2>
-                <p className="text-neutral-400 truncate">example@gmail.com</p>
+                <p className="text-neutral-400 truncate">
+                  {email || "misol@gmail.com"}
+                </p>
               </div>
             </div>
 
@@ -87,8 +105,13 @@ const Profile = () => {
           <div className="flex flex-col justify-center gap-1.5 bg-gradient-gray p-3.5 rounded-xl md:col-span-2 sm:p-4 lg:p-5 2xl:col-span-1">
             <b className="text-lg font-semibold md:text-xl">ID raqamingiz</b>
 
-            <button className="flex items-center justify-between text-start">
-              <span className="text-neutral-400 truncate">{uuidv4()}</span>
+            <button
+              onClick={handleCopyId}
+              className="flex items-center justify-between text-start disabled:opacity-50"
+            >
+              <span className="text-neutral-400 truncate">
+                {_id || "mavjud-emas"}
+              </span>
 
               <Icon
                 size={64}
@@ -99,7 +122,7 @@ const Profile = () => {
             </button>
           </div>
 
-          {/* Tg */}
+          {/* Telegram account */}
           <section className="flex items-center justify-between gap-1.5 bg-gradient-gray p-3.5 rounded-xl md:col-span-2 sm:p-4 lg:p-5 2xl:col-span-3">
             <div className="flex items-center gap-3 min-w-0 2xl:gap-4">
               <Icon
@@ -112,11 +135,11 @@ const Profile = () => {
               {/* Details */}
               <div className="overflow-hidden space-y-1">
                 <h2 className="text-lg font-semibold truncate md:text-xl lg:text-2xl">
-                  Samandar B.
+                  {name || "Foydalanuvchi"}
                 </h2>
 
                 <p className="text-neutral-400 truncate">
-                  Tg Botga bog'langan akkaunt
+                  Tg botga bog'langan akkaunt
                 </p>
               </div>
             </div>

@@ -42,7 +42,7 @@ const VerifyOTP = () => {
       // Redirect if no OTP data exists
       navigate("/auth/register");
     }
-  }, [navigate, otpStorage]);
+  }, []);
 
   // Update timer
   useEffect(() => {
