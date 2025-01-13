@@ -1,14 +1,28 @@
-import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 // Components
 import Icon from "../components/Icon";
+
+// Toaster (For notification)
+import { notification } from "../notification";
 
 // Images
 import furnitureBg from "../assets/images/backgrounds/furniture.jpg";
 import arrowRightIcon from "../assets/images/icons/solid-arrow-right.svg";
 
 const AuthLayout = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (token) {
+      navigate("/admin/dashboard");
+      notification("Siz allaqachon ro'yxatdan o'tgansiz");
+    }
+  }, [token, location]);
+
   return (
     <div className="flex items-center justify-center fixed inset-0 size-full xs:bg-gray-light py-3.5 xs:py-4 sm:py-5">
       <div className="container max-h-[672px] h-full">
