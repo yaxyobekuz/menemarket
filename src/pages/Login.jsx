@@ -40,9 +40,11 @@ const Login = () => {
 
     userService
       .loginUser(formData)
-      .then((token) => {
+      .then(({ token, success }) => {
+        if (!success) return notification.error("Noma'lum xatolik yuz berdi");
+
         // Save JWT token to local storage
-        localStorage.setItem("jwtToken", token);
+        localStorage.setItem("token", token);
 
         // Navigate to dashboard
         navigate("/admin/dashboard");
