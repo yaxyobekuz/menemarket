@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import emailIcon from "../assets/images/icons/email-gradient.svg";
 
 const Sidebar = ({ isCollapse, setIsCollapse }) => {
-  const userData = useSelector((state) => state.userData.data);
+  const userData = useSelector((state) => state.user.data);
   const { name, email } = userData || {};
 
   return (

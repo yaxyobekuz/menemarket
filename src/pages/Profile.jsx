@@ -15,7 +15,7 @@ import telegramLogo from "../assets/images/others/telegram-logo.png";
 import { notification } from "../notification";
 
 const Profile = () => {
-  const userData = useSelector((state) => state.userData.data);
+  const userData = useSelector((state) => state.user.data);
   const { _id, name, username, email } = userData || {};
 
   const handleCopyId = (e) => {

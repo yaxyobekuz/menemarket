@@ -20,7 +20,7 @@ import messagesIcon from "../assets/images/icons/messages-gradient.svg";
 import telegramIcon from "../assets/images/icons/telegram-gradient.svg";
 
 const Dashboard = () => {
-  const userData = useSelector((state) => state.userData.data);
+  const userData = useSelector((state) => state.user.data);
   const { balance, name, username } = userData || {};
   const hideBalanceStorage = localStorage.getItem("hideBalance");
   const [hideBalance, setHideBalance] = useState(hideBalanceStorage === "true");

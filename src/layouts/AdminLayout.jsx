@@ -7,6 +7,10 @@ import { notification } from "../notification";
 // Services
 import userService from "../api/services/userService";
 
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { updateUser } from "../store/features/userSlice";
+
 // Images
 import logoIcon from "../assets/images/icons/logo.svg";
 import reloadIcon from "../assets/images/icons/reload.svg";
@@ -17,10 +21,6 @@ import Sidebar from "../components/Sidebar";
 import DotsLoader from "../components/DotsLoader";
 import AdminLayoutTabs from "../components/AdminLayoutTabs";
 
-// Redux
-import { useDispatch, useSelector } from "react-redux";
-import { updateUserData } from "../store/features/userDataSlice";
-
 const AdminLayout = () => {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -28,8 +28,8 @@ const AdminLayout = () => {
   const token = localStorage.getItem("token");
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const userData = useSelector((state) => state.user.data);
   useEffect(() => window.scrollTo(0, 0), [location.pathname]);
-  const userData = useSelector((state) => state.userData.data);
   const isCollapseStorage = localStorage.getItem("isCollapse");
   const [isCollapse, setIsCollapse] = useState(isCollapseStorage === "true");
 
@@ -40,7 +40,7 @@ const AdminLayout = () => {
     // Fetch data
     userService
       .getUserData()
-      .then((data) => dispatch(updateUserData(data)))
+      .then((data) => dispatch(updateUser(data)))
       .catch(() => {
         setIsError(true);
         notification.error("Ma'lumotlarni yuklab bo'lmadi");
@@ -61,7 +61,7 @@ const AdminLayout = () => {
   }, [location, token]);
 
   return (
-    <div className="flex flex-col min-h-screen sm:flex-row">
+    <div className="flex flex-col relative min-h-screen sm:flex-row">
       <Sidebar isCollapse={isCollapse} setIsCollapse={setIsCollapse} />
 
       {/* Header */}
@@ -87,7 +87,7 @@ const AdminLayout = () => {
           isCollapse
             ? "sm:w-[calc(100%-96px)]"
             : "sm:w-[calc(100%-96px)] lg:w-[calc(100%-320px)]"
-        } relative max-sm:pb-16 max-sm:w-full`}
+        } sm:relative max-sm:pb-16 max-sm:w-full`}
       >
         {/* Outlet */}
         {!isError && !isLoading && <Outlet />}
