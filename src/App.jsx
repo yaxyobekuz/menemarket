@@ -6,8 +6,14 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 
+// Components
+import Modal from "./components/Modal";
+
 // Toaster (For notification)
 import { Toaster } from "react-hot-toast";
+
+// Redux
+import { useSelector } from "react-redux";
 
 // Layouts
 import MainLayout from "./layouts/MainLayout";
@@ -34,6 +40,8 @@ import Statistics from "./pages/Statistics";
 import BalanceHistory from "./pages/BalanceHistory";
 
 const App = () => {
+  const modal = useSelector((state) => state.modal);
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
@@ -72,8 +80,14 @@ const App = () => {
 
   return (
     <>
+      {/* Router */}
       <RouterProvider router={router} />
+
+      {/* Toaster */}
       <Toaster />
+
+      {/* Modal */}
+      {modal.isOpen && <Modal />}
     </>
   );
 };

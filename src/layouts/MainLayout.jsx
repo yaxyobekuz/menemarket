@@ -1,19 +1,14 @@
 import React, { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
-// Redux
-import { useSelector } from "react-redux";
-
 // Components
 import Top from "../components/Top";
-import Modal from "../components/Modal";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import MainLayoutTabs from "../components/MainLayoutTabs";
 
 const MainLayout = () => {
   const location = useLocation();
-  const modal = useSelector((state) => state.modal);
   const pathArr = location.pathname.split("/").filter((_) => _);
 
   useEffect(() => {
@@ -45,9 +40,6 @@ const MainLayout = () => {
           <MainLayoutTabs />
         </>
       )}
-
-      {/* Modal */}
-      {modal.isOpen && <Modal />}
     </div>
   );
 };
