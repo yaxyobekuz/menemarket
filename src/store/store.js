@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 // Features
+import userSlice from "./features/userSlice";
 import modalSlice from "./features/modalSlice";
-import userDataSlice from "./features/userDataSlice";
+import productsSlice from "./features/productsSlice";
 
 export default configureStore({
   reducer: {
+    user: userSlice,
     modal: modalSlice,
-    userData: userDataSlice,
+    products: productsSlice,
   },
 });
