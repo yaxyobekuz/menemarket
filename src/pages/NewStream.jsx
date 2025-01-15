@@ -5,30 +5,29 @@ import { NavLink } from "react-router-dom";
 import categories from "../data/categories";
 
 // Images
-import DotsLoader from "../components/DotsLoader";
 import reloadIcon from "../assets/images/icons/reload.svg";
 
 // Components
 import Icon from "../components/Icon";
+import DotsLoader from "../components/DotsLoader";
 import productService from "../api/services/productService";
 import StreamProductItem from "../components/StreamProductItem";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
+import { updateModal } from "../store/features/modalSlice";
 import { updateProducts } from "../store/features/productsSlice";
 
 const NewStream = () => {
   const dispatch = useDispatch();
   const [hasError, setHasError] = useState(false);
-  const [isLoadingProducts, setIsLoadingProducts] = useState(true);
-  const allProductsFromStore = useSelector((state) => state.products.data);
-  const [filteredProducts, setFilteredProducts] = useState(
-    allProductsFromStore || []
-  );
+  const [isLoading, setIsLoading] = useState(true);
+  const allProducts = useSelector((state) => state.products.data);
+  const [filteredProducts, setFilteredProducts] = useState(allProducts || []);
 
   const loadProducts = () => {
     setHasError(false);
-    setIsLoadingProducts(true);
+    setIsLoading(true);
 
     productService
       .getProducts()
@@ -37,16 +36,36 @@ const NewStream = () => {
         dispatch(updateProducts(products));
       })
       .catch(() => setHasError(true))
-      .finally(() => setIsLoadingProducts(false));
+      .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
-    if (allProductsFromStore?.length === 0) {
+    if (allProducts?.length === 0) {
       loadProducts();
     } else {
-      setTimeout(() => setIsLoadingProducts(false), 500);
+      setTimeout(() => setIsLoading(false), 500);
     }
   }, []);
+
+  const handleOpenCreateStreamModal = ({ _id, title }) => {
+    dispatch(
+      updateModal({
+        data: {
+          product: {
+            title,
+            id: _id,
+          },
+        },
+        isOpen: true,
+        name: "createStream",
+        title: "Oqim yaratish",
+        buttons: {
+          secondary: { label: "Yopish" },
+          primary: { label: "Yaratish", action: "createStream" },
+        },
+      })
+    );
+  };
 
   return (
     <div className="w-full pt-3.5 pb-8">
@@ -89,26 +108,27 @@ const NewStream = () => {
         </nav>
 
         {/* Products */}
-        {!hasError &&
-        filteredProducts &&
-        !isLoadingProducts &&
-        filteredProducts?.length > 0 ? (
+        {!hasError && !isLoading && filteredProducts?.length > 0 ? (
           <ul className="grid grid-cols-2 gap-x-3.5 gap-y-6 sm:grid-cols-3 sm:gap-x-4 md:gap-x-5 md:gap-y-8 xl:grid-cols-4 2xl:grid-cols-5">
             {filteredProducts.map((product) => (
-              <StreamProductItem key={product._id} data={product} />
+              <StreamProductItem
+                data={product}
+                key={product._id}
+                onBtnClick={handleOpenCreateStreamModal}
+              />
             ))}
           </ul>
         ) : null}
 
         {/* Loading animation */}
-        {!hasError && isLoadingProducts && (
+        {!hasError && isLoading && (
           <div className="py-20">
             <DotsLoader color="#0085FF" />
           </div>
         )}
 
         {/* Reload button */}
-        {hasError && !isLoadingProducts && (
+        {hasError && !isLoading && (
           <div className="flex justify-center py-16">
             <button
               title="Reload"
