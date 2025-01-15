@@ -1,49 +1,63 @@
-import React, { useRef } from "react";
-
-// Utils
-import { sendUserCallOrderToServer } from "../utils";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { resetModal } from "../store/features/modalSlice";
 
 // Images
 import crossIcon from "../assets/images/icons/cross.svg";
-
-// Redux
-import { useDispatch, useSelector } from "react-redux";
-import { resetModal } from "../store/features/modalSlice";
 
 // Components
 import Icon from "./Icon";
 import Overlay from "./Overlay";
 import ContactModalContent from "./ContactModalContent";
 import CallOrderModalContent from "./CallOrderModalContent";
+import CreateStreamModalContent from "./CreateStreamModalContent";
+import streamService from "../api/services/streamService";
+import { notification } from "../notification";
+import LoadingText from "./LoadingText";
+import toast from "react-hot-toast";
 
 const Modal = () => {
   const dispatch = useDispatch();
-  const callOrderModalContentRef = useRef();
-  const { title, name, buttons } = useSelector((state) => state.modal);
-
+  const [formData, setFormData] = useState({});
   const closeModal = () => dispatch(resetModal());
-  const getModalContentData = (ref) => ref.current?.data;
+  const [isLoading, setIsLoading] = useState(false);
+  const { title, name, buttons, data } = useSelector((state) => state.modal);
 
+  const sendUserCallOrderToServer = () => {
+    notification("Uxxx... Vahui", "🗿");
+  };
+
+  const createStream = () => {
+    closeModal();
+    const { id } = data.product;
+
+    notification.promise(streamService.createStream(id), {
+      loading: "Oqim yaratilmoqda...",
+      success: "Oqim muvaffaqiyatli yaratildi!",
+      error: "Oqim yaratishda xatolik yuz berdi!",
+    });
+  };
+
+  // Maps
+  const contentMap = {
+    contact: <ContactModalContent />,
+    callOrder: <CallOrderModalContent updateFormData={setFormData} />,
+    createStream: <CreateStreamModalContent updateFormData={setFormData} />,
+  };
+
+  const actionMap = {
+    createStream,
+    callOrder: sendUserCallOrderToServer,
+  };
+
+  // Render modal content
   const renderModalContent = () => {
-    const contentMap = {
-      contact: <ContactModalContent />,
-      callOrder: <CallOrderModalContent ref={callOrderModalContentRef} />,
-    };
     return contentMap[name] || "Ma'lumotlar mavjud emas!";
   };
 
-  const handlePrimaryAction = () => {
-    const actionsMap = {
-      sendUserCallOrderToServer: {
-        action: sendUserCallOrderToServer,
-        ref: callOrderModalContentRef,
-      },
-    };
-
-    const actionDetails = actionsMap[buttons?.primary?.action];
-    if (actionDetails) {
-      actionDetails.action(getModalContentData(actionDetails.ref));
-    }
+  // Handle primary button click
+  const handleAction = () => {
+    if (actionMap[name]) actionMap[name]();
   };
 
   return (
@@ -60,7 +74,12 @@ const Modal = () => {
               title="Close modal"
               aria-label="Close modal"
             >
-              <Icon src={crossIcon} className="size-7" alt="Cross icon" />
+              <Icon
+                size={28}
+                src={crossIcon}
+                alt="Cross icon"
+                className="size-7"
+              />
             </button>
           </div>
 
@@ -73,14 +92,17 @@ const Modal = () => {
           <div className="flex items-center gap-2 z-30 shrink-0 h-[60px] px-3.5 bg-gray-light border-t border-neutral-200 xs:rounded-b-3xl xs:px-4">
             {buttons?.primary && (
               <button
-                onClick={handlePrimaryAction}
+                disabled={isLoading}
+                onClick={handleAction}
                 className="btn-primary w-full h-11 rounded-xl font-normal xs:font-medium"
               >
-                {buttons.primary.label}
+                <LoadingText loader={isLoading} text={buttons.primary.label} />
               </button>
             )}
+
             {buttons?.secondary && (
               <button
+                type="button"
                 onClick={closeModal}
                 className="btn bg-neutral-200 w-full h-11 rounded-xl font-normal xs:font-medium hover:bg-white"
               >
