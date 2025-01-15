@@ -7,7 +7,7 @@ import Icon from "./Icon";
 // Images
 import starIcon from "../assets/images/icons/mono-star-filled.svg";
 
-const StreamProductItem = ({ data = {} }) => {
+const StreamProductItem = ({ data = {}, onBtnClick = () => {} }) => {
   return (
     <li className="relative">
       {/* Image wrapper */}
@@ -85,7 +85,10 @@ const StreamProductItem = ({ data = {} }) => {
         </div>
 
         {/* btn */}
-        <button className="btn-primary h-8 font-normal text-sm rounded-lg sm:rounded-xl xs:h-9 sm:h-10">
+        <button
+          onClick={() => onBtnClick(data)}
+          className="btn-primary h-8 font-normal text-sm rounded-lg sm:rounded-xl xs:h-9 sm:h-10"
+        >
           Oqim yaratish
         </button>
       </div>

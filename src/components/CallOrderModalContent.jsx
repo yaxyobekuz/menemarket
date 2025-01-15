@@ -1,27 +1,16 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 
 // Components
 import FormInputWrapper from "./FormInputWrapper";
 
-const CallOrderModalContent = React.forwardRef((_, ref) => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    phoneNumber: "",
-    description: "",
-  });
-
+const CallOrderModalContent = ({ updateFormData = () => {} }) => {
   // Update form data based on input changes
   const handleInputChange = useCallback((field, value) => {
-    setFormData((prevData) => ({
+    updateFormData((prevData) => ({
       ...prevData,
       [field]: value,
     }));
   }, []);
-
-  // Expose formData to parent via ref
-  React.useImperativeHandle(ref, () => ({
-    data: formData,
-  }));
 
   return (
     <div className="space-y-4">
@@ -56,6 +45,6 @@ const CallOrderModalContent = React.forwardRef((_, ref) => {
       />
     </div>
   );
-});
+};
 
 export default CallOrderModalContent;
