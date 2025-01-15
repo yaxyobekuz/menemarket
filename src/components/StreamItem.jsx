@@ -2,10 +2,28 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 // Utils
-import { getPercentageBgColor, getRandomNumber } from "../utils";
+import {
+  formatDate,
+  formatTime,
+  getRandomNumber,
+  getPercentageBgColor,
+} from "../utils";
+import { notification } from "../notification";
 
 const StreamItem = ({ data = {} }) => {
+  const product = data?.product_id || {};
   const percentage = getRandomNumber(0, 99);
+  const url = `menemarket.uz/oqim/${data._id}`;
+
+  // Handle stream URL copy
+  const handleCopy = (e) => {
+    const button = e.currentTarget;
+    button.disabled = true;
+
+    notification.success("Havoladan nusxa olindi");
+    navigator.clipboard.writeText("https://" + url);
+    setTimeout(() => (button.disabled = false), 1500);
+  };
 
   return (
     <li className="space-y-0.5">
@@ -30,33 +48,38 @@ const StreamItem = ({ data = {} }) => {
         <div className="space-y-1">
           <b className="font-medium text-[15px] sm:text-[17px]">Mahsulot</b>
           <Link
-            to={`/products/product/productId`}
+            to={`/products/product/${product._id}`}
             className="line-clamp-2 text-neutral-500 text-[15px] transition-colors duration-200 hover:text-primary-default sm:text-base"
           >
-            {data.title}
+            {product.title}
           </Link>
         </div>
 
         <div className="space-y-3.5">
           {/* Url */}
           <div className="bg-gradient-gray py-2 px-3 rounded-lg">
-            <div className="overflow-hidden text-sm sm:text-base">
-              <span>menemarket.uz/oqim/</span>
-              {getRandomNumber(0, 999999)}
-            </div>
+            <div className="overflow-hidden text-sm sm:text-base">{url}</div>
           </div>
 
           {/* Date & Time */}
           <div className="flex items-center justify-end gap-3.5">
-            <span className="text-neutral-500 text-sm">12/08/2024</span>
-            <span className="text-neutral-500 text-sm">12:00</span>
+            <span className="text-neutral-500 text-sm">
+              {formatDate(product.created_at)}
+            </span>
+
+            <span className="text-neutral-500 text-sm">
+              {formatTime(product.created_at)}
+            </span>
           </div>
         </div>
       </div>
 
       {/* Sub */}
       <div className="flex items-center justify-between gap-3.5 bg-white p-3.5 rounded-b-lg sm:p-4">
-        <button className="btn-primary w-full h-10 font-normal text-sm xs:text-base">
+        <button
+          onClick={handleCopy}
+          className="btn-primary w-full h-10 font-normal text-sm xs:text-base"
+        >
           Nusxa olish
         </button>
       </div>
