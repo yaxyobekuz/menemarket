@@ -6,6 +6,9 @@ const apiEndpoints = {
   resendOtp: "api/users/resendOTP",
 
   getProducts: "api/products",
+
+  getStreams: "api/oqim",
+  createStream: (id) => `api/oqim/${id}`,
 };
 
 export default apiEndpoints;
