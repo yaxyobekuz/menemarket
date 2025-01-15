@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 
 const options = {
-  position: "bottom-center",
+  position: "top-center",
   style: {
     background: "#333",
     borderRadius: "8px",
@@ -25,4 +25,15 @@ notification.success = (msg = "Muvaffaqiyatli") => {
 
 notification.error = (msg = "Xatolik") => {
   toast.error(msg + "!", options);
+};
+
+notification.promise = (
+  action,
+  msg = {
+    loading: "Yuklanmoqda...",
+    success: "Muvaffaqiyatli!",
+    error: "Xatolik!",
+  }
+) => {
+  toast.promise(action, msg, options);
 };
