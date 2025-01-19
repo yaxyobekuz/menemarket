@@ -13,6 +13,14 @@ const userService = {
     }
   },
 
+  logout: async () => {
+    try {
+      return await api.post(endpoints.logout);
+    } catch (err) {
+      throw err;
+    }
+  },
+
   loginUser: async (data) => {
     try {
       return await api.post(endpoints.loginUser, data);
