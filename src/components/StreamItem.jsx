@@ -11,9 +11,9 @@ import {
 import { notification } from "../notification";
 
 const StreamItem = ({ data = {} }) => {
-  const product = data?.product_id || {};
   const percentage = getRandomNumber(0, 99);
-  const url = `menemarket.uz/oqim/${data._id}`;
+  const { _id: id, created_at: timestamp, name, product } = data || {};
+  const url = `menemarket.uz/oqim/${id}`;
 
   // Handle stream URL copy
   const handleCopy = (e) => {
@@ -30,7 +30,7 @@ const StreamItem = ({ data = {} }) => {
       {/* Top */}
       <div className="flex items-center justify-between gap-[1px] bg-white p-3.5 rounded-t-lg sm:p-4 sm:gap-2">
         <h3 className="text-[15px] font-semibold truncate xs:text-base sm:text-lg">
-          Mening oqimim #{getRandomNumber(0, 99)}
+          {name || "Oqim nomi mavjud emas!"}
         </h3>
 
         <div
@@ -64,11 +64,11 @@ const StreamItem = ({ data = {} }) => {
           {/* Date & Time */}
           <div className="flex items-center justify-end gap-3.5">
             <span className="text-neutral-500 text-sm">
-              {formatDate(product.created_at)}
+              {formatDate(timestamp)}
             </span>
 
             <span className="text-neutral-500 text-sm">
-              {formatTime(product.created_at)}
+              {formatTime(timestamp)}
             </span>
           </div>
         </div>
