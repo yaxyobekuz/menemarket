@@ -24,11 +24,11 @@ const CreateStreamModalContent = ({ updateFormData = () => {} }) => {
     <div className="space-y-4 pb-4">
       {/* First name */}
       <FormInputWrapper
+        name="name"
         maxLength="72"
-        name="streamName"
         label="Oqim nomi *"
         placeholder={`Oqim #${getRandomNumber(0, 999)}`}
-        onChange={(value) => handleInputChange("streamName", value)}
+        onChange={(value) => handleInputChange("name", value)}
       />
 
       <div className="space-y-2">
