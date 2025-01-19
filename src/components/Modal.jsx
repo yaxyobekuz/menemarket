@@ -28,10 +28,15 @@ const Modal = () => {
   };
 
   const createStream = () => {
+    const { name } = formData;
+    if (name?.trim()?.length < 3) {
+      return notification.error("Oqim nomi noto'g'ri kiritildi");
+    }
+
     closeModal();
     const { id } = data.product;
 
-    notification.promise(streamService.createStream(id), {
+    notification.promise(streamService.createStream(id, formData), {
       loading: "Oqim yaratilmoqda...",
       success: "Oqim muvaffaqiyatli yaratildi!",
       error: "Oqim yaratishda xatolik yuz berdi!",
