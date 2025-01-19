@@ -1,27 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// Components
+import Icon from "./Icon";
+
 const NewsItem = ({ data = {} }) => {
+  const { _id: id, title, desc: description, banner: image } = data || {};
   return (
-    <li className="w-full">
+    <li>
       <Link
-        className="w-full group"
-        to={`/blog/${encodeURIComponent(data.title)}`}
+        to={`/admin/dashboard/news/${id}`}
+        className="flex items-center gap-3.5 p-3.5 bg-white/70 rounded-xl"
       >
-        <img
-          loading="lazy"
+        {/* icon */}
+        <Icon
+          size={72}
+          src={image}
           alt="News image"
-          src={data.image}
-          className="w-full h-auto aspect-[5/3] object-cover bg-gray-light rounded-xl mb-2 sm:mb-3.5"
+          className="size-16 object-cover bg-neutral-200 xs:size-[72px] rounded-lg"
         />
 
-        <h3 className="mb-1.5 line-clamp-3 text-base font-medium transition-colors duration-200 group-hover:text-primary-default sm:mb-3 sm:text-lg">
-          {data.title}
-        </h3>
+        {/* details */}
+        <div className="max-sm:space-y-1">
+          <h3 className="font-medium line-clamp-1 max-w-full sm:text-lg">
+            {title || "Yangilik arlavhasi"}
+          </h3>
 
-        <p className="line-clamp-2 text-neutral-500">
-          {data.description?.slice(0, 144)}
-        </p>
+          <p className="text-neutral-500 line-clamp-2 text-sm sm:text-base">
+            {description || "Ba'tafsil ma'lumot"}
+          </p>
+        </div>
       </Link>
     </li>
   );
