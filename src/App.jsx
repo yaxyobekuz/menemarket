@@ -25,6 +25,7 @@ import Home from "./pages/Home";
 import News from "./pages/News";
 import Login from "./pages/Login";
 import Search from "./pages/Search";
+import Success from "./pages/Success";
 import Product from "./pages/Product";
 import Streams from "./pages/Streams";
 import Payment from "./pages/Payment";
@@ -37,6 +38,7 @@ import DonateBox from "./pages/DonateBox";
 import Dashboard from "./pages/Dashboard";
 import NewStream from "./pages/NewStream";
 import Statistics from "./pages/Statistics";
+import NewsDetail from "./pages/NewsDetail";
 import BalanceHistory from "./pages/BalanceHistory";
 
 const App = () => {
@@ -51,6 +53,7 @@ const App = () => {
           <Route path="products/:productType?" element={<Products />} />
           <Route path="products/product/:productId" element={<Product />} />
           <Route path="search" element={<Search />} />
+          <Route path="success" element={<Success />} />
           <Route path="auth" element={<AuthLayout />}>
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
@@ -62,6 +65,7 @@ const App = () => {
         <Route path="/admin/:a?" element={<AdminLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="dashboard/news" element={<News />} />
+          <Route path="dashboard/news/:newsId" element={<NewsDetail />} />
           <Route path="dashboard/donate" element={<DonateBox />} />
           <Route
             element={<BalanceHistory />}
