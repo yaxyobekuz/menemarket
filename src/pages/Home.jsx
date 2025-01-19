@@ -1,23 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 // Data
 import news from "../data/news";
 import brands from "../data/brands";
 import features from "../data/features";
-
-// Data
-import products from "../data/products";
 import categories from "../data/categories";
-
-// Components
-import Icon from "../components/Icon";
-import NewsItem from "../components/NewsItem";
-import ProductItem from "../components/ProductItem";
 
 // Stickers
 import Lottie from "lottie-react";
 import magicSticker from "../assets/stickers/magic.json";
+
+// Services
+import productService from "../api/services/productService";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { updateProducts } from "../store/features/productsSlice";
 
 // Swiper
 import "swiper/css";
@@ -27,9 +26,18 @@ import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
+// Components
+import Icon from "../components/Icon";
+import NewsItem from "../components/NewsItem";
+import ProductItem from "../components/ProductItem";
+import ProductItemSkeleton from "../components/ProductItemSkeleton";
+
 // Images
+import reloadIcon from "../assets/images/icons/reload.svg";
 import topProductsBg from "../assets/images/backgrounds/top.jpg";
 import arrowRightIcon from "../assets/images/icons/solid-arrow-right.svg";
+import { notification } from "@/notification";
+import BlogItem from "@/components/BlogItem";
 
 const autoplay = {
   delay: 5000,
@@ -43,6 +51,41 @@ const imagesUrl = [
 ];
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const [hasError, setHasError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const allProducts = useSelector((state) => state.products.data);
+  const [filteredProducts, setFilteredProducts] = useState(
+    allProducts?.slice(0, 10) || []
+  );
+
+  const loadProducts = () => {
+    setHasError(false);
+    setIsLoading(true);
+
+    productService
+      .getProducts()
+      .then((products) => {
+        dispatch(updateProducts(products));
+        setFilteredProducts(products?.slice(0, 10));
+      })
+      .catch(() => setHasError(true))
+      .finally(() => setIsLoading(false));
+  };
+
+  useEffect(() => {
+    if (allProducts?.length === 0) {
+      loadProducts();
+    } else {
+      setTimeout(() => setIsLoading(false), 500);
+    }
+  }, []);
+
+  const showAllProducts = () => {
+    if (isLoading) return;
+    setFilteredProducts(allProducts);
+  };
+
   return (
     <div className="">
       {/* Hero */}
@@ -161,15 +204,44 @@ const Home = () => {
             <Lottie animationData={magicSticker} className="size-8" />
           </h2>
 
-          {/* Section content */}
-          <ul className="grid grid-cols-2 gap-x-3.5 gap-y-6 sm:grid-cols-3 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-8 lg:grid-cols-5">
-            {products.map((product, index) => (
-              <ProductItem key={index} data={product} />
-            ))}
-          </ul>
+          {/* Products */}
+          {!hasError && !isLoading && filteredProducts?.length > 0 ? (
+            <ul className="grid grid-cols-2 gap-x-3.5 gap-y-6 sm:grid-cols-3 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-8 lg:grid-cols-5">
+              {filteredProducts.map((product, index) => (
+                <ProductItem key={index} data={product} />
+              ))}
+            </ul>
+          ) : null}
+
+          {/* Loading animation */}
+          {!hasError && isLoading && (
+            <ul className="grid grid-cols-2 gap-x-3.5 gap-y-6 sm:grid-cols-3 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-8 lg:grid-cols-5">
+              {Array.from({ length: 10 }).map((_, index) => (
+                <ProductItemSkeleton key={index} />
+              ))}
+            </ul>
+          )}
+
+          {/* Reload button */}
+          {hasError && !isLoading && (
+            <div className="flex justify-center py-16">
+              <button
+                title="Reload"
+                className="p-1.5"
+                aria-label="Reload"
+                onClick={loadProducts}
+              >
+                <Icon src={reloadIcon} alt="Reload icon" />
+              </button>
+            </div>
+          )}
 
           <div className="flex justify-center w-full pt-3.5 xs:pt-5">
-            <button className="w-full bg-gray-light px-5 py-2 rounded-xl text-base font-medium transition-colors duration-200 hover:bg-gray-medium/50 sm:w-auto sm:px-28 sm:text-lg md:px-32">
+            <button
+              disabled={isLoading}
+              onClick={showAllProducts}
+              className="w-full bg-gray-light px-5 py-2 rounded-xl text-base font-medium transition-colors duration-200 hover:bg-gray-medium/50 disabled:opacity-50 sm:w-auto sm:px-28 sm:text-lg md:px-32"
+            >
               Ko'proq ko'rsatish
             </button>
           </div>
@@ -182,15 +254,44 @@ const Home = () => {
           {/* Section title */}
           <h2>Ommabop mahsulotlar</h2>
 
-          {/* Section content */}
-          <ul className="grid grid-cols-2 gap-x-3.5 gap-y-6 sm:grid-cols-3 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-8 lg:grid-cols-5">
-            {products.map((product, index) => (
-              <ProductItem key={index} data={product} />
-            ))}
-          </ul>
+          {/* Products */}
+          {!hasError && !isLoading && filteredProducts?.length > 0 ? (
+            <ul className="grid grid-cols-2 gap-x-3.5 gap-y-6 sm:grid-cols-3 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-8 lg:grid-cols-5">
+              {filteredProducts.map((product, index) => (
+                <ProductItem key={index} data={product} />
+              ))}
+            </ul>
+          ) : null}
+
+          {/* Loading animation */}
+          {!hasError && isLoading && (
+            <ul className="grid grid-cols-2 gap-x-3.5 gap-y-6 sm:grid-cols-3 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-8 lg:grid-cols-5">
+              {Array.from({ length: 10 }).map((_, index) => (
+                <ProductItemSkeleton key={index} />
+              ))}
+            </ul>
+          )}
+
+          {/* Reload button */}
+          {hasError && !isLoading && (
+            <div className="flex justify-center py-16">
+              <button
+                title="Reload"
+                className="p-1.5"
+                aria-label="Reload"
+                onClick={loadProducts}
+              >
+                <Icon src={reloadIcon} alt="Reload icon" />
+              </button>
+            </div>
+          )}
 
           <div className="flex justify-center w-full pt-3.5 xs:pt-5">
-            <button className="w-full bg-gray-light px-5 py-2 rounded-xl text-base font-medium transition-colors duration-200 hover:bg-gray-medium/50 sm:w-auto sm:px-28 sm:text-lg md:px-32">
+            <button
+              disabled={isLoading}
+              onClick={showAllProducts}
+              className="w-full bg-gray-light px-5 py-2 rounded-xl text-base font-medium transition-colors duration-200 hover:bg-gray-medium/50 disabled:opacity-50 sm:w-auto sm:px-28 sm:text-lg md:px-32"
+            >
               Ko'proq ko'rsatish
             </button>
           </div>
@@ -267,15 +368,44 @@ const Home = () => {
           {/* Section title */}
           <h2>Chegirmadagi mahsulotlar</h2>
 
-          {/* Section content */}
-          <ul className="grid grid-cols-2 gap-x-3.5 gap-y-6 sm:grid-cols-3 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-8 lg:grid-cols-5">
-            {products.map((product, index) => (
-              <ProductItem key={index} data={product} />
-            ))}
-          </ul>
+          {/* Products */}
+          {!hasError && !isLoading && filteredProducts?.length > 0 ? (
+            <ul className="grid grid-cols-2 gap-x-3.5 gap-y-6 sm:grid-cols-3 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-8 lg:grid-cols-5">
+              {filteredProducts.map((product, index) => (
+                <ProductItem key={index} data={product} />
+              ))}
+            </ul>
+          ) : null}
+
+          {/* Loading animation */}
+          {!hasError && isLoading && (
+            <ul className="grid grid-cols-2 gap-x-3.5 gap-y-6 sm:grid-cols-3 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-8 lg:grid-cols-5">
+              {Array.from({ length: 10 }).map((_, index) => (
+                <ProductItemSkeleton key={index} />
+              ))}
+            </ul>
+          )}
+
+          {/* Reload button */}
+          {hasError && !isLoading && (
+            <div className="flex justify-center py-16">
+              <button
+                title="Reload"
+                className="p-1.5"
+                aria-label="Reload"
+                onClick={loadProducts}
+              >
+                <Icon src={reloadIcon} alt="Reload icon" />
+              </button>
+            </div>
+          )}
 
           <div className="flex justify-center w-full pt-3.5 xs:pt-5">
-            <button className="w-full bg-gray-light px-5 py-2 rounded-xl text-base font-medium transition-colors duration-200 hover:bg-gray-medium/50 sm:w-auto sm:px-28 sm:text-lg md:px-32">
+            <button
+              disabled={isLoading}
+              onClick={showAllProducts}
+              className="w-full bg-gray-light px-5 py-2 rounded-xl text-base font-medium transition-colors duration-200 hover:bg-gray-medium/50 disabled:opacity-50 sm:w-auto sm:px-28 sm:text-lg md:px-32"
+            >
               Ko'proq ko'rsatish
             </button>
           </div>
@@ -307,7 +437,7 @@ const Home = () => {
           {/* News */}
           <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
             {news.slice(0, 3).map((data, index) => (
-              <NewsItem key={index} data={data} />
+              <BlogItem key={index} data={data} />
             ))}
           </ul>
         </div>
