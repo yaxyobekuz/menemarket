@@ -4,7 +4,7 @@ import React from "react";
 import Icon from "../components/Icon";
 
 // Redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // Images
 import editIcon from "../assets/images/icons/edit.svg";
@@ -13,19 +13,37 @@ import copyIcon from "../assets/images/icons/copy.svg";
 import emailIcon from "../assets/images/icons/email-gradient.svg";
 import telegramLogo from "../assets/images/others/telegram-logo.png";
 import { notification } from "../notification";
+import userService from "../api/services/userService";
+import { useNavigate } from "react-router-dom";
+import { updateUser } from "@/store/features/userSlice";
 
 const Profile = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userData = useSelector((state) => state.user.data);
   const { _id, name, username, email } = userData || {};
 
   const handleCopyId = (e) => {
-    e.currentTarget.disabled = true;
+    const btn = e.currentTarget;
+    btn.disabled = true;
     navigator.clipboard.writeText(_id);
-    notification.success("ID raqam nusxa olindi");
-    setTimeout(() => {
-      e.target.disabled = "false";
-      console.log(e);
-    }, 3000);
+    notification.success("ID raqamdan nusxa olindi");
+    setTimeout(() => (btn.disabled = false), 1500);
+  };
+
+  const handleLogout = () => {
+    notification.promise(
+      userService.logout().then(() => {
+        navigate("/");
+        dispatch(updateUser(null));
+        localStorage.removeItem("token");
+      }),
+      {
+        success: "Akkuntdan chiqildi",
+        loading: "Akkauntdan chiqilmoqda",
+        error: "Akkauntdan chiqishda xatolik",
+      }
+    );
   };
 
   return (
@@ -34,8 +52,7 @@ const Profile = () => {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
           {/* Profile */}
           <div className="flex items-center justify-between gap-1.5 bg-gradient-gray p-3.5 rounded-xl md:col-span-2 sm:p-4 lg:p-5">
-            {/* Profile */}
-            <div className="flex items-center gap-3 2xl:gap-4">
+            <div className="flex items-center gap-3 min-w-0 2xl:gap-4">
               <Icon
                 alt="User avatar"
                 className="size-12 rounded-full md:size-14 lg:size-16"
@@ -43,7 +60,7 @@ const Profile = () => {
               />
 
               {/* Details */}
-              <div className="overflow-hidden space-y-1">
+              <div className="w- overflow-hidden space-y-1">
                 <h1 className="text-lg font-semibold truncate md:text-xl lg:text-2xl">
                   {name || "Foydalanuvchi"}
                 </h1>
@@ -55,6 +72,7 @@ const Profile = () => {
               </div>
             </div>
 
+            {/* Edit */}
             <button
               aria-label="Edit profile"
               className="btn shrink-0 size-10 bg-white rounded-full sm:size-12"
@@ -153,6 +171,13 @@ const Profile = () => {
             </button>
           </section>
         </div>
+
+        <button
+          onClick={handleLogout}
+          className="text-primary-default text-lg font-medium underline underline-offset-2"
+        >
+          Akkauntdan chiqish
+        </button>
       </div>
     </div>
   );
