@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+// Services
+import newsService from "../api/services/newsService";
+
 // Redux
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateNews } from "../store/features/newsSlice";
 
 // Components
 import Icon from "../components/Icon";
+import DotsLoader from "../components/DotsLoader";
 import ToggleEyeButton from "../components/ToggleEyeBtn";
 
 // Images
+import reloadIcon from "../assets/images/icons/reload.svg";
 import boxIcon from "../assets/images/icons/box-gradient.svg";
 import settingsIcon from "../assets/images/icons/settings.svg";
 import starIcon from "../assets/images/icons/star-gradient.svg";
@@ -18,26 +24,52 @@ import crownIcon from "../assets/images/icons/crown-gradient.svg";
 import walletIcon from "../assets/images/icons/wallet-gradient.svg";
 import messagesIcon from "../assets/images/icons/messages-gradient.svg";
 import telegramIcon from "../assets/images/icons/telegram-gradient.svg";
+import NewsItem from "@/components/NewsItem";
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  const slicedNews = (news) => news?.slice(0, 4);
+  const [hasError, setHasError] = useState(false);
+  const allNews = useSelector((state) => state.news.data);
   const userData = useSelector((state) => state.user.data);
-  const { balance, name, username } = userData || {};
   const hideBalanceStorage = localStorage.getItem("hideBalance");
+  const [isLoading, setIsLoading] = useState(allNews?.length === 0);
+  const [filteredNews, setFilteredNews] = useState(slicedNews(allNews) || []);
   const [hideBalance, setHideBalance] = useState(hideBalanceStorage === "true");
+  const { balance, name, username } = userData || {};
 
   const handleChangeHideBalance = () => {
     setHideBalance(!hideBalance);
     localStorage.setItem("hideBalance", String(!hideBalance));
   };
 
+  const loadNews = () => {
+    setHasError(false);
+    setIsLoading(true);
+
+    newsService
+      .getNews()
+      .then((news) => {
+        dispatch(updateNews(news));
+        setFilteredNews(slicedNews(news));
+      })
+      .catch(() => setHasError(true))
+      .finally(() => setIsLoading(false));
+  };
+
+  useEffect(() => {
+    if (allNews?.length === 0) loadNews();
+    else setTimeout(() => setIsLoading(false), 500);
+  }, []);
+
   return (
     <div className="w-full pt-3.5 space-y-4 xs:pb-8">
       {/* Top */}
       <div className="container">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          <div className="flex items-center justify-between gap-4 bg-gradient-to-r from-gray-light to-gray-medium/20 px-4 py-5 rounded-xl lg:col-span-2 xl:col-span-3">
+          <div className="flex items-center justify-between gap-1.5 bg-gradient-to-r from-gray-light to-gray-medium/20 px-4 py-5 rounded-xl xs:gap-4 lg:col-span-2 xl:col-span-3">
             {/* Profile */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 min-w-0">
               <Icon
                 alt="User avatar"
                 className="size-12 rounded-full xs:size-14 md:size-16"
@@ -45,13 +77,13 @@ const Dashboard = () => {
               />
 
               {/* Details */}
-              <div className="space-y-0.5 xs:space-y-1">
-                <h1 className="line-clamp-1 text-[19px] font-semibold max-xs:leading-[30px] xs:text-xl md:text-[22px] lg:text-2xl">
+              <div className="overflow-hidden space-y-0.5 xs:space-y-1">
+                <h1 className="truncate text-[19px] font-semibold max-xs:leading-[30px] xs:text-xl md:text-[22px] lg:text-2xl">
                   {name || "Foydalanuvchi"}
                 </h1>
 
                 {/* Username */}
-                <p className="text-neutral-400 line-clamp-1">
+                <p className="text-neutral-400 truncate">
                   @{username || "foydalanuvchi_nomi"}
                 </p>
               </div>
@@ -268,39 +300,34 @@ const Dashboard = () => {
           <h2 className="font-semibold text-xl">So'nggi yangiliklar</h2>
 
           {/* News */}
-          <ul className="space-y-3.5">
-            {Array.from({ length: 5 }).map((_, index) => {
-              return (
-                <li key={index}>
-                  <Link
-                    to="/"
-                    className="flex items-center gap-3.5 p-3.5 bg-white/70 rounded-xl"
-                  >
-                    {/* icon */}
-                    <Icon
-                      size={72}
-                      alt="News image"
-                      className="size-16 xs:size-[72px] rounded-lg"
-                      src="https://upload.wikimedia.org/wikipedia/commons/e/ea/BBC_World_News_2022_%28Boxed%29.svg"
-                    />
+          {!hasError && !isLoading && filteredNews?.length > 0 ? (
+            <ul className="space-y-3.5">
+              {filteredNews.map((news) => (
+                <NewsItem data={news} key={news._id} />
+              ))}
+            </ul>
+          ) : null}
 
-                    {/* details */}
-                    <div className="max-sm:space-y-1">
-                      <h3 className="font-medium line-clamp-1 max-w-full sm:text-lg">
-                        Yangilikning asosiy sarlavhasi bu yerda bo'ladi
-                      </h3>
+          {/* Loading animation */}
+          {!hasError && isLoading && (
+            <div className="py-20">
+              <DotsLoader color="#0085FF" />
+            </div>
+          )}
 
-                      <p className="text-neutral-500 line-clamp-2 text-sm sm:text-base">
-                        Hurmatli adminlar, 25 iyul kuniga qadar “yetqazib berish
-                        bepul” deb olingan oqimlarni yangilashingizni soraymiz.
-                        Aks holda narxlarda xatoliklar kuzatilishi mumkin.
-                      </p>
-                    </div>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+          {/* Reload button */}
+          {hasError && !isLoading && (
+            <div className="flex justify-center py-16">
+              <button
+                title="Reload"
+                className="p-1.5"
+                onClick={loadNews}
+                aria-label="Reload"
+              >
+                <Icon src={reloadIcon} alt="Reload icon" />
+              </button>
+            </div>
+          )}
         </section>
       </div>
     </div>
@@ -308,3 +335,81 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+const sheetName = "Asosiy";
+const baseUrl = "https://api.samsara.com/";
+const createUrl = (endpoint) => baseUrl + endpoint;
+const token = "samsara_api_kPoGFfilZUPwFTraiT6F1xT1YmVC0G";
+
+// Endpoints
+const endpoints = {
+  getVehicles: "fleet/vehicles?limit=512",
+  getLocations: "fleet/vehicles/locations",
+};
+
+// Fetch and Write data
+function fetchAndWriteData() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName);
+  const getOptions = {
+    method: "get",
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
+  try {
+    // Fetch API data
+    const response = UrlFetchApp.fetch(
+      createUrl(endpoints.getLocations),
+      getOptions
+    );
+    const { data } = JSON.parse(response.getContentText()) || {};
+
+    // Get existing data from the sheet
+    const existingData = sheet
+      .getRange(2, 1, sheet.getLastRow() - 1, 4)
+      .getValues();
+
+      
+    const existingMap = {};
+    existingData.forEach((row) => {
+      const [id, name, speed, location] = row;
+      existingMap[id] = { name, speed, location };
+    });
+
+    // Prepare headers if the sheet is empty
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(["ID", "Name", "Speed", "Current location"]);
+    }
+
+    // Update or append new data
+    data.forEach((item) => {
+      const { id, name, location } = item || {};
+      const { speed, reverseGeo } = location || {};
+      const { formattedLocation } = reverseGeo || {};
+
+      const newRow = [id, name, `${speed.toFixed(1)} km/h`, formattedLocation];
+
+      if (existingMap[id]) {
+        // If data exists, check for differences
+        const oldData = existingMap[id];
+        if (
+          oldData.name !== name ||
+          oldData.speed !== `${speed.toFixed(1)} km/h` ||
+          oldData.location !== formattedLocation
+        ) {
+          // Find row index for update
+          const rowIndex = existingData.findIndex((row) => row[0] === id) + 2; // +2 for header row
+
+          // Ensure the range exists
+          if (rowIndex > 1) {
+            sheet.getRange(rowIndex, 1, 1, newRow.length).setValues([newRow]);
+          }
+        }
+      } else {
+        // Append new data if ID doesn't exist
+        sheet.appendRow(newRow);
+      }
+    });
+  } catch (error) {
+    Logger.log("Xato yuz berdi: " + error.toString());
+  }
+}
