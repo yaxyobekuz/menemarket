@@ -10,6 +10,7 @@ import { updateNews } from "../store/features/newsSlice";
 
 // Components
 import Icon from "../components/Icon";
+import NewsItem from "../components/NewsItem";
 import DotsLoader from "../components/DotsLoader";
 import ToggleEyeButton from "../components/ToggleEyeBtn";
 
@@ -24,7 +25,6 @@ import crownIcon from "../assets/images/icons/crown-gradient.svg";
 import walletIcon from "../assets/images/icons/wallet-gradient.svg";
 import messagesIcon from "../assets/images/icons/messages-gradient.svg";
 import telegramIcon from "../assets/images/icons/telegram-gradient.svg";
-import NewsItem from "@/components/NewsItem";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -335,81 +335,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-
-const sheetName = "Asosiy";
-const baseUrl = "https://api.samsara.com/";
-const createUrl = (endpoint) => baseUrl + endpoint;
-const token = "samsara_api_kPoGFfilZUPwFTraiT6F1xT1YmVC0G";
-
-// Endpoints
-const endpoints = {
-  getVehicles: "fleet/vehicles?limit=512",
-  getLocations: "fleet/vehicles/locations",
-};
-
-// Fetch and Write data
-function fetchAndWriteData() {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(sheetName);
-  const getOptions = {
-    method: "get",
-    headers: { Authorization: `Bearer ${token}` },
-  };
-
-  try {
-    // Fetch API data
-    const response = UrlFetchApp.fetch(
-      createUrl(endpoints.getLocations),
-      getOptions
-    );
-    const { data } = JSON.parse(response.getContentText()) || {};
-
-    // Get existing data from the sheet
-    const existingData = sheet
-      .getRange(2, 1, sheet.getLastRow() - 1, 4)
-      .getValues();
-
-      
-    const existingMap = {};
-    existingData.forEach((row) => {
-      const [id, name, speed, location] = row;
-      existingMap[id] = { name, speed, location };
-    });
-
-    // Prepare headers if the sheet is empty
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow(["ID", "Name", "Speed", "Current location"]);
-    }
-
-    // Update or append new data
-    data.forEach((item) => {
-      const { id, name, location } = item || {};
-      const { speed, reverseGeo } = location || {};
-      const { formattedLocation } = reverseGeo || {};
-
-      const newRow = [id, name, `${speed.toFixed(1)} km/h`, formattedLocation];
-
-      if (existingMap[id]) {
-        // If data exists, check for differences
-        const oldData = existingMap[id];
-        if (
-          oldData.name !== name ||
-          oldData.speed !== `${speed.toFixed(1)} km/h` ||
-          oldData.location !== formattedLocation
-        ) {
-          // Find row index for update
-          const rowIndex = existingData.findIndex((row) => row[0] === id) + 2; // +2 for header row
-
-          // Ensure the range exists
-          if (rowIndex > 1) {
-            sheet.getRange(rowIndex, 1, 1, newRow.length).setValues([newRow]);
-          }
-        }
-      } else {
-        // Append new data if ID doesn't exist
-        sheet.appendRow(newRow);
-      }
-    });
-  } catch (error) {
-    Logger.log("Xato yuz berdi: " + error.toString());
-  }
-}
