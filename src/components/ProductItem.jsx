@@ -8,6 +8,8 @@ import Icon from "./Icon";
 import starIcon from "../assets/images/icons/mono-star-filled.svg";
 
 const ProductItem = ({ data = {} }) => {
+  const image = data?.images ? data?.images[0] : "";
+
   return (
     <li className="relative">
       {/* Image wrapper */}
@@ -15,10 +17,10 @@ const ProductItem = ({ data = {} }) => {
         <img
           width={232}
           height={309}
+          src={image}
           loading="lazy"
-          src={data.image}
           alt={data.title}
-          className="w-full h-auto aspect-[3/4] bg-gray-light"
+          className="w-full h-auto aspect-[3/4] object-cover bg-gray-light"
         />
       </div>
 
@@ -59,7 +61,7 @@ const ProductItem = ({ data = {} }) => {
 
       {/* Link */}
       <Link
-        to="/products/product/productId"
+        to={`/products/product/${data._id}`}
         className="absolute inset-0 size-full rounded-xl"
       />
     </li>
