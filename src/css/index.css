@@ -26,12 +26,17 @@
   }
 
   input,
-  textarea {
+  textarea,
+  select {
     @apply w-full bg-gray-light outline-none rounded-xl;
   }
 
   textarea {
     @apply py-2.5 min-h-40 max-h-96 xs:min-h-32;
+  }
+
+  :root {
+    --radius: 0.5rem;
   }
 }
 
