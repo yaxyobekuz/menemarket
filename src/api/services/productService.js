@@ -12,6 +12,14 @@ const productService = {
       throw err;
     }
   },
+
+  getProduct: async (id) => {
+    try {
+      return await api.get(endpoints.getProduct(id));
+    } catch (err) {
+      throw err;
+    }
+  },
 };
 
 export default productService;
