@@ -1,10 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
+// Toaster (For notification)
+import { notification } from "../notification";
 
 // Components
 import Icon from "../components/Icon";
+import CopyButton from "../components/CopyButton";
+
+// Services
+import userService from "../api/services/userService";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
+import { updateUser } from "../store/features/userSlice";
 
 // Images
 import editIcon from "../assets/images/icons/edit.svg";
@@ -12,24 +21,12 @@ import linkIcon from "../assets/images/icons/link.svg";
 import copyIcon from "../assets/images/icons/copy.svg";
 import emailIcon from "../assets/images/icons/email-gradient.svg";
 import telegramLogo from "../assets/images/others/telegram-logo.png";
-import { notification } from "../notification";
-import userService from "../api/services/userService";
-import { useNavigate } from "react-router-dom";
-import { updateUser } from "@/store/features/userSlice";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user.data);
   const { _id, name, username, email } = userData || {};
-
-  const handleCopyId = (e) => {
-    const btn = e.currentTarget;
-    btn.disabled = true;
-    navigator.clipboard.writeText(_id);
-    notification.success("ID raqamdan nusxa olindi");
-    setTimeout(() => (btn.disabled = false), 1500);
-  };
 
   const handleLogout = () => {
     notification.promise(
@@ -123,8 +120,9 @@ const Profile = () => {
           <div className="flex flex-col justify-center gap-1.5 bg-gradient-gray p-3.5 rounded-xl md:col-span-2 sm:p-4 lg:p-5 2xl:col-span-1">
             <b className="text-lg font-semibold md:text-xl">ID raqamingiz</b>
 
-            <button
-              onClick={handleCopyId}
+            <CopyButton
+              text={_id || "mavjud-emas"}
+              notificationText="ID raqamdan nusxa olindi"
               className="flex items-center justify-between text-start disabled:opacity-50"
             >
               <span className="text-neutral-400 truncate">
@@ -137,7 +135,7 @@ const Profile = () => {
                 alt="Copy icon"
                 className="size-6 shrink-0"
               />
-            </button>
+            </CopyButton>
           </div>
 
           {/* Telegram account */}
