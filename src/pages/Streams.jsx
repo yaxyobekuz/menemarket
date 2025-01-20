@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-// Data
-import products from "../data/products";
-
 // Components
 import Icon from "../components/Icon";
 import DotsLoader from "../components/DotsLoader";
