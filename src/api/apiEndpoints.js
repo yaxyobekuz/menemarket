@@ -12,6 +12,9 @@ const apiEndpoints = {
   getNews: "api/news",
   getNewsById: (id) => `api/news/${id}`,
 
+  getBlogs: "api/blogs",
+  getBlogById: (id) => `api/blogs/${id}`,
+
   getStreams: "api/oqim",
   createStream: (id) => `api/oqim/${id}`,
 
