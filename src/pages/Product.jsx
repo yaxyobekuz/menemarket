@@ -27,6 +27,7 @@ import productService from "../api/services/productService";
 
 // Components
 import Icon from "../components/Icon";
+import CopyButton from "../components/CopyButton";
 import DotsLoader from "../components/DotsLoader";
 import ProductItem from "../components/ProductItem";
 import LoadingText from "../components/LoadingText";
@@ -265,17 +266,25 @@ const Product = () => {
                   {/* ID & Rating */}
                   <div className="flex items-center justify-between">
                     {/* ID */}
-                    <button className="flex items-center gap-1.5">
-                      <span>ID: </span>
-                      <span className="inline-block max-w-24 truncate overflow-hidden text-neutral-400">
-                        {id || "ID raqam mavjud emas!"}
-                      </span>
-                      <Icon
-                        src={copyIcon}
-                        alt="Copy icon"
-                        className="size-5 xs:size-6"
-                      />
-                    </button>
+                    {
+                      <CopyButton
+                        text={id || "ID raqam mavjud emas!"}
+                        notificationText="ID raqamdan nusxa olindi"
+                        className="flex items-center gap-1.5 transition-opacity duration-200 disabled:opacity-50"
+                      >
+                        <span>ID: </span>
+
+                        <span className="inline-block max-w-24 truncate overflow-hidden text-neutral-400">
+                          {id || "ID raqam mavjud emas!"}
+                        </span>
+
+                        <Icon
+                          src={copyIcon}
+                          alt="Copy icon"
+                          className="size-5 xs:size-6"
+                        />
+                      </CopyButton>
+                    }
 
                     {/* Rating */}
                     {renderStars(4.1)}
