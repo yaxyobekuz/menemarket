@@ -8,22 +8,14 @@ import {
   getRandomNumber,
   getPercentageBgColor,
 } from "../utils";
-import { notification } from "../notification";
+
+// Components
+import CopyButton from "./CopyButton";
 
 const StreamItem = ({ data = {} }) => {
   const percentage = getRandomNumber(0, 99);
   const { _id: id, created_at: timestamp, name, product } = data || {};
   const url = `menemarket.uz/oqim/${id}`;
-
-  // Handle stream URL copy
-  const handleCopy = (e) => {
-    const button = e.currentTarget;
-    button.disabled = true;
-
-    notification.success("Havoladan nusxa olindi");
-    navigator.clipboard.writeText("https://" + url);
-    setTimeout(() => (button.disabled = false), 1500);
-  };
 
   return (
     <li className="space-y-0.5">
@@ -76,12 +68,13 @@ const StreamItem = ({ data = {} }) => {
 
       {/* Sub */}
       <div className="flex items-center justify-between gap-3.5 bg-white p-3.5 rounded-b-lg sm:p-4">
-        <button
-          onClick={handleCopy}
+        <CopyButton
+          text={"https://" + url}
+          notificationText="Havoladan nusxa olindi"
           className="btn-primary w-full h-10 font-normal text-sm xs:text-base"
         >
           Nusxa olish
-        </button>
+        </CopyButton>
       </div>
     </li>
   );

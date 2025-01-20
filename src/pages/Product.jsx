@@ -138,7 +138,7 @@ const Product = () => {
     if (name?.length < 3)
       return notification.error("Ismingizni to'g'ri kiriting");
     if (tel?.length !== 19)
-      return notification.error("Tel raqmingizni to'g'ri kiriting");
+      return notification.error("Tel raqamingizni to'g'ri kiriting");
     if (addressKey < 0 || addressKey > 14)
       return notification.error("Manzil kodi xato");
 
@@ -147,7 +147,7 @@ const Product = () => {
     orderService
       .createOrder(productId, formData)
       .then(() => navigate("/success"))
-      .catch(() => notification.error("So'rovni yuborishda xatolik"))
+      .catch(() => notification.error("Nimadir xato ketdi"))
       .finally(() => setIsLoadingOrder(false));
   };
 
