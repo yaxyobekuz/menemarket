@@ -16,6 +16,8 @@ const apiEndpoints = {
   createStream: (id) => `api/oqim/${id}`,
 
   createOrder: (id) => `api/orders/${id}`,
+
+  createPayment: "api/payments",
 };
 
 export default apiEndpoints;

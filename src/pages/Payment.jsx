@@ -4,10 +4,16 @@ import { Link } from "react-router-dom";
 // Utils
 import { getRandomNumber } from "../utils";
 
+// Toaster (For notification)
+import { notification } from "../notification";
+
 // Components
 import ToggleEyeButton from "../components/ToggleEyeBtn";
 import TransactionItem from "../components/TransactionItem";
 import FormInputWrapper from "../components/FormInputWrapper";
+
+// Services
+import paymentService from "../api/services/paymentsService";
 
 // Images
 import sendIcon from "../assets/images/icons/send.svg";
@@ -15,15 +21,11 @@ import receiveIcon from "../assets/images/icons/receive.svg";
 import waveBlueGradientBg from "../assets/images/backgrounds/wave-blue-gradient.avif";
 
 const Payment = () => {
+  const [formData, setFormData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const [balance] = useState(getRandomNumber(0, 9999999));
   const hideBalanceStorage = localStorage.getItem("hideBalance");
   const [hideBalance, setHideBalance] = useState(hideBalanceStorage === "true");
-  const [formData, setFormData] = useState({
-    amount: "",
-    fullName: "",
-    cardNumber: "",
-    description: "",
-  });
 
   // Update form data based on input changes
   const handleInputChange = useCallback((field, value) => {
@@ -36,6 +38,21 @@ const Payment = () => {
   const handleChangeHideBalance = () => {
     setHideBalance(!hideBalance);
     localStorage.setItem("hideBalance", String(!hideBalance));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    paymentService
+      .createPayment(formData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(({ response: res }) => {
+        const message = res.data?.message;
+        notification.error(message || "Nimadir xato ketdi");
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -130,7 +147,7 @@ const Payment = () => {
             To'lov uchun so'rov yuborish
           </h2>
 
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 gap-y-4 gap-x-5 md:grid-cols-2">
               {/* Card number */}
               <FormInputWrapper
@@ -138,9 +155,9 @@ const Payment = () => {
                 maxLength="19"
                 name="Full name"
                 label="Karta raqam *"
-                className="white-input !rounded-lg overflow-hidden"
                 placeholder="0000 0000 0000 0000"
-                onChange={(value) => handleInputChange("fullName", value)}
+                className="white-input !rounded-lg overflow-hidden"
+                onChange={(value) => handleInputChange("card_number", value)}
               />
 
               {/* Full name */}
@@ -148,9 +165,9 @@ const Payment = () => {
                 maxLength="72"
                 name="Card number"
                 label="Karta egasi *"
-                className="white-input !rounded-lg overflow-hidden"
                 placeholder="Falonchi Falonchiyev"
-                onChange={(value) => handleInputChange("fullName", value)}
+                className="white-input !rounded-lg overflow-hidden"
+                onChange={(value) => handleInputChange("card_owner", value)}
               />
             </div>
 
@@ -161,9 +178,9 @@ const Payment = () => {
                 name="Amount"
                 maxLength="7"
                 label="Qiymat *"
-                className="white-input !rounded-lg overflow-hidden"
                 placeholder="Max 5,000,000 so'm"
-                onChange={(value) => handleInputChange("fullName", value)}
+                className="white-input !rounded-lg overflow-hidden"
+                onChange={(value) => handleInputChange("payment", value)}
               />
 
               {/* Description */}
@@ -171,9 +188,9 @@ const Payment = () => {
                 label="Izoh"
                 maxLength="72"
                 name="Description"
-                className="white-input !rounded-lg overflow-hidden"
                 placeholder="Ixtiyoriy"
-                onChange={(value) => handleInputChange("description", value)}
+                className="white-input !rounded-lg overflow-hidden"
+                onChange={(value) => handleInputChange("comment", value)}
               />
             </div>
 
