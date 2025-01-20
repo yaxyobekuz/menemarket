@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 // Data
-import news from "../data/news";
 import brands from "../data/brands";
 import features from "../data/features";
 import categories from "../data/categories";
@@ -12,10 +11,12 @@ import Lottie from "lottie-react";
 import magicSticker from "../assets/stickers/magic.json";
 
 // Services
+import blogService from "../api/services/blogService";
 import productService from "../api/services/productService";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
+import { updateBlogs } from "../store/features/blogSlice";
 import { updateProducts } from "../store/features/productsSlice";
 
 // Swiper
@@ -28,16 +29,15 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 // Components
 import Icon from "../components/Icon";
-import NewsItem from "../components/NewsItem";
+import BlogItem from "../components/BlogItem";
 import ProductItem from "../components/ProductItem";
+import BlogItemSkeleton from "../components/BlogItemSkeleton";
 import ProductItemSkeleton from "../components/ProductItemSkeleton";
 
 // Images
 import reloadIcon from "../assets/images/icons/reload.svg";
 import topProductsBg from "../assets/images/backgrounds/top.jpg";
 import arrowRightIcon from "../assets/images/icons/solid-arrow-right.svg";
-import { notification } from "@/notification";
-import BlogItem from "@/components/BlogItem";
 
 const autoplay = {
   delay: 5000,
@@ -54,9 +54,14 @@ const Home = () => {
   const dispatch = useDispatch();
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const slicedBlogs = (blogs) => blogs?.slice(0, 3) || [];
+  const allBlogs = useSelector((state) => state.blogs.data);
+  const [isLoadingBlogs, setIsLoadingBlogs] = useState(true);
   const allProducts = useSelector((state) => state.products.data);
+  const slicedProducts = (products) => products?.slice(0, 10) || [];
+  const [filteredBlogs, setFilteredBlogs] = useState(slicedBlogs(allBlogs));
   const [filteredProducts, setFilteredProducts] = useState(
-    allProducts?.slice(0, 10) || []
+    slicedProducts(allProducts)
   );
 
   const loadProducts = () => {
@@ -67,18 +72,35 @@ const Home = () => {
       .getProducts()
       .then((products) => {
         dispatch(updateProducts(products));
-        setFilteredProducts(products?.slice(0, 10));
+        setFilteredProducts(slicedProducts(products));
       })
       .catch(() => setHasError(true))
       .finally(() => setIsLoading(false));
   };
 
+  const loadBlogs = () => {
+    setIsLoadingBlogs(true);
+
+    blogService
+      .getBlogs()
+      .then((blogs) => {
+        console.log(blogs);
+
+        dispatch(updateBlogs(blogs));
+        setFilteredBlogs(slicedBlogs(blogs));
+      })
+      .catch(() => setHasError(true))
+      .finally(() => setIsLoadingBlogs(false));
+  };
+
   useEffect(() => {
-    if (allProducts?.length === 0) {
-      loadProducts();
-    } else {
-      setTimeout(() => setIsLoading(false), 500);
-    }
+    // Products
+    if (allProducts?.length === 0) loadProducts();
+    else setTimeout(() => setIsLoading(false), 500);
+
+    // Blogs
+    if (allBlogs?.length === 0) loadBlogs();
+    else setTimeout(() => setIsLoadingBlogs(false), 500);
   }, []);
 
   const showAllProducts = () => {
@@ -435,11 +457,22 @@ const Home = () => {
           </div>
 
           {/* News */}
-          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
-            {news.slice(0, 3).map((data, index) => (
-              <BlogItem key={index} data={data} />
-            ))}
-          </ul>
+          {!isLoadingBlogs && filteredBlogs?.length > 0 ? (
+            <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
+              {filteredBlogs.map((blog) => (
+                <BlogItem key={blog._id} data={blog} />
+              ))}
+            </ul>
+          ) : null}
+
+          {/* Loading animation */}
+          {isLoadingBlogs && (
+            <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
+              {Array.from({ length: 3 }).map((_, index) => (
+                <BlogItemSkeleton key={index} />
+              ))}
+            </ul>
+          )}
         </div>
       </section>
 
