@@ -61,9 +61,8 @@ const Register = () => {
         // Navigate to Verify OTP
         navigate("/auth/verify-otp");
       })
-      .catch((err) => {
-        console.log("Errorbek: ", err);
-        notification.error("Noma'lum xatolik yuz berdi");
+      .catch(() => {
+        notification.error("Nimadir xato ketdi");
       })
       .finally(() => setIsLoading(false));
   };

@@ -30,20 +30,15 @@ api.interceptors.request.use(
 // 3. Javobga interceptor qo'shish (Javobni qayta ishlash)
 api.interceptors.response.use(
   (response) => {
-    // Javob muvaffaqiyatli bo'lsa
-    return response.data; // Faqat ma'lumot qismni qaytaradi
+    return response.data; 
   },
-  (error) => {
-    // Xatolikni boshqarish
-    console.log("Axios error:", error.response || error.message);
-
-    // Agar xatolik 401 bo'lsa (Unauthorized), foydalanuvchini login sahifasiga qaytarish
+  ({response}) => {
     if (error.response && error.response.status === 401) {
-      localStorage.removeItem("token"); // Tokenni o'chirish
+      localStorage.removeItem("token"); 
       alert("Avtorizatsiyadan qayta o'ting");
     }
 
-    return Promise.reject(error); // Xatoni davom ettirish
+    return Promise.reject(error);
   }
 );
 

@@ -84,8 +84,6 @@ const Home = () => {
     blogService
       .getBlogs()
       .then((blogs) => {
-        console.log(blogs);
-
         dispatch(updateBlogs(blogs));
         setFilteredBlogs(slicedBlogs(blogs));
       })
