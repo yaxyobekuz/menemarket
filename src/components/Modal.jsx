@@ -1,20 +1,25 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { resetModal } from "../store/features/modalSlice";
+
+// Toaster (For notification)
+import { notification } from "../notification";
 
 // Images
 import crossIcon from "../assets/images/icons/cross.svg";
 
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { resetModal } from "../store/features/modalSlice";
+
+// Services
+import streamService from "../api/services/streamService";
+
 // Components
 import Icon from "./Icon";
 import Overlay from "./Overlay";
+import LoadingText from "./LoadingText";
 import ContactModalContent from "./ContactModalContent";
 import CallOrderModalContent from "./CallOrderModalContent";
 import CreateStreamModalContent from "./CreateStreamModalContent";
-import streamService from "../api/services/streamService";
-import { notification } from "../notification";
-import LoadingText from "./LoadingText";
-import toast from "react-hot-toast";
 
 const Modal = () => {
   const dispatch = useDispatch();
@@ -29,7 +34,8 @@ const Modal = () => {
 
   const createStream = () => {
     const { name } = formData;
-    if (name?.trim()?.length < 3) {
+
+    if ((name?.trim()?.length || 0) < 3) {
       return notification.error("Oqim nomi noto'g'ri kiritildi");
     }
 
