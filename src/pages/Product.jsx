@@ -41,15 +41,14 @@ import reloadIcon from "../assets/images/icons/reload.svg";
 import complaintIcon from "../assets/images/icons/complaint.svg";
 import yellowStarIcon from "../assets/images/icons/mono-star-filled.svg";
 import grayStarIcon from "../assets/images/icons/mono-gray-star-filled.svg";
+import ProductComments from "@/components/ProductComments";
 
-const renderStars = (rating = 5, showRatingValue = true, size = 16) => {
-  const value = Number(Math.round(rating)) || 5;
-
+const renderStars = (rating = 0, showRatingValue = true, size = 16) => {
   return (
     <div className="flex items-center gap-3.5 shrink-0">
       <div className="flex items-center gap-1.5">
         {Array.from({ length: 5 }, (_, i) =>
-          value > i ? (
+          rating > i ? (
             <Icon
               key={i}
               alt="Like icon"
@@ -72,7 +71,7 @@ const renderStars = (rating = 5, showRatingValue = true, size = 16) => {
       </div>
 
       {showRatingValue && (
-        <span className="text-neutral-400">{rating || 5}</span>
+        <span className="text-neutral-400">{rating || 0}</span>
       )}
     </div>
   );
@@ -89,6 +88,7 @@ const Product = () => {
   const location = useLocation();
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
+  const [comments, setComments] = useState(null);
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingOrder, setIsLoadingOrder] = useState(false);
@@ -459,97 +459,12 @@ const Product = () => {
 
               {/* Reviews & Rating */}
               {activeNavButton === "reviews" && (
-                <div className="flex flex-col-reverse items-start gap-5 md:flex-row">
-                  {/* Reviews */}
-                  <div className="w-full">
-                    <ul className="space-y-5">
-                      {images.map((review, index) => {
-                        return (
-                          <li
-                            key={index}
-                            className="flex items-start gap-3.5 w-full bg-white p-3.5 rounded-xl border xs:p-4 xs:gap-4 sm:p-5 sm:gap-5"
-                          >
-                            {/* User avatar */}
-                            <Icon
-                              size={48}
-                              src={review}
-                              alt="User avatar"
-                              className="size-10 shrink-0 bg-gray-light object-cover rounded-full xs:size-11 sm:size-12"
-                            />
-
-                            {/* details */}
-                            <div className="space-y-1.5">
-                              <div className="flex items-center justify-between">
-                                <h3
-                                  aria-label="Author name"
-                                  className="font-medium line-clamp-1 text-base sm:text-lg"
-                                >
-                                  Abdusattor aka
-                                </h3>
-
-                                {renderStars(3, false)}
-                              </div>
-
-                              {/* description */}
-                              <p className="text-neutral-400 text-sm xs:text-base">
-                                Lorem ipsum dolor, sit amet consectetur
-                                adipisicing elit. Voluptatum minus provident
-                                doloremque iure ab error tenetur, vel accusamus
-                                ullam quod maiores soluta possimus eum vitae
-                                fugiat aspernatur laboriosam a architecto.
-                              </p>
-                            </div>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-
-                  {/* Rating */}
-                  <div className="w-full space-y-5 md:max-w-md md:min-w-96">
-                    <div className="w-full p-3.5 space-y-5 rounded-xl border xs:p-4 sm:p-5">
-                      {/* header */}
-                      <div className="flex items-center justify-between">
-                        <b className="text-base font-medium sm:text-lg">
-                          Reyting
-                        </b>
-
-                        {renderStars(4.1)}
-                      </div>
-
-                      {/* body */}
-                      <ul className="space-y-1.5">
-                        {Array.from({ length: 5 }).map((_, index) => {
-                          const randomNumber = getRandomNumber(10, 100);
-                          return (
-                            <li
-                              key={index}
-                              className="flex items-center gap-3.5"
-                            >
-                              <span className="w-2 text-center xs:w-2.5">
-                                {index + 1}
-                              </span>
-                              <div className="grow h-2.5 bg-gray-light rounded-full xs:h-3.5">
-                                <div
-                                  style={{ width: `${randomNumber}%` }}
-                                  className="h-full bg-primary-default rounded-full"
-                                />
-                              </div>
-                              <span className="w-8 text-right text-sm xs:w-10 xs:text-base">
-                                {randomNumber}%
-                              </span>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-
-                    {/* Open add review modal btn */}
-                    <button className="btn-primary w-full h-11 rounded-xl font-normal xs:font-medium">
-                      Sharh qoldirish
-                    </button>
-                  </div>
-                </div>
+                <ProductComments
+                  product={product}
+                  comments={comments}
+                  renderStars={renderStars}
+                  updateComments={setComments}
+                />
               )}
             </div>
           </div>
