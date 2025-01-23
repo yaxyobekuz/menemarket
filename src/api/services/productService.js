@@ -20,6 +20,14 @@ const productService = {
       throw err;
     }
   },
+
+  getProductComments: async (id) => {
+    try {
+      return await api.get(endpoints.getProductComments(id));
+    } catch (err) {
+      throw err;
+    }
+  },
 };
 
 export default productService;
