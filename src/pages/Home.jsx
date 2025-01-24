@@ -11,12 +11,10 @@ import Lottie from "lottie-react";
 import magicSticker from "../assets/stickers/magic.json";
 
 // Services
-import blogService from "../api/services/blogService";
 import productService from "../api/services/productService";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { updateBlogs } from "../store/features/blogSlice";
 import { updateProducts } from "../store/features/productsSlice";
 
 // Swiper
@@ -29,9 +27,8 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
 // Components
 import Icon from "../components/Icon";
-import BlogItem from "../components/BlogItem";
 import ProductItem from "../components/ProductItem";
-import BlogItemSkeleton from "../components/BlogItemSkeleton";
+import BlogsSection from "../components/BlogsSection";
 import ProductItemSkeleton from "../components/ProductItemSkeleton";
 
 // Images
@@ -54,12 +51,8 @@ const Home = () => {
   const dispatch = useDispatch();
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const slicedBlogs = (blogs) => blogs?.slice(0, 3) || [];
-  const allBlogs = useSelector((state) => state.blogs.data);
-  const [isLoadingBlogs, setIsLoadingBlogs] = useState(true);
   const allProducts = useSelector((state) => state.products.data);
   const slicedProducts = (products) => products?.slice(0, 10) || [];
-  const [filteredBlogs, setFilteredBlogs] = useState(slicedBlogs(allBlogs));
   const [filteredProducts, setFilteredProducts] = useState(
     slicedProducts(allProducts)
   );
@@ -78,27 +71,9 @@ const Home = () => {
       .finally(() => setIsLoading(false));
   };
 
-  const loadBlogs = () => {
-    setIsLoadingBlogs(true);
-
-    blogService
-      .getBlogs()
-      .then((blogs) => {
-        dispatch(updateBlogs(blogs));
-        setFilteredBlogs(slicedBlogs(blogs));
-      })
-      .catch(() => setHasError(true))
-      .finally(() => setIsLoadingBlogs(false));
-  };
-
   useEffect(() => {
-    // Products
     if (allProducts?.length === 0) loadProducts();
     else setTimeout(() => setIsLoading(false), 500);
-
-    // Blogs
-    if (allBlogs?.length === 0) loadBlogs();
-    else setTimeout(() => setIsLoadingBlogs(false), 500);
   }, []);
 
   const showAllProducts = () => {
@@ -107,7 +82,7 @@ const Home = () => {
   };
 
   return (
-    <div className="">
+    <>
       {/* Hero */}
       <div className="py-6 sm:pb-10 sm:pt-8">
         <div className="container space-y-3.5 sm:space-y-4 md:space-y-5">
@@ -433,46 +408,7 @@ const Home = () => {
       </section>
 
       {/* Latest news */}
-      <section className="py-8 sm:py-10">
-        <div className="container space-y-6">
-          {/* Section title */}
-          <div className="flex items-center justify-between">
-            <h2>So'nggi yangiliklar</h2>
-
-            {/* brands page link */}
-            <Link to="/news" className="group btn">
-              <span className="text-neutral-600 text-sm transition-colors duration-200 group-hover:text-black sm:text-base">
-                Barcha yangiliklar
-              </span>
-
-              <Icon
-                size={20}
-                src={arrowRightIcon}
-                alt="Right arrow icon"
-                className="size-4 -translate-x-0.5 transition-transform duration-200 group-hover:translate-x-0.5 sm:size-5"
-              />
-            </Link>
-          </div>
-
-          {/* News */}
-          {!isLoadingBlogs && filteredBlogs?.length > 0 ? (
-            <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
-              {filteredBlogs.map((blog) => (
-                <BlogItem key={blog._id} data={blog} />
-              ))}
-            </ul>
-          ) : null}
-
-          {/* Loading animation */}
-          {isLoadingBlogs && (
-            <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
-              {Array.from({ length: 3 }).map((_, index) => (
-                <BlogItemSkeleton key={index} />
-              ))}
-            </ul>
-          )}
-        </div>
-      </section>
+      <BlogsSection />
 
       {/* Features */}
       <section className="bg-gradient-to-b from-white to-gray-light pb-10 pt-0 sm:pt-10 sm:pb-14">
@@ -498,7 +434,7 @@ const Home = () => {
           </ul>
         </div>
       </section>
-    </div>
+    </>
   );
 };
 
