@@ -1,44 +1,39 @@
 import axios from "axios";
 
-// 1. Asosiy Axios konfiguratsiyasi
+// Axios configuration
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL, // API bazaviy URL (env fayldan olinadi)
+  baseURL: import.meta.env.VITE_API_BASE_URL,
   headers: {
-    "Content-Type": "application/json", // So'rovning turini belgilash
-    Accept: "application/json", // API dan JSON formatida ma'lumot kutamiz
+    Accept: "application/json",
+    "Content-Type": "application/json",
   },
 });
 
-// 2. So'rovga interceptor qo'shish (So'rov yuborilishidan oldin)
 api.interceptors.request.use(
   (config) => {
-    // Tokenni localStorage'dan olish
     const token = localStorage.getItem("token");
 
-    // Agar token bo'lsa, uni "Authorization" headerga qo'shamiz
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
 
-    return config; // So'rovni davom ettirish
+    return config;
   },
   (error) => {
-    return Promise.reject(error); // So'rovda xato bo'lsa
+    return Promise.reject(error);
   }
 );
 
-// 3. Javobga interceptor qo'shish (Javobni qayta ishlash)
 api.interceptors.response.use(
   (response) => {
-    return response.data; 
+    return response.data;
   },
-  ({response}) => {
-    if (error.response && error.response.status === 401) {
-      localStorage.removeItem("token"); 
-      alert("Avtorizatsiyadan qayta o'ting");
+  (err) => {
+    if (err.response && err.response?.status === 401) {
+      localStorage.removeItem("token");
     }
 
-    return Promise.reject(error);
+    return Promise.reject(err);
   }
 );
 
