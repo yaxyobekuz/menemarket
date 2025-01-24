@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 // Services
 import blogService from "../api/services/blogService";
@@ -8,22 +7,20 @@ import blogService from "../api/services/blogService";
 import { useDispatch, useSelector } from "react-redux";
 import { updateBlogs } from "../store/features/blogSlice";
 
+// Images
+import reloadIcon from "../assets/images/icons/reload.svg";
+
 // Components
 import Icon from "../components/Icon";
 import BlogItem from "../components/BlogItem";
 import BlogItemSkeleton from "../components/BlogItemSkeleton";
 
-// Images
-import reloadIcon from "../assets/images/icons/reload.svg";
-import arrowRightIcon from "../assets/images/icons/solid-arrow-right.svg";
-
-const BlogsSection = () => {
+const Blogs = () => {
   const dispatch = useDispatch();
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const sliceBlogs = (blogs) => blogs?.slice(0, 3) || [];
   const allBlogs = useSelector((state) => state.blogs.data);
-  const [filteredBlogs, setFilteredBlogs] = useState(sliceBlogs(allBlogs));
+  const [filteredBlogs, setFilteredBlogs] = useState(allBlogs);
 
   const loadBlogs = () => {
     setHasError(false);
@@ -32,8 +29,8 @@ const BlogsSection = () => {
     blogService
       .getBlogs()
       .then((blogs) => {
+        setFilteredBlogs(blogs);
         dispatch(updateBlogs(blogs));
-        setFilteredBlogs(sliceBlogs(blogs));
       })
       .catch(() => setHasError(true))
       .finally(() => setIsLoading(false));
@@ -48,24 +45,8 @@ const BlogsSection = () => {
   return (
     <section className="py-8 sm:py-10">
       <div className="container space-y-6">
-        {/* Section title */}
-        <div className="flex items-center justify-between">
-          <h2>So'nggi yangiliklar</h2>
-
-          {/* brands page link */}
-          <Link to="/blogs" className="group btn">
-            <span className="text-neutral-600 text-sm transition-colors duration-200 group-hover:text-black sm:text-base">
-              Barcha yangiliklar
-            </span>
-
-            <Icon
-              size={20}
-              src={arrowRightIcon}
-              alt="Right arrow icon"
-              className="size-4 -translate-x-0.5 transition-transform duration-200 group-hover:translate-x-0.5 sm:size-5"
-            />
-          </Link>
-        </div>
+        {/* Title */}
+        <h1>Barcha yangiliklar</h1>
 
         {/* News */}
         {!isLoading && !hasError && filteredBlogs?.length > 0 ? (
@@ -79,7 +60,7 @@ const BlogsSection = () => {
         {/* Loading animation */}
         {isLoading && !hasError && (
           <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
-            {Array.from({ length: 3 }).map((_, index) => (
+            {Array.from({ length: 9 }).map((_, index) => (
               <BlogItemSkeleton key={index} />
             ))}
           </ul>
@@ -103,4 +84,4 @@ const BlogsSection = () => {
   );
 };
 
-export default BlogsSection;
+export default Blogs;

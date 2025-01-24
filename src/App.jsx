@@ -24,6 +24,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import Home from "./pages/Home";
 import News from "./pages/News";
 import Login from "./pages/Login";
+import Blogs from "./pages/Blogs";
 import Search from "./pages/Search";
 import Success from "./pages/Success";
 import Product from "./pages/Product";
@@ -53,6 +54,7 @@ const App = () => {
           <Route path="products/:productType?" element={<Products />} />
           <Route path="products/product/:productId" element={<Product />} />
           <Route path="search" element={<Search />} />
+          <Route path="blogs" element={<Blogs />} />
           <Route path="success" element={<Success />} />
           <Route path="auth" element={<AuthLayout />}>
             <Route path="login" element={<Login />} />
