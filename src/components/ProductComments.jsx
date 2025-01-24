@@ -172,7 +172,7 @@ const ProductComments = ({
               </ul>
             ) : null}
 
-            {comments?.length === 0 || comments?.length ? (
+            {comments?.length === 0 || !comments?.length ? (
               <b className="text-lg font-medium sm:text-xl">
                 Hech qanday sharhlar mavjud emas!
               </b>
