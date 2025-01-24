@@ -6,6 +6,10 @@ import Icon from "../components/Icon";
 // Utils
 import { getAvatarByIndex } from "../utils";
 
+// Redux
+import { useDispatch } from "react-redux";
+import { updateModal } from "../store/features/modalSlice";
+
 // Services
 import productService from "../api/services/productService";
 
@@ -19,6 +23,7 @@ const ProductComments = ({
   renderStars,
   updateComments = () => {},
 }) => {
+  const dispatch = useDispatch();
   const [hasError, setHasError] = useState(false);
   const { _id: productId, images } = product || {};
   const [avatarsIndex, setAvatarsIndex] = useState([]);
@@ -88,6 +93,21 @@ const ProductComments = ({
       .finally(() => setIsLoading(false));
   };
 
+  const handleOpenCommentModal = () => {
+    dispatch(
+      updateModal({
+        data: { productId },
+        isOpen: true,
+        name: "createComment",
+        title: "Sharh qoldirish",
+        buttons: {
+          secondary: { label: "Yopish" },
+          primary: { label: "Yuborish", action: "createComment" },
+        },
+      })
+    );
+  };
+
   useEffect(() => {
     if (!comments) loadComments();
     else {
@@ -99,56 +119,64 @@ const ProductComments = ({
   return (
     <>
       {/* Comments */}
-      {!isLoading && !hasError && comments?.length > 0 ? (
+      {!isLoading && !hasError ? (
         <div className="flex flex-col-reverse items-start gap-5 md:flex-row">
-          {/* Reviews */}
           <div className="w-full">
-            <ul className="space-y-5">
-              {comments.map((comment, index) => {
-                const {
-                  rating,
-                  gender,
-                  commentor: name,
-                  comment: description,
-                } = comment || {};
-                return (
-                  <li
-                    key={index}
-                    className="flex items-start gap-3.5 w-full bg-white p-3.5 rounded-xl border xs:p-4 xs:gap-4 sm:p-5 sm:gap-5"
-                  >
-                    {/* User avatar */}
-                    <Icon
-                      size={48}
-                      alt="User avatar"
-                      src={getAvatarByIndex(
-                        gender || "default",
-                        avatarsIndex[index]
-                      )}
-                      className="size-10 shrink-0 bg-gray-light object-cover rounded-full xs:size-11 sm:size-12"
-                    />
+            {/* Reviews */}
+            {comments?.length > 0 ? (
+              <ul className="space-y-5">
+                {comments.map((comment, index) => {
+                  const {
+                    rating,
+                    gender,
+                    commentor: name,
+                    comment: description,
+                  } = comment || {};
+                  return (
+                    <li
+                      key={index}
+                      className="flex items-start gap-3.5 w-full bg-white p-3.5 rounded-xl border transition-colors duration-200 hover:bg-neutral-50/50 xs:p-4 xs:gap-4 sm:p-5 sm:gap-5"
+                    >
+                      {/* User avatar */}
+                      <Icon
+                        size={48}
+                        alt="User avatar"
+                        src={getAvatarByIndex(
+                          gender || "default",
+                          avatarsIndex[index]
+                        )}
+                        className="size-10 shrink-0 bg-gray-light object-cover rounded-full xs:size-11 sm:size-12"
+                      />
 
-                    {/* details */}
-                    <div className="w-full space-y-1.5">
-                      <div className="flex items-center justify-between">
-                        <h3
-                          aria-label="Author name"
-                          className="font-medium line-clamp-1 text-base sm:text-lg"
-                        >
-                          {name}
-                        </h3>
+                      {/* details */}
+                      <div className="w-full space-y-1.5">
+                        <div className="flex items-center justify-between">
+                          <h3
+                            aria-label="Author name"
+                            className="font-medium line-clamp-1 text-base sm:text-lg"
+                          >
+                            {name}
+                          </h3>
 
-                        {renderStars(rating, false)}
+                          {renderStars(rating, false)}
+                        </div>
+
+                        {/* description */}
+                        <p className="text-neutral-400 text-sm xs:text-base">
+                          {description}
+                        </p>
                       </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : null}
 
-                      {/* description */}
-                      <p className="text-neutral-400 text-sm xs:text-base">
-                        {description}
-                      </p>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
+            {comments?.length === 0 || comments?.length ? (
+              <b className="text-lg font-medium sm:text-xl">
+                Hech qanday sharhlar mavjud emas!
+              </b>
+            ) : null}
           </div>
 
           {/* Rating */}
@@ -187,7 +215,10 @@ const ProductComments = ({
             </div>
 
             {/* Open add review modal btn */}
-            <button className="btn-primary w-full h-11 rounded-xl font-normal xs:font-medium">
+            <button
+              onClick={handleOpenCommentModal}
+              className="btn-primary w-full h-11 rounded-xl font-normal xs:font-medium"
+            >
               Sharh qoldirish
             </button>
           </div>
