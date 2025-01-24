@@ -22,6 +22,8 @@ const apiEndpoints = {
   createOrder: (id) => `api/orders/${id}`,
 
   createPayment: "api/payments",
+
+  createComment: (id) => `api/comments/${id}`,
 };
 
 export default apiEndpoints;
