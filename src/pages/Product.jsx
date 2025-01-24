@@ -8,9 +8,6 @@ import addresses from "../data/addresses";
 // Redux
 import { useDispatch } from "react-redux";
 
-// Utils
-import { getRandomNumber } from "../utils";
-
 // Toaster (For notification)
 import { notification } from "../notification";
 
@@ -31,6 +28,7 @@ import CopyButton from "../components/CopyButton";
 import DotsLoader from "../components/DotsLoader";
 import ProductItem from "../components/ProductItem";
 import LoadingText from "../components/LoadingText";
+import ProductComments from "../components/ProductComments";
 import FormInputWrapper from "../components/FormInputWrapper";
 
 // Images
@@ -41,7 +39,6 @@ import reloadIcon from "../assets/images/icons/reload.svg";
 import complaintIcon from "../assets/images/icons/complaint.svg";
 import yellowStarIcon from "../assets/images/icons/mono-star-filled.svg";
 import grayStarIcon from "../assets/images/icons/mono-gray-star-filled.svg";
-import ProductComments from "@/components/ProductComments";
 
 const renderStars = (rating = 0, showRatingValue = true, size = 16) => {
   return (

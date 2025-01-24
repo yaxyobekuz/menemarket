@@ -20,6 +20,8 @@ import LoadingText from "./LoadingText";
 import ContactModalContent from "./ContactModalContent";
 import CallOrderModalContent from "./CallOrderModalContent";
 import CreateStreamModalContent from "./CreateStreamModalContent";
+import CreateCommentModalContent from "./CreateCommentModalContent";
+import commentService from "@/api/services/commentService";
 
 const Modal = () => {
   const dispatch = useDispatch();
@@ -28,14 +30,18 @@ const Modal = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { title, name, buttons, data } = useSelector((state) => state.modal);
 
+  const checkValueLength = (value = "", length = 3) => {
+    return (value?.trim()?.length || 0) < length;
+  };
+
   const sendUserCallOrderToServer = () => {
-    notification("Uxxx... Vahui", "🗿");
+    notification("Vahui", "🗿");
   };
 
   const createStream = () => {
     const { name } = formData;
 
-    if ((name?.trim()?.length || 0) < 3) {
+    if (checkValueLength(name)) {
       return notification.error("Oqim nomi noto'g'ri kiritildi");
     }
 
@@ -49,15 +55,51 @@ const Modal = () => {
     });
   };
 
+  const createComment = () => {
+    const { productId } = data || {};
+    const { comment, commentor, gender, rating } = formData;
+
+    if (checkValueLength(commentor)) {
+      return notification.error("Ism noto'g'ri kiritildi");
+    }
+
+    if (checkValueLength(comment)) {
+      return notification.error("Izoh noto'g'ri kiritildi");
+    }
+
+    if (!["male", "female"].includes(gender)) {
+      return notification.error("Jins noto'g'ri kiritildi");
+    }
+
+    if (rating > 5 || rating <= 0) {
+      return notification.error("Baholash noto'g'ri kiritildi");
+    }
+
+    closeModal();
+
+    notification.promise(
+      commentService.createComment(productId, formData).catch(() => {
+        localStorage.setItem("comment", JSON.stringify(formData));
+      }),
+      {
+        success: "Sharh qoldirildi!",
+        loading: "Sharh qoldirilmoqda...",
+        error: "Sharh qoldirishda xatolik yuz berdi!",
+      }
+    );
+  };
+
   // Maps
   const contentMap = {
     contact: <ContactModalContent />,
     callOrder: <CallOrderModalContent updateFormData={setFormData} />,
     createStream: <CreateStreamModalContent updateFormData={setFormData} />,
+    createComment: <CreateCommentModalContent updateFormData={setFormData} />,
   };
 
   const actionMap = {
     createStream,
+    createComment,
     callOrder: sendUserCallOrderToServer,
   };
 
