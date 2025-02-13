@@ -116,7 +116,7 @@ const Product = () => {
 
     productService
       .getProduct(productId)
-      .then((product) => setProduct(product))
+      .then(({ product }) => setProduct(product))
       .catch(() => setHasError(true))
       .finally(() => setIsLoading(false));
   };
@@ -246,11 +246,11 @@ const Product = () => {
                     }}
                     className="product-page-swiper default-swiper-navigation-buttons size-full rounded-xl"
                   >
-                    {[...images, ...images, ...images, ...images].map(
+                    {[...images, ...images, ...images, ...images]?.map(
                       (img, index) => (
                         <SwiperSlide
                           key={index}
-                          style={{ backgroundImage: `url(${img})` }}
+                          style={{ backgroundImage: `url(${img?.large})` }}
                           className="!flex items-center justify-center !w-auto !h-full aspect-[3/4] bg-gray-light bg-cover bg-center bg-no-repeat rounded-xl"
                         />
                       )
@@ -341,12 +341,12 @@ const Product = () => {
                     <div>
                       {/* discount price */}
                       <del className="text-neutral-400">
-                        {price.toLocaleString()}
+                        {price?.toLocaleString()}
                       </del>
 
                       {/* current price */}
                       <p className="text-2xl font-semibold text-primary-default">
-                        {price.toLocaleString()} so'm
+                        {price?.toLocaleString()} so'm
                       </p>
                     </div>
                   </div>

@@ -8,7 +8,7 @@ import Icon from "./Icon";
 import starIcon from "../assets/images/icons/mono-star-filled.svg";
 
 const ProductItem = ({ data = {} }) => {
-  const image = data?.images ? data?.images[0] : "";
+  const image = data?.images?.length ? data?.images[0]?.medium : "";
 
   return (
     <li className="relative">
