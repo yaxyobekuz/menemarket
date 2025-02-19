@@ -15,8 +15,8 @@ const NewsItem = ({ data = {} }) => {
         {/* icon */}
         <Icon
           size={72}
-          src={image}
           alt="News image"
+          src={image?.small}
           className="size-16 object-cover bg-neutral-200 xs:size-[72px] rounded-lg"
         />
 

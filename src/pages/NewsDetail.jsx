@@ -85,15 +85,15 @@ const NewsDetail = () => {
             <>
               <div className="relative xs:pb-20">
                 <Icon
-                  src={image}
                   alt="News banner"
+                  src={image?.small}
                   className="w-full h-auto aspect-square object-cover bg-gray-light xs:h-64 xs:aspect-auto xs:brightness-50 xs:blur md:h-72"
                 />
 
                 <Icon
                   size={288}
-                  src={image}
                   alt="News image"
+                  src={image?.large}
                   className="hidden absolute left-5 bottom-0 size-64 object-cover bg-gray-light border-8 border-gray-light rounded-xl xs:inline-block md:size-72 md:left-10"
                 />
 
