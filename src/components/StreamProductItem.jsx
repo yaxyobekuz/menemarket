@@ -8,19 +8,28 @@ import Icon from "./Icon";
 import starIcon from "../assets/images/icons/mono-star-filled.svg";
 
 const StreamProductItem = ({ data = {}, onBtnClick = () => {} }) => {
+  const {
+    title,
+    price,
+    images,
+    _id: id,
+    total: count,
+    for_seller: bonusPrice,
+    discount_price: discountPrice,
+  } = data || {};
+  const image = images?.length ? images[0]?.medium : "";
+
   return (
     <li className="relative">
       {/* Image wrapper */}
       <div className="relative overflow-hidden mb-1.5 rounded-xl">
         <img
+          src={image}
+          alt={title}
           width={232}
           height={309}
           loading="lazy"
-          alt={`${data.title} image`}
           className="w-full h-auto aspect-[3/4] bg-gray-light"
-          src={
-            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLIsi8MkmD5xkF3CKNyn0SCv3Lse1BiNdgmg&s"
-          }
         />
       </div>
 
@@ -29,12 +38,10 @@ const StreamProductItem = ({ data = {}, onBtnClick = () => {} }) => {
         {/* title */}
         <div className="h-9">
           <Link
-            to={`/products/product/${data._id}`}
+            to={`/products/product/${id}`}
+            children={title || "Sarlavha mavjud emas!"}
             className="text-sm leading-[18px] line-clamp-2 hover:text-primary-default"
-          >
-            {data.title}
-            lorem ipsum dolor sit amrt lorem ipsum dolor sit amrt
-          </Link>
+          />
         </div>
 
         {/* price & rating */}
@@ -42,12 +49,12 @@ const StreamProductItem = ({ data = {}, onBtnClick = () => {} }) => {
           {/* price wrapper */}
           <div className="h-10">
             <del className="inline-block text-sm text-neutral-400">
-              {data.price.toLocaleString()}
+              {discountPrice?.toLocaleString() || 0}
             </del>
 
             {/* price */}
             <p className="text-[15px] leading-4 font-medium">
-              {data.price.toLocaleString()}
+              {price?.toLocaleString() || 0}
               <span> so'm</span>
             </p>
           </div>
@@ -59,8 +66,8 @@ const StreamProductItem = ({ data = {}, onBtnClick = () => {} }) => {
             {/* star */}
             <Icon
               size={14}
-              alt="Star icon"
               src={starIcon}
+              alt="Star icon"
               className="size-3.5"
             />
           </div>
@@ -71,7 +78,7 @@ const StreamProductItem = ({ data = {}, onBtnClick = () => {} }) => {
           <span className="text-sm text-neutral-400">To'lov</span>
           <span className="block grow pb-1 border-t-2 border-neutral-400 border-dotted" />
           <span className="text-sm text-green-600">
-            {(10000).toLocaleString()}
+            {bonusPrice?.toLocaleString() || 0}
           </span>
         </div>
 
@@ -80,7 +87,7 @@ const StreamProductItem = ({ data = {}, onBtnClick = () => {} }) => {
           <span className="text-sm text-neutral-400">Mavjud</span>
           <span className="block grow pb-1 border-t-2 border-neutral-400 border-dotted" />
           <span className="text-sm text-neutral-400">
-            {data.total.toLocaleString()}
+            {count?.toLocaleString() || 0}
           </span>
         </div>
 

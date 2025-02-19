@@ -1,20 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-// Utils
-import {
-  formatDate,
-  formatTime,
-  getRandomNumber,
-  getPercentageBgColor,
-} from "../utils";
-
 // Components
+import Icon from "./Icon";
 import CopyButton from "./CopyButton";
 
+// Utils
+import { formatDate, formatTime } from "../utils";
+
+// Images
+import deleteIcon from "../assets/images/icons/delete.svg";
+
 const StreamItem = ({ data = {} }) => {
-  const percentage = getRandomNumber(0, 99);
   const { _id: id, created_at: timestamp, name, product } = data || {};
+  const { _id: productId, title: productTitle } = product || {};
   const url = `menemarket.uz/oqim/${id}`;
 
   return (
@@ -25,13 +24,9 @@ const StreamItem = ({ data = {} }) => {
           {name || "Oqim nomi mavjud emas!"}
         </h3>
 
-        <div
-          className={`${getPercentageBgColor(
-            percentage
-          )} rounded-full px-2 py-0.5 text-white text-[13px] max-sm:leading-[18px] sm:text-sm`}
-        >
-          {percentage}%
-        </div>
+        <button disabled className="btn size-8">
+          <Icon src={deleteIcon} alt="Delete icon" />
+        </button>
       </div>
 
       {/* Main */}
@@ -40,10 +35,10 @@ const StreamItem = ({ data = {} }) => {
         <div className="space-y-1">
           <b className="font-medium text-[15px] sm:text-[17px]">Mahsulot</b>
           <Link
-            to={`/products/product/${product._id}`}
+            to={`/products/product/${productId}`}
             className="line-clamp-2 text-neutral-500 text-[15px] transition-colors duration-200 hover:text-primary-default sm:text-base"
           >
-            {product.title}
+            {productTitle || "Mahsulot nomi mavjud emas!"}
           </Link>
         </div>
 
