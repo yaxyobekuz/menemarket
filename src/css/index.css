@@ -64,7 +64,7 @@
   }
 
   .scroll-hidden::-webkit-scrollbar {
-    @apply w-0 opacity-0 bg-transparent;
+    @apply hidden w-0 h-0 opacity-0 bg-transparent;
   }
 
   .btn {

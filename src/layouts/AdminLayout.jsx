@@ -49,11 +49,8 @@ const AdminLayout = () => {
   };
 
   useEffect(() => {
-    if (!userData) {
-      getUserData();
-    } else {
-      setTimeout(() => setIsLoading(false), 500);
-    }
+    if (!userData) getUserData();
+    else setTimeout(() => setIsLoading(false), 500);
   }, []);
 
   useEffect(() => {
