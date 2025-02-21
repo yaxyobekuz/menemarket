@@ -52,6 +52,14 @@ const userService = {
       throw err;
     }
   },
+
+  updateProfile: async (id, data) => {
+    try {
+      return await api.put(endpoints.updateProfile(id), data);
+    } catch (err) {
+      throw err;
+    }
+  },
 };
 
 export default userService;
