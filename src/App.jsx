@@ -42,6 +42,7 @@ import Statistics from "./pages/Statistics";
 import NewsDetail from "./pages/NewsDetail";
 import BalanceHistory from "./pages/BalanceHistory";
 import StreamProduct from "./pages/StreamProduct";
+import EditProfile from "./pages/EditProfile";
 
 const App = () => {
   const modal = useSelector((state) => state.modal);
@@ -66,21 +67,22 @@ const App = () => {
         </Route>
 
         {/* For admin */}
-        <Route path="/admin/:a?" element={<AdminLayout />}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="dashboard/news" element={<News />} />
-          <Route path="dashboard/news/:newsId" element={<NewsDetail />} />
-          <Route path="dashboard/donate" element={<DonateBox />} />
+        <Route path="/admin" element={<AdminLayout />}>
           <Route
             element={<BalanceHistory />}
             path="dashboard/balance-history"
           />
-          <Route element={<Contests />} path="dashboard/contests" />
-          <Route path="new-stream" element={<NewStream />} />
           <Route path="streams" element={<Streams />} />
-          <Route path="statistics" element={<Statistics />} />
           <Route path="payment" element={<Payment />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="dashboard/news" element={<News />} />
+          <Route path="new-stream" element={<NewStream />} />
+          <Route path="statistics" element={<Statistics />} />
+          <Route path="profile/edit" element={<EditProfile />} />
+          <Route index path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard/donate" element={<DonateBox />} />
+          <Route path="dashboard/contests" element={<Contests />} />
+          <Route path="dashboard/news/:newsId" element={<NewsDetail />} />
         </Route>
       </Route>
     )
