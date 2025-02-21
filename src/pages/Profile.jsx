@@ -1,5 +1,8 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+// Data
+import avatars from "@/data/avatars";
 
 // Toaster (For notification)
 import { notification } from "../notification";
@@ -26,7 +29,7 @@ const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user.data);
-  const { _id, name, username, email } = userData || {};
+  const { _id, name, username, email, avatar } = userData || {};
 
   const handleLogout = () => {
     notification.promise(
@@ -48,12 +51,13 @@ const Profile = () => {
       <div className="container space-y-4">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
           {/* Profile */}
-          <div className="flex items-center justify-between gap-1.5 bg-gradient-gray p-3.5 rounded-xl md:col-span-2 sm:p-4 lg:p-5">
+          <div className="flex items-center justify-between gap-1.5 bg-gradient-gray p-3.5 rounded-xl md:col-span-2 sm:p-4 lg:px-4 lg:p-5">
             <div className="flex items-center gap-3 min-w-0 2xl:gap-4">
               <Icon
+                size={64}
                 alt="User avatar"
-                className="size-12 rounded-full md:size-14 lg:size-16"
-                src="https://i1.sndcdn.com/artworks-000360728946-bilq7t-t500x500.jpg"
+                src={avatar?.small || avatars["default"][2]}
+                className="size-12 bg-white rounded-full md:size-14 lg:size-16"
               />
 
               {/* Details */}
@@ -70,7 +74,8 @@ const Profile = () => {
             </div>
 
             {/* Edit */}
-            <button
+            <Link
+              to="/admin/profile/edit"
               aria-label="Edit profile"
               className="btn shrink-0 size-10 bg-white rounded-full sm:size-12"
             >
@@ -79,7 +84,7 @@ const Profile = () => {
                 alt="Edit icon"
                 className="size-[21px] xs:size-6"
               />
-            </button>
+            </Link>
           </div>
 
           {/* Email */}

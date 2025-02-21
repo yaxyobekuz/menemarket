@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+// Data
+import avatars from "@/data/avatars";
+
 // Services
 import newsService from "../api/services/newsService";
 
@@ -36,7 +39,7 @@ const Dashboard = () => {
   const [isLoading, setIsLoading] = useState(allNews?.length === 0);
   const [filteredNews, setFilteredNews] = useState(slicedNews(allNews) || []);
   const [hideBalance, setHideBalance] = useState(hideBalanceStorage === "true");
-  const { balance, name, username } = userData || {};
+  const { balance, name, username, avatar } = userData || {};
 
   const handleChangeHideBalance = () => {
     setHideBalance(!hideBalance);
@@ -71,9 +74,10 @@ const Dashboard = () => {
             {/* Profile */}
             <div className="flex items-center gap-4 min-w-0">
               <Icon
+                size={64}
                 alt="User avatar"
-                className="size-12 rounded-full xs:size-14 md:size-16"
-                src="https://i1.sndcdn.com/artworks-000360728946-bilq7t-t500x500.jpg"
+                src={avatar?.small || avatars["default"][2]}
+                className="size-12 bg-white rounded-full xs:size-14 md:size-16"
               />
 
               {/* Details */}

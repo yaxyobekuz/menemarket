@@ -4,6 +4,9 @@ import { Link, NavLink } from "react-router-dom";
 // Components
 import Icon from "./Icon";
 
+// Data
+import avatars from "@/data/avatars";
+
 // Redux
 import { useSelector } from "react-redux";
 
@@ -12,7 +15,7 @@ import emailIcon from "../assets/images/icons/email-gradient.svg";
 
 const Sidebar = ({ isCollapse, setIsCollapse }) => {
   const userData = useSelector((state) => state.user.data);
-  const { name, email } = userData || {};
+  const { name, email, avatar } = userData || {};
 
   return (
     <div
@@ -92,10 +95,10 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
               } flex items-center justify-center gap-2.5 p-4`}
             >
               <Icon
-                size={48}
+                size={32}
                 alt="User avatar"
-                className="size-8 rounded-full"
-                src="https://i1.sndcdn.com/artworks-000360728946-bilq7t-t500x500.jpg"
+                className="size-8 bg-white rounded-full"
+                src={avatar?.small || avatars["default"][2]}
               />
 
               <p

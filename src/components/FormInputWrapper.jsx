@@ -133,7 +133,7 @@ const FormInputWrapper = ({
 
   return (
     <div
-      className={`group flex flex-col items-center justify-center gap-1.5 relative overflow-hidden rounded-b-xl ${className}`}
+      className={`group flex flex-col items-center justify-center gap-1.5 relative overflow-hidden rounded-b-lg ${className}`}
     >
       {/* Label */}
       {label && (
