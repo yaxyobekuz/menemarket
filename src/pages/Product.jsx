@@ -2,11 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 // Data
-import products from "../data/products";
 import addresses from "../data/addresses";
-
-// Redux
-import { useDispatch } from "react-redux";
 
 // Toaster (For notification)
 import { notification } from "../notification";
@@ -80,7 +76,6 @@ const navButtons = [
 ];
 
 const Product = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const { productId } = useParams();
@@ -89,13 +84,10 @@ const Product = () => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoadingOrder, setIsLoadingOrder] = useState(false);
+  const [formData, setFormData] = useState({ client_address: 1 });
+  const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [activeNavButton, setActiveNavButton] = useState(navButtons[0].name);
   const { _id: id, title, images, price, desc: description } = product || {};
-  const [formData, setFormData] = useState({
-    client_name: "",
-    client_mobile: "",
-    client_address: "",
-  });
 
   // Load products
   const loadProduct = () => {
@@ -116,7 +108,10 @@ const Product = () => {
 
     productService
       .getProduct(productId)
-      .then(({ product }) => setProduct(product))
+      .then(({ product, related_products: recommendedProducts }) => {
+        setProduct(product);
+        setRecommendedProducts(recommendedProducts);
+      })
       .catch(() => setHasError(true))
       .finally(() => setIsLoading(false));
   };
@@ -137,7 +132,7 @@ const Product = () => {
       return notification.error("Ismingizni to'g'ri kiriting");
     if (tel?.length !== 19)
       return notification.error("Tel raqamingizni to'g'ri kiriting");
-    if (addressKey < 0 || addressKey > 14)
+    if (!(addressKey > 0 && addressKey < 15))
       return notification.error("Manzil kodi xato");
 
     setIsLoadingOrder(true);
@@ -466,7 +461,7 @@ const Product = () => {
             </div>
           </div>
 
-          {/* Popular products */}
+          {/* Recommended products */}
           <section className="py-6 sm:py-8">
             <div className="container space-y-6">
               {/* Section title */}
@@ -474,16 +469,10 @@ const Product = () => {
 
               {/* Section content */}
               <ul className="grid grid-cols-2 gap-x-3.5 gap-y-6 sm:grid-cols-3 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-8 lg:grid-cols-5">
-                {products.slice(0, 5).map((product, index) => (
+                {recommendedProducts.slice(0, 5).map((product, index) => (
                   <ProductItem key={index} data={product} />
                 ))}
               </ul>
-
-              <div className="flex justify-center w-full pt-3.5 xs:pt-5">
-                <button className="w-full bg-gray-light px-5 py-2 rounded-xl text-base font-medium transition-colors duration-200 hover:bg-gray-medium/50 sm:w-auto sm:px-28 sm:text-lg md:px-32">
-                  Ko'proq ko'rsatish
-                </button>
-              </div>
             </div>
           </section>
         </>
