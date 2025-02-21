@@ -12,6 +12,14 @@ const paymentService = {
       throw err;
     }
   },
+
+  getPayments: async () => {
+    try {
+      return await api.get(endpoints.getPayments);
+    } catch (err) {
+      throw err;
+    }
+  },
 };
 
 export default paymentService;

@@ -21,6 +21,7 @@ const apiEndpoints = {
 
   createOrder: (id) => `api/orders/${id}`,
 
+  getPayments: "api/payments",
   createPayment: "api/payments",
 
   createComment: (id) => `api/comments/${id}`,
