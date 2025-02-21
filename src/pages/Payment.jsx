@@ -1,31 +1,40 @@
 import React, { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 
+// Lottie (For stickers)
+import Lottie from "lottie-react";
+
+// Redux
+import { useSelector } from "react-redux";
+
 // Utils
-import { getRandomNumber } from "../utils";
+import { extractNumbers } from "../utils";
 
 // Toaster (For notification)
 import { notification } from "../notification";
 
-// Components
-import ToggleEyeButton from "../components/ToggleEyeBtn";
-import TransactionItem from "../components/TransactionItem";
-import FormInputWrapper from "../components/FormInputWrapper";
-
 // Services
 import paymentService from "../api/services/paymentsService";
 
+// Stickers
+import likeOutSticker from "../assets/stickers/like-out.json";
+
+// Components
+import LoadingText from "@/components/LoadingText";
+import ToggleEyeButton from "../components/ToggleEyeBtn";
+import FormInputWrapper from "../components/FormInputWrapper";
+
 // Images
-import sendIcon from "../assets/images/icons/send.svg";
-import receiveIcon from "../assets/images/icons/receive.svg";
 import waveBlueGradientBg from "../assets/images/backgrounds/wave-blue-gradient.avif";
 
 const Payment = () => {
   const [formData, setFormData] = useState({});
+  const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [balance] = useState(getRandomNumber(0, 9999999));
+  const userData = useSelector((state) => state.user.data);
   const hideBalanceStorage = localStorage.getItem("hideBalance");
   const [hideBalance, setHideBalance] = useState(hideBalanceStorage === "true");
+  const { balance } = userData || {};
 
   // Update form data based on input changes
   const handleInputChange = useCallback((field, value) => {
@@ -42,11 +51,22 @@ const Payment = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (isLoading) return;
+
+    const { card_number: cardNumber } = formData || {};
+
+    if (extractNumbers(cardNumber)?.length !== 16) {
+      return notification.error("Karta raqam noto'g'ri kiritildi");
+    }
+
+    setIsLoading(true);
 
     paymentService
       .createPayment(formData)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        setFormData({});
+        setSuccess(true);
+        setTimeout(() => setSuccess(false), 2500);
       })
       .catch(({ response: res }) => {
         const message = res.data?.message;
@@ -142,86 +162,89 @@ const Payment = () => {
         </div>
 
         {/* Main */}
-        <section className="bg-gradient-gray px-3.5 py-4 rounded-xl space-y-5 xs:p-4">
-          <h2 className="font-semibold text-xl">
-            To'lov uchun so'rov yuborish
-          </h2>
-
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 gap-y-4 gap-x-5 md:grid-cols-2">
-              {/* Card number */}
-              <FormInputWrapper
-                type="card"
-                maxLength="19"
-                name="Full name"
-                label="Karta raqam *"
-                placeholder="0000 0000 0000 0000"
-                className="white-input !rounded-lg overflow-hidden"
-                onChange={(value) => handleInputChange("card_number", value)}
+        <section className="bg-gradient-gray px-3.5 py-4 rounded-xl xs:p-4">
+          {success ? (
+            <div className="flex flex-col items-center justify-center gap-3.5 w-full h-80">
+              <Lottie
+                animationData={likeOutSticker}
+                className="size-28 xs:size-32 sm:size-36 md:size-40"
               />
-
-              {/* Full name */}
-              <FormInputWrapper
-                maxLength="72"
-                name="Card number"
-                label="Karta egasi *"
-                placeholder="Falonchi Falonchiyev"
-                className="white-input !rounded-lg overflow-hidden"
-                onChange={(value) => handleInputChange("card_owner", value)}
-              />
+              <b className="text-lg font-semibold text-center sm:text-xl">
+                So'rov muvaffaqiyatli <br /> yuborildi!
+              </b>
             </div>
+          ) : (
+            <div className="space-y-5">
+              <h2 className="font-semibold text-xl">
+                To'lov uchun so'rov yuborish
+              </h2>
 
-            <div className="grid grid-cols-1 gap-y-4 gap-x-5 md:grid-cols-2">
-              {/* Card number */}
-              <FormInputWrapper
-                type="text"
-                name="Amount"
-                maxLength="7"
-                label="Qiymat *"
-                placeholder="Max 5,000,000 so'm"
-                className="white-input !rounded-lg overflow-hidden"
-                onChange={(value) => handleInputChange("payment", value)}
-              />
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 gap-y-4 gap-x-5 md:grid-cols-2">
+                  {/* Card number */}
+                  <FormInputWrapper
+                    required
+                    type="card"
+                    maxLength="19"
+                    name="Full name"
+                    disabled={isLoading}
+                    label="Karta raqam *"
+                    placeholder="0000 0000 0000 0000"
+                    className="white-input !rounded-lg"
+                    onChange={(value) =>
+                      handleInputChange("card_number", value)
+                    }
+                  />
 
-              {/* Description */}
-              <FormInputWrapper
-                label="Izoh"
-                maxLength="72"
-                name="Description"
-                placeholder="Ixtiyoriy"
-                className="white-input !rounded-lg overflow-hidden"
-                onChange={(value) => handleInputChange("comment", value)}
-              />
+                  {/* Full name */}
+                  <FormInputWrapper
+                    required
+                    maxLength="72"
+                    name="Card number"
+                    disabled={isLoading}
+                    label="Karta egasi *"
+                    placeholder="Falonchi Falonchiyev"
+                    className="white-input !rounded-lg"
+                    onChange={(value) => handleInputChange("card_owner", value)}
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 gap-y-4 gap-x-5 md:grid-cols-2">
+                  {/* Card number */}
+                  <FormInputWrapper
+                    required
+                    type="number"
+                    name="Amount"
+                    maxLength="7"
+                    label="Qiymat *"
+                    disabled={isLoading}
+                    placeholder="Max 5,000,000 so'm"
+                    className="white-input !rounded-lg"
+                    onChange={(value) => handleInputChange("payment", value)}
+                  />
+
+                  {/* Description */}
+                  <FormInputWrapper
+                    label="Izoh"
+                    maxLength="72"
+                    name="Description"
+                    disabled={isLoading}
+                    placeholder="Ixtiyoriy"
+                    className="white-input !rounded-lg"
+                    onChange={(value) => handleInputChange("comment", value)}
+                  />
+                </div>
+
+                {/* Btn */}
+                <button
+                  disabled={isLoading}
+                  className="btn-primary w-full h-10 px-16 font-normal xs:w-auto"
+                >
+                  <LoadingText loader={isLoading} text="Yuborish" />
+                </button>
+              </form>
             </div>
-
-            {/* Btn */}
-            <button className="btn-primary w-full h-10 px-16 font-normal xs:w-auto">
-              Yuborish
-            </button>
-          </form>
-        </section>
-
-        {/* Balance history */}
-        <section className="bg-gradient-gray rounded-xl">
-          <div className="flex items-center h-[62px] border-b-2 border-white">
-            <h2 className="px-4 font-semibold text-xl">Balans tarixi</h2>
-          </div>
-
-          <ul className="py-3.5">
-            {Array.from({ length: 6 }).map((_, index) => {
-              const isOdd = getRandomNumber() % 2 === 0;
-              return (
-                <TransactionItem
-                  key={index}
-                  type={isOdd ? "receive" : "send"}
-                  amount={getRandomNumber(0, 999999)}
-                  icon={isOdd ? receiveIcon : sendIcon}
-                  alt={isOdd ? "Receive icon" : "Send icon"}
-                  title={isOdd ? "Qabul qilindi" : "Yuborildi"}
-                />
-              );
-            })}
-          </ul>
+          )}
         </section>
       </div>
     </div>

@@ -1,17 +1,65 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-// Utils
-import { getRandomNumber } from "../utils";
-
-// Components
-import TransactionItem from "../components/TransactionItem";
-import AdminPagesHeader from "../components/AdminPagesHeader";
+// Data
+import { getStatusByValue } from "@/data/statuses";
 
 // Images
-import sendIcon from "../assets/images/icons/send.svg";
-import receiveIcon from "../assets/images/icons/receive.svg";
+import reloadIcon from "../assets/images/icons/reload.svg";
+import paymentService from "@/api/services/paymentsService";
+
+// Components
+import DotsLoader from "@/components/DotsLoader";
+import AdminPagesHeader from "../components/AdminPagesHeader";
+import BalanceHistoryItem from "@/components/BalanceHistoryItem";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { updateBalanceHistory } from "@/store/features/balanceHistorySlice";
 
 const BalanceHistory = () => {
+  const dispatch = useDispatch();
+  const [stats, setStats] = useState({});
+  const [hasError, setHasError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const allBalanceHistory = useSelector((state) => state.balanceHistory.data);
+  const [filteredBalanceHistory, setFilteredBalanceHistory] =
+    useState(allBalanceHistory);
+
+  const calculateStats = (data) => {
+    let newStats = {};
+
+    data.forEach(({ status, payment: amount }) => {
+      if (!newStats[status]) newStats[status] = 0;
+      newStats[status] += amount;
+    });
+    return newStats;
+  };
+
+  const loadBalanceHistory = () => {
+    paymentService
+      .getPayments()
+      .then((data) => {
+        if (data?.length) {
+          setStats(calculateStats(data));
+          setFilteredBalanceHistory(data);
+          dispatch(updateBalanceHistory(data));
+        } else {
+          setFilteredBalanceHistory([]);
+          dispatch(updateBalanceHistory([]));
+        }
+      })
+      .catch(() => setHasError(true))
+      .finally(() => setIsLoading(false));
+  };
+
+  useEffect(() => {
+    if (!allBalanceHistory) loadBalanceHistory();
+    else {
+      setTimeout(() => setIsLoading(false), 500);
+      setStats(calculateStats(allBalanceHistory));
+    }
+  }, []);
+
   return (
     <div className="w-full pt-3.5 pb-8 space-y-4">
       {/* Header */}
@@ -20,41 +68,50 @@ const BalanceHistory = () => {
       {/* Main content */}
       <div className="container">
         <div className="bg-gradient-gray rounded-xl">
-          {/* Total balance */}
-          <div className="flex items-center justify-between gap-3.5 h-[62px] px-3.5 border-b-2 border-white xs:justify-end xs:px-4">
-            {/* Receive */}
-            <div>
-              <span className="font-medium">Kirim: </span>
-              <span className="text-green-500 xs:text-lg">
-                {getRandomNumber(0, 9999999).toLocaleString()}
-              </span>
-            </div>
-
-            {/* Send */}
-            <div>
-              <span className="font-medium">Chiqim: </span>
-              <span className="text-red-500 xs:text-lg">
-                {getRandomNumber(0, 9999999).toLocaleString()}
-              </span>
-            </div>
-          </div>
-
-          {/* Transactions */}
-          <ul className="py-3.5">
-            {Array.from({ length: 12 }).map((_, index) => {
-              const isOdd = getRandomNumber() % 2 === 0;
+          <div className="flex items-center gap-3.5 overflow-x-auto scroll-hidden h-[62px] px-3.5 border-b-2 border-white xs:justify-en xs:px-5">
+            {Object.keys(stats)?.map((status, index) => {
+              const statusColor = getStatusByValue(status)?.color;
+              const statusLabel = getStatusByValue(status)?.label;
               return (
-                <TransactionItem
-                  key={index}
-                  type={isOdd ? "receive" : "send"}
-                  amount={getRandomNumber(0, 999999)}
-                  icon={isOdd ? receiveIcon : sendIcon}
-                  alt={isOdd ? "Receive icon" : "Send icon"}
-                  title={isOdd ? "Qabul qilindi" : "Yuborildi"}
-                />
+                <div key={index} className="shrink-0 min-w-max">
+                  <span className="font-medium">{statusLabel}: </span>
+                  <span className="md:text-lg" style={{ color: statusColor }}>
+                    {stats[status]?.toLocaleString() || 0} so'm
+                  </span>
+                </div>
               );
             })}
-          </ul>
+          </div>
+
+          {/* Loading animation */}
+          {isLoading && !hasError && (
+            <div className="py-20">
+              <DotsLoader color="#0085FF" />
+            </div>
+          )}
+
+          {/* Reload button */}
+          {hasError && !isLoading && (
+            <div className="flex justify-center py-16">
+              <button
+                title="Reload"
+                className="p-1.5"
+                aria-label="Reload"
+                onClick={loadBalanceHistory}
+              >
+                <Icon src={reloadIcon} alt="Reload icon" />
+              </button>
+            </div>
+          )}
+
+          {/* Transactions */}
+          {filteredBalanceHistory?.length > 0 && !isLoading && !hasError ? (
+            <ul className="py-3.5">
+              {filteredBalanceHistory.map((balanceHistory, index) => (
+                <BalanceHistoryItem key={index} data={balanceHistory} />
+              ))}
+            </ul>
+          ) : null}
         </div>
       </div>
     </div>
