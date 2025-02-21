@@ -7,6 +7,7 @@ import blogSlice from "./features/blogSlice";
 import modalSlice from "./features/modalSlice";
 import streamsSlice from "./features/streamsSlice";
 import productsSlice from "./features/productsSlice";
+import balanceHistorySlice from "./features/balanceHistorySlice";
 
 export default configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export default configureStore({
     modal: modalSlice,
     streams: streamsSlice,
     products: productsSlice,
+    balanceHistory: balanceHistorySlice,
   },
 });
