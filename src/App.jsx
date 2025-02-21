@@ -41,6 +41,7 @@ import NewStream from "./pages/NewStream";
 import Statistics from "./pages/Statistics";
 import NewsDetail from "./pages/NewsDetail";
 import BalanceHistory from "./pages/BalanceHistory";
+import StreamProduct from "./pages/StreamProduct";
 
 const App = () => {
   const modal = useSelector((state) => state.modal);
@@ -51,16 +52,17 @@ const App = () => {
         {/* For user */}
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path="products/:productType?" element={<Products />} />
-          <Route path="products/product/:productId" element={<Product />} />
-          <Route path="search" element={<Search />} />
           <Route path="blogs" element={<Blogs />} />
-          <Route path="success" element={<Success />} />
           <Route path="auth" element={<AuthLayout />}>
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="verify-otp" element={<VerifyOTP />} />
           </Route>
+          <Route path="search" element={<Search />} />
+          <Route path="success" element={<Success />} />
+          <Route path="o/:streamId" element={<StreamProduct />} />
+          <Route path="products/:productType?" element={<Products />} />
+          <Route path="products/product/:productId" element={<Product />} />
         </Route>
 
         {/* For admin */}

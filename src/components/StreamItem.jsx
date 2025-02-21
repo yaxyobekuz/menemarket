@@ -14,7 +14,7 @@ import deleteIcon from "../assets/images/icons/delete.svg";
 const StreamItem = ({ data = {} }) => {
   const { _id: id, created_at: timestamp, name, product } = data || {};
   const { _id: productId, title: productTitle } = product || {};
-  const url = `menemarket.uz/oqim/${id}`;
+  const url = `menemarket.uz/o/${id}`;
 
   return (
     <li className="space-y-0.5">
