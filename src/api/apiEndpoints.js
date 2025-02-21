@@ -17,7 +17,10 @@ const apiEndpoints = {
   getBlogById: (id) => `api/blogs/${id}`,
 
   getStreams: "api/oqim",
+  getStream: (id) => `api/oqim/${id}`,
   createStream: (id) => `api/oqim/${id}`,
+  createStreamOrder: (id) => `api/oqim/${id}/order`,
+
 
   createOrder: (id) => `api/orders/${id}`,
 

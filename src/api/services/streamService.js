@@ -20,6 +20,22 @@ const streamService = {
       throw err;
     }
   },
+
+  getStream: async (id) => {
+    try {
+      return await api.get(endpoints.getStream(id));
+    } catch (err) {
+      throw err;
+    }
+  },
+
+  createStreamOrder: async (id, data) => {
+    try {
+      return await api.post(endpoints.createStreamOrder(id), data);
+    } catch (err) {
+      throw err;
+    }
+  },
 };
 
 export default streamService;
