@@ -23,6 +23,7 @@ import AdminLayout from "./layouts/AdminLayout";
 // Pages
 import Home from "./pages/Home";
 import News from "./pages/News";
+import Blog from "./pages/Blog";
 import Login from "./pages/Login";
 import Blogs from "./pages/Blogs";
 import Search from "./pages/Search";
@@ -40,9 +41,9 @@ import Dashboard from "./pages/Dashboard";
 import NewStream from "./pages/NewStream";
 import Statistics from "./pages/Statistics";
 import NewsDetail from "./pages/NewsDetail";
-import BalanceHistory from "./pages/BalanceHistory";
-import StreamProduct from "./pages/StreamProduct";
 import EditProfile from "./pages/EditProfile";
+import StreamProduct from "./pages/StreamProduct";
+import BalanceHistory from "./pages/BalanceHistory";
 
 const App = () => {
   const modal = useSelector((state) => state.modal);
@@ -61,6 +62,7 @@ const App = () => {
           </Route>
           <Route path="search" element={<Search />} />
           <Route path="success" element={<Success />} />
+          <Route path="blogs/blog/:blogId" element={<Blog />} />
           <Route path="o/:streamId" element={<StreamProduct />} />
           <Route path="products/:productType?" element={<Products />} />
           <Route path="products/product/:productId" element={<Product />} />
