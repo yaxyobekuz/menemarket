@@ -9,10 +9,10 @@ import { InputMask } from "@react-input/mask";
 const FormInputWrapper = ({
   id,
   min = 0,
-  max = 2048,
   label = "",
   as = "input",
   type = "text",
+  max = Infinity,
   name = "input",
   className = "",
   disabled = false,

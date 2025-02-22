@@ -4,14 +4,15 @@ import { Link } from "react-router-dom";
 // Lottie (For stickers)
 import Lottie from "lottie-react";
 
-// Redux
-import { useSelector } from "react-redux";
-
 // Utils
 import { extractNumbers } from "../utils";
 
 // Toaster (For notification)
 import { notification } from "../notification";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { updateUser } from "@/store/features/userSlice";
 
 // Services
 import paymentService from "../api/services/paymentsService";
@@ -28,6 +29,7 @@ import FormInputWrapper from "../components/FormInputWrapper";
 import waveBlueGradientBg from "../assets/images/backgrounds/wave-blue-gradient.avif";
 
 const Payment = () => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({});
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -63,10 +65,13 @@ const Payment = () => {
 
     paymentService
       .createPayment(formData)
-      .then(() => {
+      .then(({ your_balance: newBalance }) => {
+        if (!newBalance) return notification.error("Nimadir xato ketdi");
+
         setFormData({});
         setSuccess(true);
         setTimeout(() => setSuccess(false), 2500);
+        dispatch(updateUser({ ...userData, balance: newBalance }));
       })
       .catch(({ response: res }) => {
         const message = res.data?.message;

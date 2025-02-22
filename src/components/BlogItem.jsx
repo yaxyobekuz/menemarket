@@ -9,9 +9,9 @@ const BlogItem = ({ data = {} }) => {
       <Link to={`/blogs/blog/${id}`} className="w-full group space-y-1.5">
         {/* Image */}
         <img
-          src={image}
           loading="lazy"
           alt="Blog image"
+          src={image?.medium}
           className="w-full h-auto aspect-[5/3] object-cover bg-gray-light rounded-xl"
         />
 
