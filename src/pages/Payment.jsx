@@ -210,12 +210,13 @@ const Payment = () => {
                 </div>
 
                 <div className="grid grid-cols-1 gap-y-4 gap-x-5 md:grid-cols-2">
-                  {/* Card number */}
+                  {/* Amount */}
                   <FormInputWrapper
                     required
                     type="number"
                     name="Amount"
                     maxLength="7"
+                    max={5000000}
                     label="Qiymat *"
                     disabled={isLoading}
                     placeholder="Max 5,000,000 so'm"

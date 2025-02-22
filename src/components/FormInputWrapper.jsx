@@ -8,6 +8,8 @@ import { InputMask } from "@react-input/mask";
 
 const FormInputWrapper = ({
   id,
+  min = 0,
+  max = 2048,
   label = "",
   as = "input",
   type = "text",
@@ -27,8 +29,8 @@ const FormInputWrapper = ({
 
   const handleChange = useCallback(
     (newValue) => {
-      setValue(newValue);
-      onChange(newValue);
+      setValue(newValue.slice(0, maxLength));
+      onChange(newValue.slice(0, maxLength));
     },
     [onChange]
   );
@@ -115,6 +117,8 @@ const FormInputWrapper = ({
 
     return (
       <input
+        min={min}
+        max={max}
         type={type}
         name={name}
         id={inputId}
