@@ -149,11 +149,8 @@ const Dashboard = () => {
           </li>
 
           {/* Contests */}
-          <li>
-            <Link
-              to="/admin/dashboard/contests"
-              className="flex flex-col items-center gap-3.5 bg-gradient-gray rounded-xl px-3.5 py-4 sm:px-4 sm:py-5"
-            >
+          <li className="opacity-50">
+            <div className="flex flex-col items-center gap-3.5 bg-gradient-gray rounded-xl px-3.5 py-4 sm:px-4 sm:py-5">
               {/* icon */}
               <Icon
                 size={40}
@@ -166,7 +163,7 @@ const Dashboard = () => {
               <h3 className="text-center text-[15px] font-medium line-clamp-1 xs:text-base sm:text-lg">
                 Konkurslar
               </h3>
-            </Link>
+            </div>
           </li>
 
           {/* History */}
@@ -190,7 +187,7 @@ const Dashboard = () => {
             </Link>
           </li>
 
-          {/* Appeals */}
+          {/* Donation box */}
           <li>
             <Link
               to="/admin/dashboard/donate"
@@ -209,49 +206,6 @@ const Dashboard = () => {
                 Hayriya qutisi
               </h3>
             </Link>
-          </li>
-
-          {/* About */}
-          <li>
-            <Link
-              to="/admin/dashboard/about"
-              className="flex flex-col items-center gap-3.5 bg-gradient-gray rounded-xl px-3.5 py-4 sm:px-4 sm:py-5"
-            >
-              {/* icon */}
-              <Icon
-                size={40}
-                src={infoIcon}
-                alt="Info icon"
-                className="size-9 sm:size-10"
-              />
-
-              {/* title */}
-              <h3 className="text-center text-[15px] font-medium line-clamp-1 xs:text-base sm:text-lg">
-                Dastur haqida
-              </h3>
-            </Link>
-          </li>
-
-          {/* Ads posts */}
-          <li>
-            <a
-              target="_blank"
-              href="https://t.me/menemarket"
-              className="flex flex-col items-center gap-3.5 bg-gradient-gray rounded-xl px-3.5 py-4 sm:px-4 sm:py-5"
-            >
-              {/* icon */}
-              <Icon
-                size={40}
-                src={crownIcon}
-                alt="Crown icon"
-                className="size-9 sm:size-10"
-              />
-
-              {/* title */}
-              <h3 className="text-center text-[15px] font-medium line-clamp-1 xs:text-base sm:text-lg">
-                Reklama postlari
-              </h3>
-            </a>
           </li>
 
           {/* News */}
@@ -275,10 +229,55 @@ const Dashboard = () => {
             </Link>
           </li>
 
+          {/* About */}
+          <li>
+            <a
+              target="_blank"
+              href="https://t.me/menemarket"
+              className="flex flex-col items-center gap-3.5 bg-gradient-gray rounded-xl px-3.5 py-4 sm:px-4 sm:py-5"
+            >
+              {/* icon */}
+              <Icon
+                size={40}
+                src={infoIcon}
+                alt="Info icon"
+                className="size-9 sm:size-10"
+              />
+
+              {/* title */}
+              <h3 className="text-center text-[15px] font-medium line-clamp-1 xs:text-base sm:text-lg">
+                Dastur haqida
+              </h3>
+            </a>
+          </li>
+
+          {/* Ads posts */}
+          <li>
+            <a
+              target="_blank"
+              href="https://t.me/menemarket_adsposts"
+              className="flex flex-col items-center gap-3.5 bg-gradient-gray rounded-xl px-3.5 py-4 sm:px-4 sm:py-5"
+            >
+              {/* icon */}
+              <Icon
+                size={40}
+                src={crownIcon}
+                alt="Crown icon"
+                className="size-9 sm:size-10"
+              />
+
+              {/* title */}
+              <h3 className="text-center text-[15px] font-medium line-clamp-1 xs:text-base sm:text-lg">
+                Reklama postlari
+              </h3>
+            </a>
+          </li>
+
           {/* Telegram */}
           <li>
-            <Link
-              to="/admin/dashboard/telegram"
+            <a
+              target="_blank"
+              href="https://t.me/menemarket"
               className="flex flex-col items-center gap-3.5 bg-gradient-gray rounded-xl px-3.5 py-4 sm:px-4 sm:py-5"
             >
               {/* icon */}
@@ -293,7 +292,7 @@ const Dashboard = () => {
               <h3 className="text-center text-[15px] font-medium line-clamp-1 xs:text-base sm:text-lg">
                 Telegram kanal
               </h3>
-            </Link>
+            </a>
           </li>
         </ul>
       </nav>

@@ -294,7 +294,7 @@ const Home = () => {
       </section>
 
       {/* Brands */}
-      <section className="bg-gray-light py-8 sm:py-14">
+      <section className="hidden bg-gray-light py-8 sm:py-14">
         <div className="container space-y-6">
           {/* Section header (Title wrapper) */}
           <div className="flex items-center justify-between">
