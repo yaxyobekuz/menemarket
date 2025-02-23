@@ -42,13 +42,15 @@ const ProductItem = ({ data = {} }) => {
         <div className="flex items-start justify-between">
           {/* price wrapper */}
           <div>
-            <del className="inline-block text-sm text-neutral-400">
-              {price?.toLocaleString() || "0"}
-            </del>
+            {discountPrice && Number(discountPrice) > 1 && (
+              <del className="inline-block text-sm text-neutral-400">
+                {discountPrice?.toLocaleString() || "0"}
+              </del>
+            )}
 
             {/* price */}
             <p className="text-[15px] leading-4 font-medium">
-              {discountPrice?.toLocaleString() || "0"}
+              {price?.toLocaleString() || "0"}
               <span> so'm</span>
             </p>
           </div>

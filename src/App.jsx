@@ -78,13 +78,13 @@ const App = () => {
           <Route path="payment" element={<Payment />} />
           <Route path="profile" element={<Profile />} />
           <Route path="dashboard/news" element={<News />} />
-          <Route path="new-stream" element={<NewStream />} />
           <Route path="statistics" element={<Statistics />} />
           <Route path="profile/edit" element={<EditProfile />} />
           <Route index path="dashboard" element={<Dashboard />} />
           <Route path="dashboard/donate" element={<DonateBox />} />
           <Route path="dashboard/contests" element={<Contests />} />
           <Route path="dashboard/news/:newsId" element={<NewsDetail />} />
+          <Route path="new-stream/:productType?" element={<NewStream />} />
         </Route>
       </Route>
     )
