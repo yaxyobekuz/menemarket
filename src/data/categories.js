@@ -15,7 +15,7 @@ import householdKitchenTechnologyBg from "../assets/images/backgrounds/household
 const categories = [
   {
     title: "Kiyimlar",
-    link: "All",
+    link: "clothes",
     image: clothesBg,
   },
   {

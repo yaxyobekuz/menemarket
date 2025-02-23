@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 // Data
 import categories from "../data/categories";
@@ -21,10 +21,19 @@ import ProductItemSkeleton from "../components/ProductItemSkeleton";
 
 const Products = () => {
   const dispatch = useDispatch();
+  const { productType } = useParams();
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const allProducts = useSelector((state) => state.products.data);
-  const [filteredProducts, setFilteredProducts] = useState(allProducts || []);
+
+  const updateProductsByType = (data = []) => {
+    const formattedType = !productType ? "all" : productType?.toLowerCase();
+    if (formattedType === "all") return setFilteredProducts(data);
+
+    const filtered = data.filter((product) => product?.type === formattedType);
+    setFilteredProducts(filtered);
+  };
 
   const loadProducts = () => {
     setHasError(false);
@@ -33,7 +42,7 @@ const Products = () => {
     productService
       .getProducts()
       .then((products) => {
-        setFilteredProducts(products);
+        updateProductsByType(products);
         dispatch(updateProducts(products));
       })
       .catch(() => setHasError(true))
@@ -41,12 +50,15 @@ const Products = () => {
   };
 
   useEffect(() => {
-    if (allProducts?.length === 0) {
-      loadProducts();
-    } else {
-      setTimeout(() => setIsLoading(false), 500);
+    if (allProducts?.length === 0) loadProducts();
+    else {
+      updateProductsByType(allProducts);
+
+      if (isLoading) {
+        setTimeout(() => setIsLoading(false), 500);
+      }
     }
-  }, []);
+  }, [productType]);
 
   return (
     <div className="py-6 sm:pb-10 sm:pt-8">

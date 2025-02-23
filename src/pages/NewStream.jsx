@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 // Data
 import categories from "../data/categories";
@@ -20,10 +20,19 @@ import { updateProducts } from "../store/features/productsSlice";
 
 const NewStream = () => {
   const dispatch = useDispatch();
+  const { productType } = useParams();
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const allProducts = useSelector((state) => state.products.data);
-  const [filteredProducts, setFilteredProducts] = useState(allProducts || []);
+
+  const updateProductsByType = (data = []) => {
+    const formattedType = !productType ? "all" : productType?.toLowerCase();
+    if (formattedType === "all") return setFilteredProducts(data);
+
+    const filtered = data.filter((product) => product?.type === formattedType);
+    setFilteredProducts(filtered);
+  };
 
   const loadProducts = () => {
     setHasError(false);
@@ -40,12 +49,15 @@ const NewStream = () => {
   };
 
   useEffect(() => {
-    if (allProducts?.length === 0) {
-      loadProducts();
-    } else {
-      setTimeout(() => setIsLoading(false), 500);
+    if (allProducts?.length === 0) loadProducts();
+    else {
+      updateProductsByType(allProducts);
+
+      if (isLoading) {
+        setTimeout(() => setIsLoading(false), 500);
+      }
     }
-  }, []);
+  }, [productType]);
 
   const handleOpenCreateStreamModal = ({ _id, title }) => {
     dispatch(
@@ -87,7 +99,7 @@ const NewStream = () => {
             <li className="shrink-0">
               <NavLink
                 end
-                to="/products"
+                to="/admin/new-stream"
                 className="btn bg-gray-light px-5 py-2.5 text-sm hover:bg-neutral-200 sm:text-base"
               >
                 Barchasi
@@ -97,7 +109,7 @@ const NewStream = () => {
             {categories.map((category, index) => (
               <li key={index} className="shrink-0">
                 <NavLink
-                  to={`/products/${category.link.toLowerCase()}`}
+                  to={`/admin/new-stream/${category.link.toLowerCase()}`}
                   className="btn bg-gray-light px-5 py-2.5 font-normal text-sm hover:bg-neutral-200 sm:font-medium sm:text-base"
                 >
                   {category.title}
