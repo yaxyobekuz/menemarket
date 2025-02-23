@@ -223,41 +223,43 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
                 </li>
 
                 {/* Statistics */}
-                <li>
-                  <NavLink
-                    to="/admin/statistics"
-                    className={`${
-                      isCollapse ? "" : "lg:justify-normal"
-                    } flex items-center justify-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
-                  >
-                    {/* icon */}
-                    <svg
-                      width="24"
-                      height="24"
-                      fill="none"
-                      className="size-6"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        clipRule="evenodd"
-                        fill="currentColor"
-                        className="transition-colors duration-300"
-                        d="M12 22C3.765 22 2 20.235 2 12C2 3.765 3.765 2 12 2C20.235 2 22 3.765 22 12C22 20.235 20.235 22 12 22ZM7.83332 12C8.29355 12 8.66664 12.3731 8.66664 12.8333V16.1666C8.66664 16.6269 8.29355 17 7.83332 17C7.37309 17 7 16.6269 7 16.1667V12.8334C7 12.3731 7.37309 12 7.83332 12ZM12.8333 7.83332C12.8333 7.37309 12.4602 7 12 7C11.5398 7 11.1667 7.37309 11.1667 7.83332V16.1666C11.1667 16.6269 11.5398 17 12 17C12.4602 17 12.8333 16.6269 12.8333 16.1666V7.83332ZM16.1667 10.3333C16.6269 10.3333 17 10.7064 17 11.1666V16.1666C17 16.6269 16.6269 17 16.1667 17C15.7064 17 15.3334 16.6269 15.3334 16.1666V11.1666C15.3333 10.7064 15.7064 10.3333 16.1667 10.3333Z"
-                      />
-                    </svg>
+                {
+                  // <li>
+                  //   <NavLink
+                  //     to="/admin/statistics"
+                  //     className={`${
+                  //       isCollapse ? "" : "lg:justify-normal"
+                  //     } flex items-center justify-center gap-4 px-5 py-3.5 transition-colors duration-300 hover:bg-white/50`}
+                  //   >
+                  //     {/* icon */}
+                  //     <svg
+                  //       width="24"
+                  //       height="24"
+                  //       fill="none"
+                  //       className="size-6"
+                  //       viewBox="0 0 24 24"
+                  //       xmlns="http://www.w3.org/2000/svg"
+                  //     >
+                  //       <path
+                  //         fillRule="evenodd"
+                  //         clipRule="evenodd"
+                  //         fill="currentColor"
+                  //         className="transition-colors duration-300"
+                  //         d="M12 22C3.765 22 2 20.235 2 12C2 3.765 3.765 2 12 2C20.235 2 22 3.765 22 12C22 20.235 20.235 22 12 22ZM7.83332 12C8.29355 12 8.66664 12.3731 8.66664 12.8333V16.1666C8.66664 16.6269 8.29355 17 7.83332 17C7.37309 17 7 16.6269 7 16.1667V12.8334C7 12.3731 7.37309 12 7.83332 12ZM12.8333 7.83332C12.8333 7.37309 12.4602 7 12 7C11.5398 7 11.1667 7.37309 11.1667 7.83332V16.1666C11.1667 16.6269 11.5398 17 12 17C12.4602 17 12.8333 16.6269 12.8333 16.1666V7.83332ZM16.1667 10.3333C16.6269 10.3333 17 10.7064 17 11.1666V16.1666C17 16.6269 16.6269 17 16.1667 17C15.7064 17 15.3334 16.6269 15.3334 16.1666V11.1666C15.3333 10.7064 15.7064 10.3333 16.1667 10.3333Z"
+                  //       />
+                  //     </svg>
 
-                    {/* text */}
-                    <span
-                      className={`${
-                        isCollapse ? "hidden" : "max-lg:hidden"
-                      } transition-colors duration-300`}
-                    >
-                      Statistika
-                    </span>
-                  </NavLink>
-                </li>
+                  //     {/* text */}
+                  //     <span
+                  //       className={`${
+                  //         isCollapse ? "hidden" : "max-lg:hidden"
+                  //       } transition-colors duration-300`}
+                  //     >
+                  //       Statistika
+                  //     </span>
+                  //   </NavLink>
+                  // </li>
+                }
 
                 {/* Payment */}
                 <li>

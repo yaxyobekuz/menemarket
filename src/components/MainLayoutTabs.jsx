@@ -2,6 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 const MainLayoutTabs = () => {
+  const token = localStorage.getItem("token");
+
   return (
     <nav className="main-layout-tabs fixed bottom-0 inset-x-0 w-full bg-white border-t md:hidden">
       <ul className="flex h-16 sm:h-[72px]">
@@ -127,7 +129,7 @@ const MainLayoutTabs = () => {
         {/* Account */}
         <li className="w-1/4 h-full">
           <NavLink
-            to="/auth/login"
+            to={token ? "/admin/dashboard" : "/auth/login"}
             className="flex flex-col items-center justify-center gap-0.5 size-full"
           >
             <svg
@@ -149,7 +151,7 @@ const MainLayoutTabs = () => {
             </svg>
 
             <span className="text-[13px] leading-normal text-inherit transition-colors duration-300 xs:text-sm">
-              Kirish
+              {token ? "Profil" : "Kirish"}
             </span>
           </NavLink>
         </li>

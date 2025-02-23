@@ -96,7 +96,7 @@ const Dashboard = () => {
             {/* Settings */}
             <Link
               aria-label="Settings"
-              to="/admin/dashboard/settings"
+              to="/admin/profile/edit"
               className="btn shrink-0 size-10 bg-white rounded-full sm:size-12"
             >
               <Icon src={settingsIcon} alt="Settings icon" />

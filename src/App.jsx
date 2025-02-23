@@ -39,7 +39,6 @@ import VerifyOTP from "./pages/VerifyOTP";
 import DonateBox from "./pages/DonateBox";
 import Dashboard from "./pages/Dashboard";
 import NewStream from "./pages/NewStream";
-import Statistics from "./pages/Statistics";
 import NewsDetail from "./pages/NewsDetail";
 import EditProfile from "./pages/EditProfile";
 import StreamProduct from "./pages/StreamProduct";
@@ -78,7 +77,6 @@ const App = () => {
           <Route path="payment" element={<Payment />} />
           <Route path="profile" element={<Profile />} />
           <Route path="dashboard/news" element={<News />} />
-          <Route path="statistics" element={<Statistics />} />
           <Route path="profile/edit" element={<EditProfile />} />
           <Route index path="dashboard" element={<Dashboard />} />
           <Route path="dashboard/donate" element={<DonateBox />} />
