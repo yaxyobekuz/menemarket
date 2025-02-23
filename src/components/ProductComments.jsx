@@ -120,7 +120,7 @@ const ProductComments = ({
     <>
       {/* Comments */}
       {!isLoading && !hasError ? (
-        <div className="flex flex-col-reverse items-start gap-5 md:flex-row">
+        <div className="flex flex-col-reverse items-start gap-8 md:gap-5 md:flex-row">
           <div className="w-full">
             {/* Reviews */}
             {comments?.length > 0 ? (

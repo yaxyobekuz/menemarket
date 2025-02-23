@@ -120,9 +120,16 @@ const NewsDetail = () => {
                 <h1 className="text-xl sm:text-2xl lg:text-[28px]">{title}</h1>
 
                 {/* Description */}
-                <p className="text-neutral-500 text-[17px] sm:text-lg md:text-[19px]">
-                  {description}
-                </p>
+                <div className="space-y-4">
+                  {(description || "").split("\n").map((item, index) => (
+                    <p
+                      key={index}
+                      className="text-neutral-500 text-[17px] sm:text-lg md:text-[19px]"
+                    >
+                      {item?.trim()}
+                    </p>
+                  ))}
+                </div>
               </div>
             </>
           ) : null}

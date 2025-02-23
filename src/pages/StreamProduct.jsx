@@ -241,15 +241,13 @@ const StreamProduct = () => {
                     }}
                     className="product-page-swiper default-swiper-navigation-buttons size-full rounded-xl"
                   >
-                    {[...images, ...images, ...images, ...images]?.map(
-                      (img, index) => (
-                        <SwiperSlide
-                          key={index}
-                          style={{ backgroundImage: `url(${img?.large})` }}
-                          className="!flex items-center justify-center !w-auto !h-full aspect-[3/4] bg-gray-light bg-cover bg-center bg-no-repeat rounded-xl"
-                        />
-                      )
-                    )}
+                    {images?.map((img, index) => (
+                      <SwiperSlide
+                        key={index}
+                        style={{ backgroundImage: `url(${img?.large})` }}
+                        className="!flex items-center justify-center !w-auto !h-full aspect-[3/4] bg-gray-light bg-cover bg-center bg-no-repeat rounded-xl"
+                      />
+                    ))}
                   </Swiper>
                 </div>
 
@@ -443,9 +441,13 @@ const StreamProduct = () => {
               {/* Product Description */}
               {activeNavButton === "about" && (
                 <div className="max-w-5xl">
-                  <p className="text-neutral-400">
-                    {description || "Mahsulot izohi mavjud emas!"}
-                  </p>
+                  <div className="max-w-5xl space-y-4">
+                    {(description || "").split("\n").map((item, index) => (
+                      <p key={index} className="text-neutral-500 ">
+                        {item?.trim()}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               )}
 
