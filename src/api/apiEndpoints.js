@@ -1,4 +1,7 @@
 const apiEndpoints = {
+  // Home
+  home: "home",
+
   // Payments
   getPayments: "api/payments",
   createPayment: "api/payments",
