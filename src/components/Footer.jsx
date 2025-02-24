@@ -33,7 +33,9 @@ const Footer = () => {
               />
             </Link>
 
-            <h3 className="text-base font-medium sm:text-lg md:hidden">Yordam uchun</h3>
+            <h3 className="text-base font-medium sm:text-lg md:hidden">
+              Yordam uchun
+            </h3>
 
             <div className="space-y-2.5">
               {/* Tel */}
@@ -59,9 +61,9 @@ const Footer = () => {
                 />
                 <a
                   className="text-neutral-500"
-                  href="mailto:menemarketuz@gmail.com"
+                  href="mailto:menemarket.main@gmail.com"
                 >
-                  menemarketuz@gmail.com
+                  menemarket.main@gmail.com
                 </a>
               </div>
 
@@ -75,7 +77,7 @@ const Footer = () => {
                 />
 
                 <address className="text-neutral-500 not-italic">
-                  Chilonzor, Toshkent
+                  O'zbekiston, Toshkent
                 </address>
               </div>
             </div>
@@ -86,13 +88,16 @@ const Footer = () => {
             <ul className="flex flex-col gap-8 md:gap-10 md:flex-row">
               {/* For users */}
               <li className="space-y-5">
+                {/* Title */}
                 <h3 className="text-base font-medium sm:text-lg">
                   Foydalanuvchilarga
                 </h3>
+
+                {/* List */}
                 <ul className="space-y-1.5">
                   <li>
                     <Link
-                      to="/about"
+                      to="/"
                       className="text-neutral-500 transition-colors duration-200 hover:text-primary-default"
                     >
                       Asosiy sahifa
@@ -107,27 +112,16 @@ const Footer = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      to="/about"
-                      className="text-neutral-500 transition-colors duration-200 hover:text-primary-default"
-                    >
+                    <span className="text-neutral-500 transition-colors duration-200 opacity-50">
                       Kompaniya haqida
-                    </Link>
+                    </span>
                   </li>
                   <li>
                     <Link
-                      to="/about"
+                      to="/blogs"
                       className="text-neutral-500 transition-colors duration-200 hover:text-primary-default"
                     >
-                      Blog
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/contact"
-                      className="text-neutral-500 transition-colors duration-200 hover:text-primary-default"
-                    >
-                      Yordam olish
+                      Yangiliklar
                     </Link>
                   </li>
                 </ul>
@@ -135,13 +129,16 @@ const Footer = () => {
 
               {/* For partners */}
               <li className="space-y-5">
+                {/* Title */}
                 <h3 className="text-base font-medium sm:text-lg">
                   Hamkorlar & Tadbirkorlarga
                 </h3>
+
+                {/* List */}
                 <ul className="space-y-1.5">
                   <li>
                     <Link
-                      to="/"
+                      to="/admin/dashboard"
                       className="text-neutral-500 transition-colors duration-200 hover:text-primary-default"
                     >
                       Targetologga aylaning
@@ -156,12 +153,13 @@ const Footer = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      to="/about"
+                    <a
+                      target="_blank"
+                      href="https://t.me/menemarket"
                       className="text-primary-default hover:underline"
                     >
                       Bizda mahsulotlaringizni soting
-                    </Link>
+                    </a>
                   </li>
                 </ul>
               </li>
@@ -221,7 +219,9 @@ const Footer = () => {
       {/* Sub content */}
       <div className="container py-3.5 sm:py-4 md:py-5">
         <div className="flex flex-col items-center justify-between gap-3.5 text-neutral-500 sm:gap-4 sm:flex-row md:gap-5">
-          <p className="text-sm text-inherit sm:text-base">© 2023-2024. "Mene Market"</p>
+          <p className="text-sm text-inherit sm:text-base">
+            © 2023-2024. "Mene Market"
+          </p>
 
           {/* Privacy Policy */}
           <div className="flex items-center gap-3.5">

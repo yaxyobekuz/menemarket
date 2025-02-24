@@ -15,6 +15,7 @@ const ProductItem = ({ data = {} }) => {
     _id: id,
     discount_price: discountPrice,
   } = data || {};
+  const isValidDiscountPrice = discountPrice > price;
   const image = images?.length ? images[0]?.medium : "";
 
   return (
@@ -34,15 +35,19 @@ const ProductItem = ({ data = {} }) => {
       {/* Product details */}
       <div className="flex flex-col justify-between h-[88px] px-1.5">
         {/* title */}
-        <h3 className="text-sm leading-[18px] line-clamp-2">
+        <h3
+          className={`text-sm leading-[18px] ${
+            isValidDiscountPrice ? "line-clamp-2" : "line-clamp-3"
+          }`}
+        >
           {title || "Sarlavha mavjud emas!"}
         </h3>
 
         {/* bottom */}
-        <div className="flex items-start justify-between">
+        <div className="flex items-start justify-between relative">
           {/* price wrapper */}
           <div>
-            {discountPrice && Number(discountPrice) > 1 && (
+            {isValidDiscountPrice && (
               <del className="inline-block text-sm text-neutral-400">
                 {discountPrice?.toLocaleString() || "0"}
               </del>
@@ -56,7 +61,11 @@ const ProductItem = ({ data = {} }) => {
           </div>
 
           {/* rating */}
-          <div className="flex items-center gap-1.5">
+          <div
+            className={`${
+              isValidDiscountPrice && "top-1"
+            } flex items-center gap-1.5 absolute right-0`}
+          >
             <span className="text-sm text-neutral-400 leading-none">4.8</span>
 
             {/* star */}
@@ -72,6 +81,7 @@ const ProductItem = ({ data = {} }) => {
 
       {/* Link */}
       <Link
+        aria-label="Product details"
         to={`/products/product/${id}`}
         className="absolute inset-0 size-full rounded-xl"
       />

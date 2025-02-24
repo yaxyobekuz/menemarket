@@ -67,9 +67,9 @@ const BlogsSection = () => {
           </Link>
         </div>
 
-        {/* News */}
+        {/* Blogs */}
         {!isLoading && !hasError && filteredBlogs?.length > 0 ? (
-          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
+          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 md:gap-5">
             {filteredBlogs.map((blog) => (
               <BlogItem key={blog._id} data={blog} />
             ))}
