@@ -7,6 +7,7 @@ import blogSlice from "./features/blogSlice";
 import modalSlice from "./features/modalSlice";
 import streamsSlice from "./features/streamsSlice";
 import productsSlice from "./features/productsSlice";
+import homeProductsSlice from "./features/homeProductsSlice";
 import balanceHistorySlice from "./features/balanceHistorySlice";
 
 export default configureStore({
@@ -17,6 +18,7 @@ export default configureStore({
     modal: modalSlice,
     streams: streamsSlice,
     products: productsSlice,
+    homeProducts: homeProductsSlice,
     balanceHistory: balanceHistorySlice,
   },
 });
