@@ -6,12 +6,9 @@ import { notification } from "../notification";
 // Images
 import crossIcon from "../assets/images/icons/cross.svg";
 
-// Redux
-import { useDispatch, useSelector } from "react-redux";
-import { resetModal } from "../store/features/modalSlice";
-
 // Services
 import streamService from "../api/services/streamService";
+import commentService from "@/api/services/commentService";
 
 // Components
 import Icon from "./Icon";
@@ -20,8 +17,13 @@ import LoadingText from "./LoadingText";
 import ContactModalContent from "./ContactModalContent";
 import CallOrderModalContent from "./CallOrderModalContent";
 import CreateStreamModalContent from "./CreateStreamModalContent";
+import DeleteStreamModalContent from "./DeleteStreamModalContent";
 import CreateCommentModalContent from "./CreateCommentModalContent";
-import commentService from "@/api/services/commentService";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { resetModal } from "../store/features/modalSlice";
+import { deleteStreamFromStore } from "@/store/features/streamsSlice";
 
 const Modal = () => {
   const dispatch = useDispatch();
@@ -51,8 +53,26 @@ const Modal = () => {
     notification.promise(streamService.createStream(id, formData), {
       loading: "Oqim yaratilmoqda...",
       success: "Oqim muvaffaqiyatli yaratildi!",
-      error: "Oqim yaratishda xatolik yuz berdi!",
+      error: "Oqimni yaratishda xatolik yuz berdi!",
     });
+  };
+
+  const deleteStream = () => {
+    const { id } = data?.stream || {};
+    if (!id) return notification.error("Oqim ID raqami noto'g'ri");
+
+    closeModal();
+
+    notification.promise(
+      streamService
+        .deleteStream(id)
+        .then(() => dispatch(deleteStreamFromStore(id))),
+      {
+        loading: "Oqim o'chirilmoqda...",
+        success: "Oqim muvaffaqiyatli o'chirildi!",
+        error: "Oqimni o'chirishda xatolik yuz berdi!",
+      }
+    );
   };
 
   const createComment = () => {
@@ -92,6 +112,7 @@ const Modal = () => {
   // Maps
   const contentMap = {
     contact: <ContactModalContent />,
+    deleteStream: <DeleteStreamModalContent />,
     callOrder: <CallOrderModalContent updateFormData={setFormData} />,
     createStream: <CreateStreamModalContent updateFormData={setFormData} />,
     createComment: <CreateCommentModalContent updateFormData={setFormData} />,
@@ -99,6 +120,7 @@ const Modal = () => {
 
   const actionMap = {
     createStream,
+    deleteStream,
     createComment,
     callOrder: sendUserCallOrderToServer,
   };
