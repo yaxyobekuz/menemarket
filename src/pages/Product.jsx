@@ -87,7 +87,16 @@ const Product = () => {
   const [formData, setFormData] = useState({ client_address: 1 });
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [activeNavButton, setActiveNavButton] = useState(navButtons[0].name);
-  const { _id: id, title, images, price, desc: description } = product || {};
+  const {
+    title,
+    price,
+    images,
+    _id: id,
+    desc: description,
+    discount_price: discountPrice,
+  } = product || {};
+
+  const isValidDiscountPrice = Number(discountPrice) > price;
 
   // Load products
   const loadProduct = () => {
@@ -333,9 +342,11 @@ const Product = () => {
 
                     <div>
                       {/* discount price */}
-                      <del className="text-neutral-400">
-                        {price?.toLocaleString()}
-                      </del>
+                      {isValidDiscountPrice && (
+                        <del className="text-neutral-400">
+                          {discountPrice?.toLocaleString()}
+                        </del>
+                      )}
 
                       {/* current price */}
                       <p className="text-2xl font-semibold text-primary-default">

@@ -89,7 +89,16 @@ const StreamProduct = () => {
   const [formData, setFormData] = useState({ client_address: 1 });
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [activeNavButton, setActiveNavButton] = useState(navButtons[0].name);
-  const { _id: id, title, images, price, desc: description } = product || {};
+  const {
+    title,
+    price,
+    images,
+    _id: id,
+    desc: description,
+    discount_price: discountPrice,
+  } = product || {};
+
+  const isValidDiscountPrice = Number(discountPrice) > price;
 
   // Load products
   const loadProduct = () => {
@@ -107,11 +116,12 @@ const StreamProduct = () => {
 
     streamService
       .getStream(streamId)
-      .then((res) => {
-        const { product } = res?.stream || {};
+      .then(({ stream, related_products: recommendedProducts }) => {
+        const { product } = stream || {};
+
         setProduct(product);
-        setStream(res?.stream || {});
-        setRecommendedProducts([product, product, product, product]);
+        setStream(stream || {});
+        setRecommendedProducts(recommendedProducts);
       })
       .catch(() => setHasError(true))
       .finally(() => setIsLoading(false));
@@ -333,9 +343,11 @@ const StreamProduct = () => {
 
                     <div>
                       {/* discount price */}
-                      <del className="text-neutral-400">
-                        {price?.toLocaleString()}
-                      </del>
+                      {isValidDiscountPrice && (
+                        <del className="text-neutral-400">
+                          {discountPrice?.toLocaleString()}
+                        </del>
+                      )}
 
                       {/* current price */}
                       <p className="text-2xl font-semibold text-primary-default">
@@ -471,7 +483,7 @@ const StreamProduct = () => {
 
               {/* Section content */}
               <ul className="grid grid-cols-2 gap-x-3.5 gap-y-6 sm:grid-cols-3 sm:gap-x-4 md:grid-cols-4 md:gap-x-5 md:gap-y-8 lg:grid-cols-5">
-                {recommendedProducts.slice(0, 5).map((product, index) => (
+                {recommendedProducts?.map((product, index) => (
                   <ProductItem key={index} data={product} />
                 ))}
               </ul>
