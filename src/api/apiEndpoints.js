@@ -38,6 +38,7 @@ const apiEndpoints = {
   getStreams: "api/oqim",
   getStream: (id) => `api/oqim/${id}`,
   createStream: (id) => `api/oqim/${id}`,
+  deleteStream: (id) => `api/oqim/${id}`,
   createStreamOrder: (id) => `api/oqim/${id}/order`,
 
   // Products

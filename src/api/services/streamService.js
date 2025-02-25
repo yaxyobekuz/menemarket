@@ -13,6 +13,14 @@ const streamService = {
     }
   },
 
+  deleteStream: async (id) => {
+    try {
+      return await api.delete(endpoints.deleteStream(id));
+    } catch (err) {
+      throw err;
+    }
+  },
+
   getStreams: async () => {
     try {
       return await api.get(endpoints.getStreams);
