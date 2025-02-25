@@ -8,13 +8,34 @@ import CopyButton from "./CopyButton";
 // Utils
 import { formatDate, formatTime } from "../utils";
 
+// Redux
+import { useDispatch } from "react-redux";
+import { updateModal } from "@/store/features/modalSlice";
+
 // Images
 import deleteIcon from "../assets/images/icons/delete.svg";
 
 const StreamItem = ({ data = {} }) => {
+  const dispatch = useDispatch();
   const { _id: id, created_at: timestamp, name, product } = data || {};
   const { _id: productId, title: productTitle } = product || {};
   const url = `menemarket.uz/o/${id}`;
+
+  const handleOpenDeleteStreamModal = () => {
+    dispatch(
+      updateModal({
+        isOpen: true,
+        name: "deleteStream",
+        title: "Oqimni o'chirish",
+        data: { stream: { id, name } },
+        buttons: {
+          primary: false,
+          secondary: { label: "Bekor qilish" },
+          primary: { label: "O'chirish" },
+        },
+      })
+    );
+  };
 
   return (
     <li className="space-y-0.5">
@@ -24,7 +45,7 @@ const StreamItem = ({ data = {} }) => {
           {name || "Oqim nomi mavjud emas!"}
         </h3>
 
-        <button disabled className="btn size-8">
+        <button onClick={handleOpenDeleteStreamModal} className="btn size-8">
           <Icon src={deleteIcon} alt="Delete icon" />
         </button>
       </div>
@@ -38,7 +59,7 @@ const StreamItem = ({ data = {} }) => {
             to={`/products/product/${productId}`}
             className="line-clamp-2 text-neutral-500 text-[15px] transition-colors duration-200 hover:text-primary-default sm:text-base"
           >
-            {productTitle || "Mahsulot nomi mavjud emas!"}
+            {productTitle || "Mahsulot mavjud emas!"}
           </Link>
         </div>
 

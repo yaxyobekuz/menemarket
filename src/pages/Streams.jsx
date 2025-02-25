@@ -20,7 +20,6 @@ const Streams = () => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const allStreams = useSelector((state) => state.streams.data);
-  const [filteredStreams, setFilteredStreams] = useState(allStreams || []);
 
   const loadStreams = () => {
     setHasError(false);
@@ -28,10 +27,7 @@ const Streams = () => {
 
     streamService
       .getStreams()
-      .then((streams) => {
-        setFilteredStreams(streams);
-        dispatch(updateStreams(streams));
-      })
+      .then((streams) => dispatch(updateStreams(streams)))
       .catch(() => setHasError(true))
       .finally(() => setIsLoading(false));
   };
@@ -62,9 +58,9 @@ const Streams = () => {
           <div className="h-0.5 w-full bg-white" />
 
           {/* Streams */}
-          {!hasError && !isLoading && filteredStreams?.length > 0 ? (
+          {!hasError && !isLoading && allStreams?.length > 0 ? (
             <ul className="grid grid-cols-1 gap-3.5 px-2.5 py-5 sm:px-4 xs:grid-cols-2 sm:gap-4 xl:grid-cols-3 2xl:grid-cols-4">
-              {filteredStreams.map((stream) => (
+              {allStreams.map((stream) => (
                 <StreamItem key={stream._id} data={stream} />
               ))}
             </ul>
