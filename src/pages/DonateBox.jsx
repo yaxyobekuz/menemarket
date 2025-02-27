@@ -1,18 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-// Utils
-import { getRandomNumber } from "../utils";
+// UI components
+import { Skeleton } from "@/components/ui/skeleton";
 
-// Redux
-import { useDispatch } from "react-redux";
-import { updateModal } from "@/store/features/modalSlice";
+// Services
+import donateService from "@/api/services/donateService";
+
+// Images
+import reloadIcon from "../assets/images/icons/reload.svg";
 
 // Components
-import TransactionItem from "../components/TransactionItem";
+import Icon from "@/components/Icon";
+import DonatesList from "@/components/DonatesList";
 import AdminPagesHeader from "../components/AdminPagesHeader";
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { updateModal } from "@/store/features/modalSlice";
+import { updateDonatesTotalAmount } from "@/store/features/donateSlice";
 
 const DonateBox = () => {
   const dispatch = useDispatch();
+  const [hasError, setHasError] = useState(false);
+  const totalAmount = useSelector((state) => state.donate.totalAmount);
+  const [isLoading, setIsLoading] = useState(Number(totalAmount) === 0);
+
+  const loadDonateBox = () => {
+    setHasError(false);
+    setIsLoading(true);
+
+    donateService
+      .getDonateBox()
+      .then(({ box: { total_fund: amount } }) =>
+        dispatch(updateDonatesTotalAmount(amount))
+      )
+      .catch(() => setHasError(true))
+      .finally(() => setIsLoading(false));
+  };
 
   const handleOpenDonateModal = () => {
     dispatch(
@@ -29,6 +53,10 @@ const DonateBox = () => {
     );
   };
 
+  useEffect(() => {
+    if (Number(totalAmount) === 0) loadDonateBox();
+  }, []);
+
   return (
     <div className="w-full pt-3.5 pb-8 space-y-4">
       {/* Header */}
@@ -39,9 +67,28 @@ const DonateBox = () => {
         <div className="bg-gradient-gray rounded-xl">
           {/* Total balance */}
           <div className="flex items-center justify-between h-[62px] pl-5 pr-2.5 border-b-2 border-white">
-            <b className="block text-center text-lg font-normal truncate sm:text-xl">
-              {getRandomNumber(0, 99999999).toLocaleString()} so'm
-            </b>
+            {!hasError && !isLoading && (
+              <b className="block text-center text-lg font-normal truncate sm:text-xl">
+                {totalAmount?.toLocaleString() || 0} so'm
+              </b>
+            )}
+
+            {/* Loading animation */}
+            {!hasError && isLoading && (
+              <Skeleton className="w-40 h-6 bg-white" />
+            )}
+
+            {hasError && !isLoading && (
+              <div className="flex justify-center py-16">
+                <button
+                  title="Reload"
+                  aria-label="Reload"
+                  onClick={loadDonateBox}
+                >
+                  <Icon src={reloadIcon} alt="Reload icon" />
+                </button>
+              </div>
+            )}
 
             {/* Button */}
             <button
@@ -55,21 +102,8 @@ const DonateBox = () => {
             </button>
           </div>
 
-          {/* Transactions */}
-          <ul className="py-3.5">
-            {Array.from({ length: 6 }).map((_, index) => {
-              const isOdd = getRandomNumber() % 2 === 0;
-              return (
-                <TransactionItem
-                  key={index}
-                  alt="User profile picture"
-                  title="Sanobar Jonibekova"
-                  amount={getRandomNumber(0, 999999)}
-                  icon="https://i.pinimg.com/236x/4b/12/fb/4b12fbe8012b0f175bc1e9cad35880a3.jpg"
-                />
-              );
-            })}
-          </ul>
+          {/* Donates */}
+          <DonatesList />
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ import { notification } from "../notification";
 import crossIcon from "../assets/images/icons/cross.svg";
 
 // Services
+import donateService from "@/api/services/donateService";
 import streamService from "../api/services/streamService";
 import commentService from "@/api/services/commentService";
 
@@ -14,6 +15,7 @@ import commentService from "@/api/services/commentService";
 import Icon from "./Icon";
 import Overlay from "./Overlay";
 import LoadingText from "./LoadingText";
+import DonateModalContent from "./DonateModalContent";
 import ContactModalContent from "./ContactModalContent";
 import CallOrderModalContent from "./CallOrderModalContent";
 import CreateStreamModalContent from "./CreateStreamModalContent";
@@ -22,6 +24,7 @@ import CreateCommentModalContent from "./CreateCommentModalContent";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
+import { updateUser } from "@/store/features/userSlice";
 import { resetModal } from "../store/features/modalSlice";
 import { deleteStreamFromStore } from "@/store/features/streamsSlice";
 
@@ -30,6 +33,7 @@ const Modal = () => {
   const [formData, setFormData] = useState({});
   const closeModal = () => dispatch(resetModal());
   const [isLoading, setIsLoading] = useState(false);
+  const userData = useSelector((state) => state.user.data);
   const { title, name, buttons, data } = useSelector((state) => state.modal);
 
   const checkValueLength = (value = "", length = 3) => {
@@ -52,8 +56,8 @@ const Modal = () => {
 
     notification.promise(streamService.createStream(id, formData), {
       loading: "Oqim yaratilmoqda...",
+      error: "Oqimni yaratishda xatolik!",
       success: "Oqim muvaffaqiyatli yaratildi!",
-      error: "Oqimni yaratishda xatolik yuz berdi!",
     });
   };
 
@@ -70,7 +74,7 @@ const Modal = () => {
       {
         loading: "Oqim o'chirilmoqda...",
         success: "Oqim muvaffaqiyatli o'chirildi!",
-        error: "Oqimni o'chirishda xatolik yuz berdi!",
+        error: "Oqimni o'chirishda xatolik!",
       }
     );
   };
@@ -104,7 +108,31 @@ const Modal = () => {
       {
         success: "Sharh qoldirildi!",
         loading: "Sharh qoldirilmoqda...",
-        error: "Sharh qoldirishda xatolik yuz berdi!",
+        error: "Sharh qoldirishda xatolik!",
+      }
+    );
+  };
+
+  const donate = () => {
+    const validAmount = Number(formData?.fund) >= 1000;
+    if (!validAmount) return notification.error("Qiymat noto'g'ri kiritildi");
+
+    closeModal();
+
+    notification.promise(
+      donateService
+        .donate({ ...formData, anonim: false })
+        .then(({ your_balance: newBalance }) => {
+          if (!newBalance) {
+            return notification.error("Balansni yangilashda xatolik");
+          }
+
+          dispatch(updateUser({ ...userData, balance: newBalance }));
+        }),
+      {
+        success: "Ehson qilindi!",
+        loading: "Ehson qilinmoqda...",
+        error: "Ehson qilishda xatolik!",
       }
     );
   };
@@ -113,12 +141,14 @@ const Modal = () => {
   const contentMap = {
     contact: <ContactModalContent />,
     deleteStream: <DeleteStreamModalContent />,
+    donate: <DonateModalContent updateFormData={setFormData} />,
     callOrder: <CallOrderModalContent updateFormData={setFormData} />,
     createStream: <CreateStreamModalContent updateFormData={setFormData} />,
     createComment: <CreateCommentModalContent updateFormData={setFormData} />,
   };
 
   const actionMap = {
+    donate,
     createStream,
     deleteStream,
     createComment,
