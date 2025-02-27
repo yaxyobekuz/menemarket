@@ -2,6 +2,11 @@ const apiEndpoints = {
   // Home
   home: "home",
 
+  // Donate
+  donate: "api/donate",
+  getDonateBox: "api/dbox",
+  getDonates: "api/donate/all",
+
   // Payments
   getPayments: "api/payments",
   createPayment: "api/payments",
@@ -33,7 +38,7 @@ const apiEndpoints = {
 
   // Comments
   createComment: (id) => `api/comments/${id}`,
-  
+
   // Streams
   getStreams: "api/oqim",
   getStream: (id) => `api/oqim/${id}`,
