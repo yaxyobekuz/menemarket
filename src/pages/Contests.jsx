@@ -9,7 +9,6 @@ import { getRandomNumber } from "../utils";
 
 // Components
 import Icon from "../components/Icon";
-import TransactionItem from "../components/TransactionItem";
 import AdminPagesHeader from "../components/AdminPagesHeader";
 
 // Images
