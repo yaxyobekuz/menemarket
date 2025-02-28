@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 // Components
 import Icon from "../components/Icon";
@@ -45,13 +46,15 @@ const Streams = () => {
       <div className="container max-sm:px-1">
         <div className="bg-gradient-gray rounded-xl">
           {/* Title */}
-          <div className="flex items-center h-[60px] px-2.5 sm:px-4">
-            <h1 className="text-2xl">
-              <span>Oqimlar </span>
-              <span className="inline-block font-medium text-neutral-400 scale-90">
-                ({allStreams?.length || 0})
-              </span>
-            </h1>
+          <div className="flex flex-wrap items-center justify-between h-[60px] px-2.5 sm:px-4">
+            <h1 className="text-2xl">Oqimlar</h1>
+
+            <Link
+              to="/admin/streams/target-api"
+              className="btn h-10 px-5 bg-white border rounded-full hover:text-primary-default"
+            >
+              Target uchun API
+            </Link>
           </div>
 
           {/* Line */}

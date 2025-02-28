@@ -101,13 +101,13 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
                 src={avatar?.small || avatars["default"][2]}
               />
 
-              <p
+              <b
                 className={`${
                   isCollapse ? "hidden" : ""
-                } max-lg:hidden font-medium`}
+                } max-lg:hidden font-medium line-clamp-2`}
               >
                 {name || "Foydalanuvchi"}
-              </p>
+              </b>
             </div>
 
             {/* Menu */}

@@ -36,6 +36,7 @@ import Products from "./pages/Products";
 import Register from "./pages/Register";
 import Contests from "./pages/Contests";
 import VerifyOTP from "./pages/VerifyOTP";
+import TargetApi from "./pages/TargetApi";
 import DonateBox from "./pages/DonateBox";
 import Dashboard from "./pages/Dashboard";
 import NewStream from "./pages/NewStream";
@@ -81,6 +82,7 @@ const App = () => {
           <Route index path="dashboard" element={<Dashboard />} />
           <Route path="dashboard/donate" element={<DonateBox />} />
           <Route path="dashboard/contests" element={<Contests />} />
+          <Route path="streams/target-api" element={<TargetApi />} />
           <Route path="dashboard/news/:newsId" element={<NewsDetail />} />
           <Route path="new-stream/:productType?" element={<NewStream />} />
         </Route>
