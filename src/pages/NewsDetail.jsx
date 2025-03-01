@@ -68,6 +68,8 @@ const NewsDetail = () => {
     created_at: timestamp,
   } = news || {};
 
+  const screenWidth = window.innerWidth;
+
   return (
     <div className="w-full pt-3.5 pb-6 space-y-3.5 xs:space-y-4 xs:pb-8">
       {/* Header */}
@@ -84,10 +86,12 @@ const NewsDetail = () => {
           {news && !hasError && !isLoading ? (
             <>
               <div className="relative xs:pb-20">
-                <Icon
+                <img
+                  width={984}
+                  height={288}
                   alt="News banner"
-                  src={image?.small}
-                  className="w-full h-auto aspect-square object-cover bg-gray-light xs:h-64 xs:aspect-auto xs:brightness-50 xs:blur md:h-72"
+                  src={image[screenWidth > 425 ? "small" : "large"]}
+                  className="w-full h-auto object-cover bg-gray-light xs:h-64 xs:aspect-auto xs:brightness-50 xs:blur md:h-72"
                 />
 
                 <Icon

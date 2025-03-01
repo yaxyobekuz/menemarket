@@ -1,10 +1,22 @@
 import React, { useState } from "react";
 
+// UUID (Id generator)
+import { v4 as uuidv4 } from "uuid";
+
 // Toaster (For notification)
 import { notification } from "../notification";
 
 // Images
 import crossIcon from "../assets/images/icons/cross.svg";
+
+// Redux
+import {
+  addStreamToStore,
+  deleteStreamFromStore,
+} from "@/store/features/streamsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUser } from "@/store/features/userSlice";
+import { resetModal } from "../store/features/modalSlice";
 
 // Services
 import donateService from "@/api/services/donateService";
@@ -21,12 +33,6 @@ import CallOrderModalContent from "./CallOrderModalContent";
 import CreateStreamModalContent from "./CreateStreamModalContent";
 import DeleteStreamModalContent from "./DeleteStreamModalContent";
 import CreateCommentModalContent from "./CreateCommentModalContent";
-
-// Redux
-import { useDispatch, useSelector } from "react-redux";
-import { updateUser } from "@/store/features/userSlice";
-import { resetModal } from "../store/features/modalSlice";
-import { deleteStreamFromStore } from "@/store/features/streamsSlice";
 
 const Modal = () => {
   const dispatch = useDispatch();
@@ -54,11 +60,23 @@ const Modal = () => {
     closeModal();
     const { id } = data.product;
 
-    notification.promise(streamService.createStream(id, formData), {
-      loading: "Oqim yaratilmoqda...",
-      error: "Oqimni yaratishda xatolik!",
-      success: "Oqim muvaffaqiyatli yaratildi!",
-    });
+    notification.promise(
+      streamService.createStream(id, formData).then((stream) => {
+        dispatch(
+          addStreamToStore({
+            ...stream,
+            isNew: true,
+            _id: uuidv4(),
+            created_at: new Date().toISOString(),
+          })
+        );
+      }),
+      {
+        loading: "Oqim yaratilmoqda...",
+        error: "Oqimni yaratishda xatolik!",
+        success: "Oqim muvaffaqiyatli yaratildi!",
+      }
+    );
   };
 
   const deleteStream = () => {
@@ -68,9 +86,9 @@ const Modal = () => {
     closeModal();
 
     notification.promise(
-      streamService
-        .deleteStream(id)
-        .then(() => dispatch(deleteStreamFromStore(id))),
+      streamService.deleteStream(id).then(({ message }) => {
+        if (message) dispatch(deleteStreamFromStore(id));
+      }),
       {
         loading: "Oqim o'chirilmoqda...",
         success: "Oqim muvaffaqiyatli o'chirildi!",
