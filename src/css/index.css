@@ -183,6 +183,6 @@
   @apply inline-block absolute right-0 inset-y-0 h-12 bg-white;
 }
 
-.white-input input {
+.white-input :is(input, textarea) {
   @apply bg-white rounded-lg;
 }
