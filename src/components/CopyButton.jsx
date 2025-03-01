@@ -7,23 +7,28 @@ const CopyButton = ({
   text,
   className = "",
   children = null,
+  disabled = false,
   disabledDelay = 1500,
   notificationText = "Nusxa olindi",
 }) => {
-  const [disabled, setDisabled] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const handleCopyId = () => {
-    setDisabled(true);
+    setIsDisabled(true);
 
     navigator.clipboard.writeText(text).then(() => {
       notification.success(notificationText);
     });
 
-    setTimeout(() => setDisabled(false), disabledDelay);
+    setTimeout(() => setIsDisabled(false), disabledDelay);
   };
 
   return (
-    <button disabled={disabled} onClick={handleCopyId} className={className}>
+    <button
+      className={className}
+      onClick={handleCopyId}
+      disabled={disabled || isDisabled}
+    >
       {children}
     </button>
   );
