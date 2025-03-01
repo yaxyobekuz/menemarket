@@ -24,6 +24,7 @@ const CreateStreamModalContent = ({ updateFormData = () => {} }) => {
     <div className="space-y-4 pb-4">
       {/* First name */}
       <FormInputWrapper
+        autoFocus
         name="name"
         maxLength="72"
         label="Oqim nomi *"

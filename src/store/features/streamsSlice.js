@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // Initial state
 const initialState = {
-  data: [],
+  data: null,
 };
 
 export const streamsSlice = createSlice({
@@ -19,9 +19,15 @@ export const streamsSlice = createSlice({
       const filtered = state.data.filter((stream) => stream._id !== id);
       state.data = filtered;
     },
+
+    addStreamToStore: (state, action) => {
+      if (!state.data) return;
+      state.data.push(action.payload);
+    },
   },
 });
 
-export const { updateStreams, deleteStreamFromStore } = streamsSlice.actions;
+export const { updateStreams, deleteStreamFromStore, addStreamToStore } =
+  streamsSlice.actions;
 
 export default streamsSlice.reducer;

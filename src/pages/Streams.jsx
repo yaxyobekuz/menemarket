@@ -34,11 +34,8 @@ const Streams = () => {
   };
 
   useEffect(() => {
-    if (allStreams?.length === 0) {
-      loadStreams();
-    } else {
-      setTimeout(() => setIsLoading(false), 500);
-    }
+    if (!allStreams) loadStreams();
+    else setTimeout(() => setIsLoading(false), 500);
   }, []);
 
   return (
@@ -51,7 +48,7 @@ const Streams = () => {
 
             <Link
               to="/admin/streams/target-api"
-              className="btn h-10 px-5 bg-white border rounded-full hover:text-primary-default"
+              className="btn h-10 px-5 bg-white border rounded-full hover:text-primary-default max-sm:font-normal"
             >
               Target uchun API
             </Link>
@@ -63,8 +60,8 @@ const Streams = () => {
           {/* Streams */}
           {!hasError && !isLoading && allStreams?.length > 0 ? (
             <ul className="grid grid-cols-1 gap-3.5 px-2.5 py-5 sm:px-4 xs:grid-cols-2 sm:gap-4 xl:grid-cols-3 2xl:grid-cols-4">
-              {allStreams.map((stream) => (
-                <StreamItem key={stream._id} data={stream} />
+              {allStreams.map((stream, index) => (
+                <StreamItem key={stream._id || index} data={stream} />
               ))}
             </ul>
           ) : null}
