@@ -63,6 +63,8 @@ const Home = () => {
 
   useEffect(() => {
     if (products?.length === 0) loadProducts();
+    document.title =
+      "Mene Market - Onlayn Do'kon | Arzon narxlar va sifatli mahsulotlar";
   }, []);
 
   return (

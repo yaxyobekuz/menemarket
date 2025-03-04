@@ -58,6 +58,12 @@ const Products = () => {
         setTimeout(() => setIsLoading(false), 500);
       }
     }
+
+    const label =
+      categories.find(({ link }) => link === productType)?.title ||
+      "Barcha mahsulotlar";
+
+    document.title = `Mene Market | ${label}`;
   }, [productType]);
 
   return (

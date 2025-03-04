@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 // Lottie (For stickers)
@@ -8,6 +8,9 @@ import Lottie from "lottie-react";
 import sendSticker from "../assets/stickers/send-message.json";
 
 const Success = () => {
+  useEffect(() => {
+    document.title = "Mene Market | Buyurtma muvaffaqiyatli qabul qilindi!";
+  }, []);
   return (
     <div className="container space-y-5 pt-8 pb-12">
       <Lottie

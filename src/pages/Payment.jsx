@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 // Lottie (For stickers)
 import Lottie from "lottie-react";
@@ -36,6 +36,10 @@ const Payment = () => {
   const hideBalanceStorage = localStorage.getItem("hideBalance");
   const [hideBalance, setHideBalance] = useState(hideBalanceStorage === "true");
   const { balance } = userData || {};
+
+  useEffect(() => {
+    document.title = "Mene Market | To'lov";
+  }, []);
 
   // Update form data based on input changes
   const handleInputChange = useCallback((field, value) => {

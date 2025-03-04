@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 // Toaster (For notification)
 import { notification } from "@/notification";
@@ -21,6 +21,10 @@ const EditProfile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { name, _id: id, bio } = useSelector((state) => state.user.data) || {};
   const [formData, setFormData] = useState({ name, bio });
+
+  useEffect(() => {
+    document.title = "Mene Market | Profilni tahrirlash";
+  }, []);
 
   // Update form data based on input changes
   const handleInputChange = useCallback((field, value) => {

@@ -12,11 +12,13 @@ import { formatDate, formatTime } from "../utils";
 const DonateItem = ({ data = {} }) => {
   const {
     fund: amount,
+    user_id: user,
     anonim: anonym,
     created_at: timestamp,
-    user_id: { avatar, name, username },
   } = data || {};
-  const validAvatar = anonym ? false : avatar?.small.startsWith("https");
+  const { avatar, name, username } = user || {};
+
+  const isValidAvatar = anonym ? false : avatar?.small.startsWith("https");
 
   return (
     <li className="group flex items-center h-16 pl-3.5 xs:h-[68px] xs:pl-4">
@@ -24,7 +26,7 @@ const DonateItem = ({ data = {} }) => {
         <Icon
           size={48}
           alt="User avatar"
-          src={validAvatar ? avatar?.small : avatars["default"][2]}
+          src={isValidAvatar ? avatar?.small : avatars["default"][2]}
           className="size-10 bg-white rounded-full object-cover xs:size-11 sm:size-12"
         />
 
@@ -33,7 +35,9 @@ const DonateItem = ({ data = {} }) => {
           <div className="flex items-center justify-between gap-1.5">
             {/* Title */}
             <h3 className="font-medium truncate sm:text-[17px]">
-              {anonym ? "Anonim foydalanuvchi" : name}
+              {anonym
+                ? "Anonim foydalanuvchi"
+                : name || "Foydalanuvchi ismi mavjud emas!"}
             </h3>
 
             {/* Amount */}
@@ -45,7 +49,8 @@ const DonateItem = ({ data = {} }) => {
           {/* Bottom */}
           <div className="flex items-center justify-between gap-1.5">
             <p className="text-neutral-500 truncate text-sm sm:text-base">
-              @{anonym ? "foydalanuvchi_nomi" : username}
+              @
+              {anonym ? "foydalanuvchi_nomi" : username || "foydalanuvchi_nomi"}
             </p>
 
             <div className="flex items-center gap-2.5 shrink-0 text-sm sm:gap-3.5 sm:text-base">

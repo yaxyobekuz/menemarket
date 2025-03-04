@@ -32,6 +32,10 @@ const Blog = () => {
     created_at: timestamp,
   } = blog || {};
 
+  useEffect(() => {
+    document.title = "Mene Market | Yangilik";
+  }, []);
+
   const loadBlog = () => {
     const validId = blogId?.length > 16;
 
@@ -48,7 +52,10 @@ const Blog = () => {
     // Fetch blog from API
     blogService
       .getBlogsById(blogId)
-      .then(setBlog)
+      .then((blog) => {
+        setBlog(blog);
+        document.title = `Mene Market | Yangilik: ${blog?.title || ""}`;
+      })
       .catch(() => {
         setHasError(true);
         notification.error("Yangilikni yuklashda xatolik");

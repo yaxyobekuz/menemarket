@@ -40,6 +40,7 @@ const News = () => {
   useEffect(() => {
     if (allNews?.length === 0) loadNews();
     else setTimeout(() => setIsLoading(false), 500);
+    document.title = "Mene Market | Sotuvchilar uchun yangiliklar";
   }, []);
 
   return (

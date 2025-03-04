@@ -63,6 +63,7 @@ const Dashboard = () => {
   useEffect(() => {
     if (allNews?.length === 0) loadNews();
     else setTimeout(() => setIsLoading(false), 500);
+    document.title = "Mene Market | Admin panel - Sotuvchi kabineti";
   }, []);
 
   return (

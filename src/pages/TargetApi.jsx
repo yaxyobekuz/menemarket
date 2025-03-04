@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // Data
 import addresses from "@/data/addresses";
@@ -32,6 +32,10 @@ const bash = `curl --request POST
     }"`;
 
 const TargetApi = () => {
+  useEffect(() => {
+    document.title = "Mene Market | Target uchun API";
+  }, []);
+
   return (
     <div className="w-full pt-3.5 pb-8 space-y-4">
       <AdminPagesHeader link="/admin/streams" title="Target uchun API" />

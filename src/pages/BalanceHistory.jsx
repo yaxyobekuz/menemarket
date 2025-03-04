@@ -58,6 +58,8 @@ const BalanceHistory = () => {
       setTimeout(() => setIsLoading(false), 500);
       setStats(calculateStats(allBalanceHistory));
     }
+
+    document.title = "Mene Market | Balans tarixi";
   }, []);
 
   return (

@@ -40,6 +40,7 @@ const Blogs = () => {
     // Blogs
     if (allBlogs?.length === 0) loadBlogs();
     else setTimeout(() => setIsLoading(false), 500);
+    document.title = "Mene Market | Barcha yangiliklar";
   }, []);
 
   return (

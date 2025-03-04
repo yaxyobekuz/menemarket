@@ -55,6 +55,7 @@ const DonateBox = () => {
 
   useEffect(() => {
     if (Number(totalAmount) === 0) loadDonateBox();
+    document.title = "Mene Market | Hayriya qutisi";
   }, []);
 
   return (

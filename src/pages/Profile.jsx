@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 // Data
@@ -30,6 +30,10 @@ const Profile = () => {
   const navigate = useNavigate();
   const userData = useSelector((state) => state.user.data);
   const { _id, name, username, email, avatar } = userData || {};
+
+  useEffect(() => {
+    document.title = "Mene Market | Profil";
+  }, []);
 
   const handleLogout = () => {
     notification.promise(

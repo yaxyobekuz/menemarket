@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 // Toaster (For notification)
@@ -24,6 +24,10 @@ const Register = () => {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    document.title = "Mene Market | Ro'yxatdan o'tish";
+  }, []);
 
   // Update form data based on input changes
   const handleInputChange = useCallback((field, value) => {

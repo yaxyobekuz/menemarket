@@ -35,6 +35,8 @@ const Search = () => {
     if (searchQuery && searchQuery?.length > 0) {
       updateProductsByQuery(searchQuery);
     }
+
+    document.title = "Mene Market | Mahsulotlarni qidirish";
   }, []);
 
   const handleClearSearchInputValue = () => {

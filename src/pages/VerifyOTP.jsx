@@ -7,14 +7,14 @@ import { notification } from "../notification";
 // Services
 import userService from "../api/services/userService";
 
-// Images
-import logoIcon from "../assets/images/icons/logo.svg";
-import arrowRightIcon from "../assets/images/icons/solid-arrow-right.svg";
-
 // Components
 import Icon from "../components/Icon";
 import LoadingText from "../components/LoadingText";
 import FormInputWrapper from "../components/FormInputWrapper";
+
+// Images
+import logoIcon from "../assets/images/icons/logo.svg";
+import arrowRightIcon from "../assets/images/icons/solid-arrow-right.svg";
 
 const VerifyOTP = () => {
   const navigate = useNavigate();
@@ -42,6 +42,8 @@ const VerifyOTP = () => {
       // Redirect if no OTP data exists
       navigate("/auth/register");
     }
+
+    document.title = "Mene Market | Akkauntni tasdiqlash";
   }, []);
 
   // Update timer

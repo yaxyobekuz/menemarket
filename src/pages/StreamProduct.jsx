@@ -100,6 +100,10 @@ const StreamProduct = () => {
 
   const isValidDiscountPrice = Number(discountPrice) > price;
 
+  useEffect(() => {
+    document.title = "Mene Market | Mahsulot";
+  }, []);
+
   // Load products
   const loadProduct = () => {
     const validId = streamId?.length > 16;
@@ -122,6 +126,7 @@ const StreamProduct = () => {
         setProduct(product);
         setStream(stream || {});
         setRecommendedProducts(recommendedProducts);
+        document.title = `Mene Market | Mahsulot: ${product?.title}`;
       })
       .catch(() => setHasError(true))
       .finally(() => setIsLoading(false));

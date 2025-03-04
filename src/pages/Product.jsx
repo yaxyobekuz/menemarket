@@ -87,6 +87,11 @@ const Product = () => {
   const [formData, setFormData] = useState({ client_address: 1 });
   const [recommendedProducts, setRecommendedProducts] = useState([]);
   const [activeNavButton, setActiveNavButton] = useState(navButtons[0].name);
+
+  useEffect(() => {
+    document.title = "Mene Market | Mahsulot";
+  }, []);
+
   const {
     title,
     price,
@@ -120,6 +125,7 @@ const Product = () => {
       .then(({ product, related_products: recommendedProducts }) => {
         setProduct(product);
         setRecommendedProducts(recommendedProducts);
+        document.title = `Mene Market | Mahsulot: ${product?.title}`;
       })
       .catch(() => setHasError(true))
       .finally(() => setIsLoading(false));

@@ -26,6 +26,10 @@ const NewStream = () => {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const allProducts = useSelector((state) => state.products.data);
 
+  useEffect(() => {
+    document.title = "Mene Market | Yangi oqim yaratish";
+  }, []);
+
   const updateProductsByType = (data = []) => {
     const formattedType = !productType ? "all" : productType?.toLowerCase();
     if (formattedType === "all") return setFilteredProducts(data);

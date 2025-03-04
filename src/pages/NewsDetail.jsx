@@ -25,6 +25,10 @@ const NewsDetail = () => {
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    document.title = "Mene Market | Sotuvchiilar uchun yangilik";
+  }, []);
+
   const loadNews = () => {
     const validId = newsId?.length > 16;
 
@@ -41,8 +45,12 @@ const NewsDetail = () => {
     newsService
       .getNewsById(newsId)
       .then((news) => {
-        if (news?._id) setNews(news);
-        else {
+        if (news?._id) {
+          setNews(news);
+          document.title = `Mene Market | Sotuvchilar uchun yangilik: ${
+            news?.title || ""
+          }`;
+        } else {
           setHasError(true);
           notification.error("Yangilik topilmadi");
         }

@@ -36,6 +36,7 @@ const Streams = () => {
   useEffect(() => {
     if (!allStreams) loadStreams();
     else setTimeout(() => setIsLoading(false), 500);
+    document.title = "Mene Market | Oqimlar";
   }, []);
 
   return (
