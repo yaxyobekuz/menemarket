@@ -3,8 +3,8 @@
   "icons": [
     {
       "sizes": "36x36",
-      "type": "image/svg",
-      "src": "./src/assets/images/icons/favicon.svg"
+      "type": "image/svg+xml",
+      "src": "./public/favicon.svg"
     }
   ],
   "start_url": "/",
