@@ -53,3 +53,7 @@ export const getAvatarByIndex = (gender = "default", index = 0) => {
 export const extractNumbers = (text = "") => {
   return text.replace(/\D/g, "");
 };
+
+export const checkUrl = (url) => {
+  return url?.startsWith("https://") || url?.startsWith("http://");
+};
