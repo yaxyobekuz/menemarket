@@ -5,7 +5,7 @@ const MainLayoutTabs = () => {
   const token = localStorage.getItem("token");
 
   return (
-    <nav className="main-layout-tabs fixed bottom-0 inset-x-0 w-full bg-white border-t md:hidden">
+    <nav className="main-layout-tabs fixed bottom-0 inset-x-0 z-10 w-full bg-white border-t md:hidden">
       <ul className="flex h-16 sm:h-[72px]">
         {/* Home */}
         <li className="w-1/4 h-full">

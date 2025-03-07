@@ -46,16 +46,16 @@ const BlogsSection = () => {
   }, []);
 
   return (
-    <section className="py-8 sm:py-10">
+    <section className="relative py-8 sm:py-10">
       <div className="container space-y-6">
         {/* Section title */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between sticky top-16 z-10 h-10 w-full  bg-white xs:h-12 sm:h-14 sm:top-[72px]">
           <h2>So'nggi yangiliklar</h2>
 
           {/* brands page link */}
           <Link to="/blogs" className="group btn">
             <span className="text-neutral-600 text-sm transition-colors duration-200 group-hover:text-black sm:text-base">
-              Barcha yangiliklar
+              Yangiliklar
             </span>
 
             <Icon
