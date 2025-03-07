@@ -4,28 +4,26 @@ import React, { useCallback, useEffect, useState } from "react";
 import Lottie from "lottie-react";
 
 // Utils
-import { extractNumbers } from "../utils";
+import { extractNumbers } from "@/utils";
 
 // Toaster (For notification)
-import { notification } from "../notification";
+import { notification } from "@/notification";
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { updateUser } from "@/store/features/userSlice";
 
 // Services
-import paymentService from "../api/services/paymentsService";
+import paymentService from "@/api/services/paymentsService";
 
 // Stickers
-import likeOutSticker from "../assets/stickers/like-out.json";
+import likeOutSticker from "@/assets/stickers/like-out.json";
 
 // Components
 import LoadingText from "@/components/LoadingText";
-import ToggleEyeButton from "../components/ToggleEyeBtn";
+import ToggleEyeButton from "@/components/ToggleEyeBtn";
 import LastPaymentCard from "@/components/LastPaymentCard";
-import FormInputWrapper from "../components/FormInputWrapper";
-
-// Images
+import FormInputWrapper from "@/components/FormInputWrapper";
 
 const Payment = () => {
   const dispatch = useDispatch();
@@ -58,16 +56,36 @@ const Payment = () => {
     e.preventDefault();
     if (isLoading) return;
 
-    const { card_number: cardNumber } = formData || {};
+    const {
+      comment,
+      payment: amount,
+      card_owner: cardOwner,
+      card_number: cardNumber,
+    } = formData || {};
 
-    if (extractNumbers(cardNumber)?.length !== 16) {
-      return notification.error("Karta raqam noto'g'ri kiritildi");
+    console.log(formData);
+
+    if (
+      amount < 50000 ||
+      amount > 5000000 ||
+      cardOwner?.length < 2 ||
+      extractNumbers(cardNumber)?.length !== 16
+    ) {
+      return notification.error("Ma'lumotlar noto'g'ri kiritildi");
     }
 
     setIsLoading(true);
+    const formattedFormData = {
+      ...formData,
+      card_number: extractNumbers(cardNumber),
+    };
+
+    if (comment?.trim()?.length === 0) {
+      formattedFormData.comment = `${formattedFormData?.card_number} Karta raqamiga to'lov qilish.`;
+    }
 
     paymentService
-      .createPayment(formData)
+      .createPayment(formattedFormData)
       .then(({ your_balance: newBalance }) => {
         if (!newBalance) return notification.error("Nimadir xato ketdi");
 
@@ -119,7 +137,7 @@ const Payment = () => {
                 </div>
 
                 <div className="text-lg font-medium sm:text-xl">
-                  {hideBalance ? "********" : balance.toLocaleString()} so'm
+                  {hideBalance ? "****" : balance?.toLocaleString()} so'm
                 </div>
               </div>
 
@@ -129,12 +147,7 @@ const Payment = () => {
                   Tahminiy
                 </div>
 
-                <div className="text-lg font-medium sm:text-xl">
-                  {hideBalance
-                    ? "********"
-                    : (balance + 999999).toLocaleString()}{" "}
-                  so'm
-                </div>
+                <div className="text-lg font-medium sm:text-xl">Tez kunda</div>
               </div>
             </div>
           </div>
@@ -192,6 +205,7 @@ const Payment = () => {
                   {/* Amount */}
                   <FormInputWrapper
                     required
+                    min={50000}
                     type="number"
                     name="Amount"
                     maxLength="7"
@@ -218,7 +232,7 @@ const Payment = () => {
                 {/* Btn */}
                 <button
                   disabled={isLoading}
-                  className="btn-primary w-full h-10 px-16 font-normal xs:w-auto"
+                  className="btn-primary w-full h-10 font-normal xs:w-52"
                 >
                   <LoadingText loader={isLoading} text="Yuborish" />
                 </button>
