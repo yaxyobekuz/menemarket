@@ -63,8 +63,6 @@ const Payment = () => {
       card_number: cardNumber,
     } = formData || {};
 
-    console.log(formData);
-
     if (
       amount < 50000 ||
       amount > 5000000 ||
@@ -80,7 +78,7 @@ const Payment = () => {
       card_number: extractNumbers(cardNumber),
     };
 
-    if (comment?.trim()?.length === 0) {
+    if (comment?.trim()?.length === 0 || !comment) {
       formattedFormData.comment = `${formattedFormData?.card_number} Karta raqamiga to'lov qilish.`;
     }
 
