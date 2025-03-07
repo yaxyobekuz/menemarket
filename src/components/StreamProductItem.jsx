@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 // Components
 import Icon from "./Icon";
 
+// Utils
+import { checkUrl } from "@/utils";
+
 // Images
 import starIcon from "../assets/images/icons/mono-star-filled.svg";
 
@@ -14,9 +17,12 @@ const StreamProductItem = ({ data = {}, onBtnClick = () => {} }) => {
     images,
     _id: id,
     total: count,
+    ads_post: adsPost,
     for_seller: bonusPrice,
     discount_price: discountPrice,
   } = data || {};
+  const isValidAdsPost = checkUrl(adsPost);
+  const isValidDiscountPrice = discountPrice > price;
   const image = images?.length ? images[0]?.medium : "";
 
   return (
@@ -45,11 +51,11 @@ const StreamProductItem = ({ data = {}, onBtnClick = () => {} }) => {
         </div>
 
         {/* price & rating */}
-        <div className="flex items-start justify-between">
+        <div className="flex items-start relative">
           {/* price wrapper */}
           <div className="h-10">
             <del className="inline-block text-sm text-neutral-400">
-              {discountPrice?.toLocaleString() || 0}
+              {isValidDiscountPrice ? discountPrice?.toLocaleString() : "-"}
             </del>
 
             {/* price */}
@@ -60,7 +66,7 @@ const StreamProductItem = ({ data = {}, onBtnClick = () => {} }) => {
           </div>
 
           {/* rating */}
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5 absolute top-1.5 right-0">
             <span className="text-sm text-neutral-400 leading-none">4.8</span>
 
             {/* star */}
@@ -83,7 +89,7 @@ const StreamProductItem = ({ data = {}, onBtnClick = () => {} }) => {
         </div>
 
         {/* count */}
-        <div className="flex items-end gap-1 pb-2">
+        <div className="flex items-end gap-1">
           <span className="text-sm text-neutral-400">Mavjud</span>
           <span className="block grow pb-1 border-t-2 border-neutral-400 border-dotted" />
           <span className="text-sm text-neutral-400">
@@ -91,10 +97,26 @@ const StreamProductItem = ({ data = {}, onBtnClick = () => {} }) => {
           </span>
         </div>
 
+        {/* Link to Ads post */}
+        {isValidAdsPost ? (
+          <a
+            href={adsPost}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="h-7 transition-colors duration-200 hover:text-primary-default"
+          >
+            Reklama posti
+          </a>
+        ) : (
+          <span className="inline-block min-h-7 text-sm text-neutral-500">
+            Reklama posti mavjud emas!
+          </span>
+        )}
+
         {/* btn */}
         <button
           onClick={() => onBtnClick(data)}
-          className="btn-primary h-8 font-normal text-sm rounded-lg sm:rounded-xl xs:h-9 sm:h-10"
+          className="btn-primary h-9 font-normal text-sm rounded-lg sm:rounded-[10px] sm:h-10"
         >
           Oqim yaratish
         </button>
