@@ -52,7 +52,7 @@ const Profile = () => {
 
   return (
     <div className="w-full pt-3.5 pb-8">
-      <div className="container space-y-4">
+      <div className="container space-y-3">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
           {/* Profile */}
           <div className="flex items-center justify-between gap-1.5 bg-gradient-gray p-3.5 rounded-xl md:col-span-2 sm:p-4 lg:px-4 lg:p-5">
@@ -169,19 +169,22 @@ const Profile = () => {
               </div>
             </div>
 
-            <button className="btn shrink-0 size-10 bg-white rounded-full sm:size-12">
+            <Link
+              to="/admin/profile/connect-telegram"
+              className="btn shrink-0 size-10 bg-white rounded-full sm:size-12"
+            >
               <Icon
+                alt="Link"
                 src={linkIcon}
-                alt="Link icon"
                 className="size-[21px] xs:size-6"
               />
-            </button>
+            </Link>
           </section>
         </div>
 
         <button
           onClick={handleLogout}
-          className="text-primary-default text-lg font-medium underline underline-offset-2"
+          className="px-2.5 text-primary-default text-[17px] font-medium underline underline-offset-2 sm:text-lg"
         >
           Akkauntdan chiqish
         </button>
