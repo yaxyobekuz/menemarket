@@ -49,6 +49,7 @@ const apiEndpoints = {
   // Products
   getProducts: "api/products",
   getProduct: (id) => `api/products/${id}`,
+  updateTelegramId: "api/messenger/link_user",
   getProductComments: (id) => `api/comments/product/${id}`,
 };
 

@@ -13,6 +13,14 @@ const userService = {
     }
   },
 
+  updateTelegramId: async (data) => {
+    try {
+      return await api.put(endpoints.updateTelegramId, data);
+    } catch (err) {
+      throw err;
+    }
+  },
+
   logout: async () => {
     try {
       return await api.post(endpoints.logout);
