@@ -18,6 +18,7 @@ import FormInputWrapper from "@/components/FormInputWrapper";
 // Images
 import phoneImage1 from "@/assets/images/others/phone-1.png";
 import phoneImage2 from "@/assets/images/others/phone-2.png";
+import phoneImage3 from "@/assets/images/others/phone-3.png";
 
 const ConnectTelegram = () => {
   const dispatch = useDispatch();
@@ -124,7 +125,7 @@ const ConnectTelegram = () => {
                 alt="Phone"
                 width={256}
                 height={537}
-                src={phoneImage2}
+                src={phoneImage3}
                 className="w-full h-auto bg-white rounded-[32px] xs:w-64 xs:h-[537px]"
               />
             </div>
