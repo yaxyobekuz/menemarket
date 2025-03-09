@@ -32,7 +32,7 @@ const DonateItem = ({ data = {} }) => {
 
         <div className="flex flex-col justify-center gap-1 w-[calc(100%-48px)] h-full pr-3.5 border-b border-neutral-300/70 group-last:border-b-0 xs:pr-4 xs:w-[calc(100%-58px)] sm:w-[calc(100%-62px)]">
           {/* Top */}
-          <div className="flex items-center justify-between gap-1.5">
+          <div className="flex items-center justify-between gap-0.5 xs:gap-1.5">
             {/* Title */}
             <h3 className="font-medium truncate sm:text-[17px]">
               {anonym
@@ -41,7 +41,7 @@ const DonateItem = ({ data = {} }) => {
             </h3>
 
             {/* Amount */}
-            <p className="font-medium text-[15px] xs:text-base text-right sm:text-[17px]">
+            <p className="shrink-0 font-medium text-[15px] xs:text-base text-right sm:text-[17px]">
               +{amount?.toLocaleString() || 0} so'm
             </p>
           </div>
