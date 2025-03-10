@@ -16,9 +16,10 @@ const CopyButton = ({
   const handleCopyId = () => {
     setIsDisabled(true);
 
-    navigator.clipboard.writeText(text).then(() => {
-      notification.success(notificationText);
-    });
+    navigator.clipboard
+      .writeText(text)
+      .then(() => notification.success(notificationText))
+      .catch(() => notification.error("Nusxa olishda xatolik"));
 
     setTimeout(() => setIsDisabled(false), disabledDelay);
   };
