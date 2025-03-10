@@ -45,6 +45,7 @@ import EditProfile from "./pages/EditProfile";
 import StreamProduct from "./pages/StreamProduct";
 import BalanceHistory from "./pages/BalanceHistory";
 import ConnectTelegram from "./pages/ConnectTelegram";
+import Orders from "./pages/Orders";
 
 const App = () => {
   const modal = useSelector((state) => state.modal);
@@ -79,6 +80,7 @@ const App = () => {
           <Route path="payment" element={<Payment />} />
           <Route path="profile" element={<Profile />} />
           <Route path="dashboard/news" element={<News />} />
+          <Route path="dashboard/orders" element={<Orders />} />
           <Route path="profile/edit" element={<EditProfile />} />
           <Route index path="dashboard" element={<Dashboard />} />
           <Route path="dashboard/donate" element={<DonateBox />} />
@@ -86,7 +88,10 @@ const App = () => {
           <Route path="streams/target-api" element={<TargetApi />} />
           <Route path="dashboard/news/:newsId" element={<NewsDetail />} />
           <Route path="new-stream/:productType?" element={<NewStream />} />
-          <Route path="profile/connect-telegram" element={<ConnectTelegram />} />
+          <Route
+            element={<ConnectTelegram />}
+            path="profile/connect-telegram"
+          />
         </Route>
       </Route>
     )
