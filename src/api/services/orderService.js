@@ -12,6 +12,14 @@ const orderService = {
       throw err;
     }
   },
+
+  getStreamsOrders: async () => {
+    try {
+      return await api.get(endpoints.getStreamsOrders);
+    } catch (err) {
+      throw err;
+    }
+  },
 };
 
 export default orderService;

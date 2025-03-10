@@ -26,12 +26,13 @@ const apiEndpoints = {
   getBlogs: "api/blogs",
   getBlogById: (id) => `api/blogs/${id}`,
 
-  // Orders
-  createOrder: (id) => `api/orders/${id}`,
-
   // User
   getUserData: "profile",
   updateProfile: (id) => `api/users/${id}`,
+
+  // Orders
+  createOrder: (id) => `api/orders/${id}`,
+  getStreamsOrders: "api/orders/seller/all",
 
   // Media
   uploadProfileImage: "/files/upload/profile",
