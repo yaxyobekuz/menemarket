@@ -38,6 +38,18 @@
   :root {
     --radius: 0.5rem;
   }
+
+  address {
+    @apply not-italic;
+  }
+
+  table th {
+    @apply font-semibold;
+  }
+
+  table td {
+    @apply text-center;
+  }
 }
 
 /* --- Components --- */

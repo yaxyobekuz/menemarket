@@ -38,9 +38,9 @@ const Profile = () => {
   const handleLogout = () => {
     notification.promise(
       userService.logout().then(() => {
-        navigate("/");
         dispatch(updateUser(null));
         localStorage.removeItem("token");
+        window.location.pathname = "/auth/login";
       }),
       {
         success: "Akkuntdan chiqildi",

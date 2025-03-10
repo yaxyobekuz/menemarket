@@ -26,7 +26,7 @@ import infoIcon from "../assets/images/icons/info-gradient.svg";
 import newsIcon from "../assets/images/icons/news-gradient.svg";
 import crownIcon from "../assets/images/icons/crown-gradient.svg";
 import walletIcon from "../assets/images/icons/wallet-gradient.svg";
-import messagesIcon from "../assets/images/icons/messages-gradient.svg";
+import ordersIcon from "../assets/images/icons/orders-gradient.svg";
 import telegramIcon from "../assets/images/icons/telegram-gradient.svg";
 
 const Dashboard = () => {
@@ -131,24 +131,6 @@ const Dashboard = () => {
       {/* Menu */}
       <nav className="container">
         <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
-          {/* Appeals */}
-          <li className="opacity-50">
-            <div className="flex flex-col items-center gap-3.5 bg-gradient-gray rounded-xl px-1 py-4 xs:px-4 sm:py-5">
-              {/* icon */}
-              <Icon
-                size={40}
-                src={messagesIcon}
-                alt="Messages icon"
-                className="size-9 sm:size-10"
-              />
-
-              {/* title */}
-              <h3 className="text-center text-[15px] font-medium line-clamp-1 xs:text-base sm:text-lg">
-                Murojaatlar
-              </h3>
-            </div>
-          </li>
-
           {/* Contests */}
           <li className="opacity-50">
             <div className="flex flex-col items-center gap-3.5 bg-gradient-gray rounded-xl px-3.5 py-4 sm:px-4 sm:py-5">
@@ -165,6 +147,27 @@ const Dashboard = () => {
                 Konkurslar
               </h3>
             </div>
+          </li>
+
+          {/* Orders */}
+          <li>
+            <Link
+              to="/admin/dashboard/orders"
+              className="flex flex-col items-center gap-3.5 bg-gradient-gray rounded-xl px-1 py-4 xs:px-4 sm:py-5"
+            >
+              {/* icon */}
+              <Icon
+                size={40}
+                src={ordersIcon}
+                alt="Orders icon"
+                className="size-9 sm:size-10"
+              />
+
+              {/* title */}
+              <h3 className="text-center text-[15px] font-medium line-clamp-1 xs:text-base sm:text-lg">
+                Buyurtmalar
+              </h3>
+            </Link>
           </li>
 
           {/* History */}
