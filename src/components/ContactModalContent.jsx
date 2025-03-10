@@ -56,10 +56,10 @@ const ContactModalContent = () => {
             <div>
               <h3 className="font-medium xs:text-lg">E-pochta</h3>
               <a
-                href="mailto:menemarketuz@gmail.com"
+                href="mailto:menemarket.main@gmail.com"
                 className="text-sm text-neutral-500 xs:text-base"
               >
-                menemarketuz@gmail.com
+                menemarket.main@gmail.com
               </a>
             </div>
           </li>
@@ -101,10 +101,10 @@ const ContactModalContent = () => {
               <h3 className="font-medium xs:text-lg">Telegram bot</h3>
               <a
                 target="_blank"
-                href="https://t.me/mene_market"
+                href="https://t.me/menemarket_bot"
                 className="text-sm text-neutral-500 xs:text-base"
               >
-                @mene_market
+                @menemarket_bot
               </a>
             </div>
           </li>

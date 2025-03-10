@@ -136,7 +136,6 @@ module.exports = {
 - **React**: A JavaScript library for building user interfaces.
 - **Vite**: A modern front-end build tool for blazing-fast development.
 - **TailwindCSS**: Utility-first CSS for styling and layout.
-- **Firebase**: Backend services including authentication, database, and hosting.
 - **PostCSS**: CSS tool for transforming styles with plugins like TailwindCSS.
 - **ESLint**: A tool for identifying and fixing problems in JavaScript code.
 
