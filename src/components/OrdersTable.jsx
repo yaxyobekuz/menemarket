@@ -49,7 +49,7 @@ const OrdersTable = () => {
     >
       {/* Table */}
       {!isLoading && !hasError && orders?.length && (
-        <table className="min-w-[1320px] max-w-full w-full table-auto">
+        <table className="min-w-[1540px] max-w-full w-full table-auto">
           {/* Head */}
           <thead className="bg-neutral-50">
             <tr className="h-12">
@@ -62,6 +62,7 @@ const OrdersTable = () => {
               </th>
               <th className="w-52 font-semibold">Oqim nomi</th>
               <th className="font-semibold">Holati</th>
+              <th className="w-64 font-semibold">Izoh</th>
               <th className="w-52 font-semibold">Foydalanuvchi</th>
               <th className="w-64 font-semibold">ID raqam</th>
               <th className="font-semibold">Manzil</th>

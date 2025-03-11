@@ -1,27 +1,28 @@
 import React from "react";
 
+// Utils
+import {
+  formatDate,
+  formatTime,
+  extractNumbers,
+  getPercentageBgColor,
+} from "@/utils";
+
 // Components
 import StickyCell from "./StickyCell";
+import CopyButton from "./CopyButton";
 import TruncatedCell from "./TruncatedCell";
 
 // Data
 import addresses from "@/data/addresses";
 import orderStatuses from "@/data/orderStatuses";
 
-// Utils
-import {
-  extractNumbers,
-  formatDate,
-  formatTime,
-  getPercentageBgColor,
-} from "@/utils";
-import CopyButton from "./CopyButton";
-
 const OrderItem = ({ data = {}, index = 0, isScrolled }) => {
   const {
     status,
     _id: id,
     oqim_id: stream,
+    desc: description,
     client_mobile: tel,
     created_at: timestamp,
     courier_id: courierId,
@@ -80,6 +81,9 @@ const OrderItem = ({ data = {}, index = 0, isScrolled }) => {
 
       {/* Status */}
       <td style={{ color: statusColor }}>{formattedStatus}</td>
+
+      {/* Description */}
+      <TruncatedCell trunc="6">{description || "-"}</TruncatedCell>
 
       {/* User */}
       <TruncatedCell>{firstName}</TruncatedCell>
