@@ -40,6 +40,10 @@ const apiEndpoints = {
   // Comments
   createComment: (id) => `api/comments/${id}`,
 
+  // Recovery
+  changeEmail: "api/recovery/reset-email",
+  changePassword: "api/recovery/reset-password",
+
   // Streams
   getStreams: "api/oqim",
   getStream: (id) => `api/oqim/${id}`,
