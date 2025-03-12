@@ -26,6 +26,7 @@ import News from "./pages/News";
 import Blog from "./pages/Blog";
 import Login from "./pages/Login";
 import Blogs from "./pages/Blogs";
+import Orders from "./pages/Orders";
 import Search from "./pages/Search";
 import Success from "./pages/Success";
 import Product from "./pages/Product";
@@ -40,12 +41,12 @@ import TargetApi from "./pages/TargetApi";
 import DonateBox from "./pages/DonateBox";
 import Dashboard from "./pages/Dashboard";
 import NewStream from "./pages/NewStream";
+import EditEmail from "./pages/EditEmail";
 import NewsDetail from "./pages/NewsDetail";
 import EditProfile from "./pages/EditProfile";
 import StreamProduct from "./pages/StreamProduct";
 import BalanceHistory from "./pages/BalanceHistory";
 import ConnectTelegram from "./pages/ConnectTelegram";
-import Orders from "./pages/Orders";
 
 const App = () => {
   const modal = useSelector((state) => state.modal);
@@ -85,6 +86,7 @@ const App = () => {
           <Route index path="dashboard" element={<Dashboard />} />
           <Route path="dashboard/donate" element={<DonateBox />} />
           <Route path="dashboard/contests" element={<Contests />} />
+          <Route path="profile/edit-email" element={<EditEmail />} />
           <Route path="streams/target-api" element={<TargetApi />} />
           <Route path="dashboard/news/:newsId" element={<NewsDetail />} />
           <Route path="new-stream/:productType?" element={<NewStream />} />

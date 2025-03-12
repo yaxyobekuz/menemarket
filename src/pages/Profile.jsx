@@ -112,9 +112,9 @@ const Profile = () => {
               </div>
             </div>
 
-            <button
-              disabled
+            <Link
               aria-label="Edit profile"
+              to="/admin/profile/edit-email"
               className="btn shrink-0 size-10 bg-white rounded-full sm:size-12"
             >
               <Icon
@@ -122,7 +122,7 @@ const Profile = () => {
                 alt="Edit icon"
                 className="size-[21px] xs:size-6"
               />
-            </button>
+            </Link>
           </section>
 
           {/* Id */}
