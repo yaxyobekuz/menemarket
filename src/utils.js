@@ -57,3 +57,5 @@ export const extractNumbers = (text = "") => {
 export const checkUrl = (url) => {
   return url?.startsWith("https://") || url?.startsWith("http://");
 };
+
+export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
