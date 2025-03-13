@@ -1,10 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 // Toaster (For notification)
 import { notification } from "@/notification";
-
-// Redux
-import { useDispatch, useSelector } from "react-redux";
 
 // Services
 import recoveryService from "@/api/services/recoveryService";
@@ -15,10 +13,8 @@ import AdminPagesHeader from "@/components/AdminPagesHeader";
 import FormInputWrapper from "@/components/FormInputWrapper";
 
 const EditPassword = () => {
-  const dispatch = useDispatch();
   const [formData, setFormData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-  const { email } = useSelector((state) => state.user.data) || {};
 
   useEffect(() => {
     document.title = "Mene Market | Parolni o'zgartirish";
@@ -107,9 +103,19 @@ const EditPassword = () => {
               name="confirm-new-password"
               placeholder="Kamida 8ta belgi"
               className="w-full white-input"
-              label="Yangi parolni tasdiqlash *"
+              label="Yangi parolni takrorlash *"
               onChange={(v) => handleInputChange("confirm_new_password", v)}
             />
+
+            <div>
+              <span className="inline-block">Parolni unutdingizmi?</span>
+              <Link
+                className="text-primary-default"
+                to="/admin/profile/forgot-password"
+              >
+                <span> Qayta tiklash</span>
+              </Link>
+            </div>
 
             {/* Submit btn */}
             <button

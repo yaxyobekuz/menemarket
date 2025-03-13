@@ -47,6 +47,7 @@ import EditProfile from "./pages/EditProfile";
 import EditPassword from "./pages/EditPassword";
 import StreamProduct from "./pages/StreamProduct";
 import BalanceHistory from "./pages/BalanceHistory";
+import ForgotPassword from "./pages/ForgotPassword";
 import ConnectTelegram from "./pages/ConnectTelegram";
 
 const App = () => {
@@ -92,6 +93,7 @@ const App = () => {
           <Route path="dashboard/news/:newsId" element={<NewsDetail />} />
           <Route path="new-stream/:productType?" element={<NewStream />} />
           <Route path="profile/edit-password" element={<EditPassword />} />
+          <Route path="profile/forgot-password" element={<ForgotPassword />} />
           <Route
             element={<ConnectTelegram />}
             path="profile/connect-telegram"
