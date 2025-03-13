@@ -40,10 +40,6 @@ const apiEndpoints = {
   // Comments
   createComment: (id) => `api/comments/${id}`,
 
-  // Recovery
-  changeEmail: "api/recovery/reset-email",
-  changePassword: "api/recovery/reset-password",
-
   // Streams
   getStreams: "api/oqim",
   getStream: (id) => `api/oqim/${id}`,
@@ -56,6 +52,12 @@ const apiEndpoints = {
   getProduct: (id) => `api/products/${id}`,
   updateTelegramId: "api/messenger/link_user",
   getProductComments: (id) => `api/comments/product/${id}`,
+
+  // Recovery
+  changeEmail: "api/recovery/reset-email",
+  changePassword: "api/recovery/reset-password",
+  sendOtpCodeToEmail: "api/recovery/forgot-password",
+  changePasswordByOtp: "api/recovery/forgot-password/verify-and-change",
 };
 
 export default apiEndpoints;

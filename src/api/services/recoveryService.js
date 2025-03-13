@@ -20,6 +20,22 @@ const recoveryService = {
       throw err;
     }
   },
+
+  changePasswordByOtp: async (data) => {
+    try {
+      return await api.put(endpoints.changePasswordByOtp, data);
+    } catch (err) {
+      throw err;
+    }
+  },
+
+  sendOtpCodeToEmail: async (data) => {
+    try {
+      return await api.post(endpoints.sendOtpCodeToEmail, data);
+    } catch (err) {
+      throw err;
+    }
+  },
 };
 
 export default recoveryService;
