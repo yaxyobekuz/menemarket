@@ -44,6 +44,7 @@ import NewStream from "./pages/NewStream";
 import EditEmail from "./pages/EditEmail";
 import NewsDetail from "./pages/NewsDetail";
 import EditProfile from "./pages/EditProfile";
+import EditPassword from "./pages/EditPassword";
 import StreamProduct from "./pages/StreamProduct";
 import BalanceHistory from "./pages/BalanceHistory";
 import ConnectTelegram from "./pages/ConnectTelegram";
@@ -90,6 +91,7 @@ const App = () => {
           <Route path="streams/target-api" element={<TargetApi />} />
           <Route path="dashboard/news/:newsId" element={<NewsDetail />} />
           <Route path="new-stream/:productType?" element={<NewStream />} />
+          <Route path="profile/edit-password" element={<EditPassword />} />
           <Route
             element={<ConnectTelegram />}
             path="profile/connect-telegram"
