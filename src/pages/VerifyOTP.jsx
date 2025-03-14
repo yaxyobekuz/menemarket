@@ -81,25 +81,29 @@ const VerifyOTP = () => {
     if (otp.length === 4) {
       setIsLoading(true);
 
-      const formData = {
-        otp,
-        userid: otpStorage.userId,
-      };
+      const formData = { otp, userid: otpStorage.userId };
 
       userService
         .verifyOtp(formData)
-        .then(({ status, message }) => {
+        .then(({ status, message, token }) => {
           if (status === "TEKSHIRILDI") {
-            navigate("/auth/login");
             localStorage.removeItem("otpData");
             notification.success("Akkauntingiz muvaffaqiyatli tasdiqlandi");
+
+            if (token) {
+              // Save JWT token to local storage
+              localStorage.setItem("token", token);
+
+              // Navigate to dashboard
+              return navigate("/admin/dashboard");
+            }
+
+            navigate("/auth/login");
           } else {
-            notification.error(message);
+            notification.error(message || "Nimadir xato ketdi");
           }
         })
-        .catch(() => {
-          notification.error("Kodni tekshirishda noma'lum xatolik yuz berdi");
-        })
+        .catch(() => notification.error("Kodni tekshirishda xatolik"))
         .finally(() => setIsLoading(false));
     } else notification.error("Kod noto'g'ri kiritildi");
   };

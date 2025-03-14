@@ -80,7 +80,7 @@ const ForgotPassword = () => {
     setIsLoading(true);
 
     recoveryService
-      .changePasswordByOtp({ ...formData, userid: userId, otp: Number(otp) })
+      .changePasswordByOtp({ ...formData, userid: userId, otp: otp })
       .then((data) => {
         if (data) notification.success("Parol muvaffaqiyatli o'zgartirildi");
         else throw new Error();
