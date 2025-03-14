@@ -18,10 +18,10 @@ import arrowRightIcon from "../assets/images/icons/solid-arrow-right.svg";
 
 const RecoveryPassword = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
   const pageTitle = "Parolni qayta tiklash";
   const [isLoading, setIsLoading] = useState(false);
   const forgotStorage = JSON.parse(localStorage.getItem("forgotData"));
+  const [email, setEmail] = useState(forgotStorage?.email || "");
 
   const handleAddDataToStorage = ({ userid: userId, email }) => {
     const newTimestamp = new Date();
@@ -71,7 +71,6 @@ const RecoveryPassword = () => {
 
   return (
     <div className="flex justify-center gap-3.5 size-full">
-      {/* Main content */}
       <form
         onSubmit={sendOtpCodeToEmail}
         className="max-w-[476px] w-full my-auto py-5 space-y-5"
@@ -88,7 +87,7 @@ const RecoveryPassword = () => {
           />
         </Link>
 
-        {/* back */}
+        {/* Back */}
         <Link to="/auth/login" className="btn max-w-max">
           <Icon
             size={20}
@@ -106,12 +105,13 @@ const RecoveryPassword = () => {
           type="email"
           maxLength="244"
           required={true}
-          name="phone number"
           label="E-pochta *"
+          name="phone number"
           onChange={setEmail}
           disabled={isLoading}
           className="!rounded-xl"
           placeholder="misol@gmail.com"
+          defaultValue={forgotStorage?.email || ""}
         />
 
         <p>
@@ -126,7 +126,7 @@ const RecoveryPassword = () => {
           <LoadingText loader={isLoading} text="Davom etish" />
         </button>
 
-        <p className="text-neutral-400">© 2023-2024. "Mene Market"</p>
+        <p className="text-neutral-400">© 2023 - 2025. "Mene Market"</p>
       </form>
     </div>
   );

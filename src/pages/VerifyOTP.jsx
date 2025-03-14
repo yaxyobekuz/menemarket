@@ -86,7 +86,7 @@ const VerifyOTP = () => {
       userService
         .verifyOtp(formData)
         .then(({ status, message, token }) => {
-          if (status === "TEKSHIRILDI") {
+          if (status === "TEKSHIRILDI") { 
             localStorage.removeItem("otpData");
             notification.success("Akkauntingiz muvaffaqiyatli tasdiqlandi");
 
@@ -185,7 +185,7 @@ const VerifyOTP = () => {
           <LoadingText loader={isLoading} text="Tasdiqlash" />
         </button>
 
-        <p className="text-neutral-400">© 2023-2024. "Mene Market"</p>
+        <p className="text-neutral-400">© 2023 - 2025. "Mene Market"</p>
       </form>
     </div>
   );

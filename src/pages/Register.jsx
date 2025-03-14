@@ -158,7 +158,7 @@ const Register = () => {
           <LoadingText loader={isLoading} text="Davom etish" />
         </button>
 
-        <p className="text-neutral-400">© 2023-2024. "Mene Market"</p>
+        <p className="text-neutral-400">© 2023 - 2025. "Mene Market"</p>
       </form>
     </div>
   );
