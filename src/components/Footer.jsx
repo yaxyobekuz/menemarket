@@ -220,7 +220,7 @@ const Footer = () => {
       <div className="container py-3.5 sm:py-4 md:py-5">
         <div className="flex flex-col items-center justify-between gap-3.5 text-neutral-500 sm:gap-4 sm:flex-row md:gap-5">
           <p className="text-sm text-inherit sm:text-base">
-            © 2023-2024. "Mene Market"
+            © 2023 - 2025. "Mene Market"
           </p>
 
           {/* Privacy Policy */}

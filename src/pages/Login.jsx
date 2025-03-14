@@ -16,6 +16,7 @@ import FormInputWrapper from "../components/FormInputWrapper";
 
 const Login = () => {
   const navigate = useNavigate();
+  const pageTitle = "Akkauntga kirish";
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -23,7 +24,7 @@ const Login = () => {
   });
 
   useEffect(() => {
-    document.title = "Mene Market | Akkauntga kirish";
+    document.title = "Mene Market | " + pageTitle;
   }, []);
 
   // Update form data based on input changes
@@ -78,7 +79,7 @@ const Login = () => {
           />
         </Link>
 
-        <h1 className="text-2xl xs:text-[26px]">Akkauntg kirish</h1>
+        <h1 className="text-2xl xs:text-[26px]">{pageTitle}</h1>
 
         <div>
           <p className="inline-block">Hali akkauntingiz yo'qmi?</p>
@@ -127,7 +128,7 @@ const Login = () => {
           <LoadingText loader={isLoading} text="Akkauntga kirish" />
         </button>
 
-        <p className="text-neutral-400">© 2023-2024. "Mene Market"</p>
+        <p className="text-neutral-400">© 2023 - 2025. "Mene Market"</p>
       </form>
     </div>
   );
