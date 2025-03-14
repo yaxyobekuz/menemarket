@@ -15,6 +15,7 @@ import { updateNews } from "../store/features/newsSlice";
 import Icon from "../components/Icon";
 import NewsItem from "../components/NewsItem";
 import DotsLoader from "../components/DotsLoader";
+import VerifiedIcon from "@/components/VerifiedIcon";
 import ToggleEyeButton from "../components/ToggleEyeBtn";
 
 // Images
@@ -85,11 +86,12 @@ const Dashboard = () => {
               <div className="overflow-hidden space-y-0.5 xs:space-y-1">
                 <h1 className="truncate text-[19px] font-semibold max-xs:leading-[30px] xs:text-xl md:text-[22px] lg:text-2xl">
                   {name || "Foydalanuvchi"}
+                  <VerifiedIcon />
                 </h1>
 
                 {/* Username */}
                 <p className="text-neutral-400 truncate">
-                  @{username || "foydalanuvchi_nomi"}
+                  @lorem{username || "foydalanuvchi_nomi"}
                 </p>
               </div>
             </div>

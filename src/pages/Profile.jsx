@@ -10,6 +10,7 @@ import { notification } from "../notification";
 // Components
 import Icon from "../components/Icon";
 import CopyButton from "../components/CopyButton";
+import VerifiedIcon from "@/components/VerifiedIcon";
 
 // Services
 import userService from "../api/services/userService";
@@ -69,6 +70,7 @@ const Profile = () => {
               <div className="w- overflow-hidden space-y-1">
                 <h1 className="text-lg font-semibold truncate md:text-xl lg:text-2xl">
                   {name || "Foydalanuvchi"}
+                  <VerifiedIcon />
                 </h1>
 
                 {/* username */}

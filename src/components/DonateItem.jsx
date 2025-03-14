@@ -1,10 +1,11 @@
 import React from "react";
 
-// Components
-import Icon from "./Icon";
-
 // Data
 import avatars from "@/data/avatars";
+
+// Components
+import Icon from "./Icon";
+import VerifiedIcon from "./VerifiedIcon";
 
 // Utils
 import { formatDate, formatTime } from "../utils";
@@ -16,7 +17,7 @@ const DonateItem = ({ data = {} }) => {
     anonim: anonym,
     created_at: timestamp,
   } = data || {};
-  const { avatar, name, username } = user || {};
+  const { avatar, name, username, check: isVerified } = user || {};
 
   const isValidAvatar = anonym ? false : avatar?.small.startsWith("https");
 
@@ -38,6 +39,7 @@ const DonateItem = ({ data = {} }) => {
               {anonym
                 ? "Anonim foydalanuvchi"
                 : name || "Foydalanuvchi ismi mavjud emas!"}
+              <VerifiedIcon type="extrasmall" as={isVerified} />
             </h3>
 
             {/* Amount */}
