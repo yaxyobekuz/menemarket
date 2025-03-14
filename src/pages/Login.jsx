@@ -114,7 +114,7 @@ const Login = () => {
 
         <div>
           <p className="inline-block">Parolni unutdingizmi?</p>
-          <Link to="/auth/register" className="text-primary-default">
+          <Link to="/auth/forgot" className="text-primary-default">
             {" "}
             Qayta tiklash
           </Link>
