@@ -43,12 +43,14 @@ import Dashboard from "./pages/Dashboard";
 import NewStream from "./pages/NewStream";
 import EditEmail from "./pages/EditEmail";
 import NewsDetail from "./pages/NewsDetail";
+import ForgotSent from "./pages/ForgotSent";
 import EditProfile from "./pages/EditProfile";
 import EditPassword from "./pages/EditPassword";
 import StreamProduct from "./pages/StreamProduct";
 import BalanceHistory from "./pages/BalanceHistory";
 import ForgotPassword from "./pages/ForgotPassword";
 import ConnectTelegram from "./pages/ConnectTelegram";
+import RecoveryPassword from "./pages/RecoveryPassword";
 
 const App = () => {
   const modal = useSelector((state) => state.modal);
@@ -64,6 +66,8 @@ const App = () => {
             <Route path="login" element={<Login />} />
             <Route path="register" element={<Register />} />
             <Route path="verify-otp" element={<VerifyOTP />} />
+            <Route path="forgot-sent" element={<ForgotSent />} />
+            <Route path="forgot" element={<RecoveryPassword />} />
           </Route>
           <Route path="search" element={<Search />} />
           <Route path="success" element={<Success />} />
