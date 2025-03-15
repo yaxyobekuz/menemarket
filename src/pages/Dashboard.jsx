@@ -91,7 +91,7 @@ const Dashboard = () => {
 
                 {/* Username */}
                 <p className="text-neutral-400 truncate">
-                  @lorem{username || "foydalanuvchi_nomi"}
+                  @{username || "foydalanuvchi_nomi"}
                 </p>
               </div>
             </div>

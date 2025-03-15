@@ -107,7 +107,8 @@ const Sidebar = ({ isCollapse, setIsCollapse }) => {
                   isCollapse ? "hidden" : ""
                 } max-lg:hidden font-medium line-clamp-2`}
               >
-                {name || "Foydalanuvchi"} <VerifiedIcon type="extrasmall" />
+                {name || "Foydalanuvchi"}
+                <VerifiedIcon type="extrasmall" />
               </b>
             </div>
 

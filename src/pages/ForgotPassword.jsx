@@ -111,8 +111,6 @@ const ForgotPassword = () => {
       if (elapsedTime > 1800) localStorage.removeItem("otpData");
       // Set initial timer value
       else setTimer(Math.max(60 - elapsedTime, 0));
-    } else {
-      sendOtpCodeToEmail();
     }
 
     // Update doc title
@@ -146,13 +144,11 @@ const ForgotPassword = () => {
             <p>
               <span>Parolingizni qayta tiklash uchun </span>
               <span className="font-semibold">{email} </span>
-              <span className="text-nowrap">
-                e-pochtangizga kelgan koddan foydalaning
-              </span>
+              <span>e-pochtangizga kelgan koddan foydalaning</span>
             </p>
 
             {/* Otp */}
-            <div className="flex items-end gap-5">
+            <div className="flex flex-col items-end gap-4 xs:flex-row">
               <FormInputWrapper
                 required
                 type="otp"
@@ -170,7 +166,7 @@ const ForgotPassword = () => {
                 type="button"
                 onClick={sendOtpCodeToEmail}
                 disabled={timer > 0 || isSendingOtpCode}
-                className="btn-primary shrink-0 w-40 h-11"
+                className="btn-primary shrink-0 w-full h-11 xs:w-40"
               >
                 <LoadingText
                   text={
