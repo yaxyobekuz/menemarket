@@ -83,6 +83,7 @@ const Product = () => {
   const [comments, setComments] = useState(null);
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [activeType, setActiveType] = useState(null);
   const [isLoadingOrder, setIsLoadingOrder] = useState(false);
   const [formData, setFormData] = useState({ client_address: 1 });
   const [recommendedProducts, setRecommendedProducts] = useState([]);
@@ -95,6 +96,7 @@ const Product = () => {
   const {
     title,
     price,
+    types,
     images,
     _id: id,
     desc: description,
@@ -102,6 +104,7 @@ const Product = () => {
   } = product || {};
 
   const isValidDiscountPrice = Number(discountPrice) > price;
+  const isAvailableTypes = product?.types?.length && product?.types?.length > 0;
 
   // Load products
   const loadProduct = () => {
@@ -126,14 +129,25 @@ const Product = () => {
         setProduct(product);
         setRecommendedProducts(recommendedProducts);
         document.title = `Mene Market | Mahsulot: ${product?.title}`;
+
+        if (!product?.types?.length || product?.types?.length === 0) return;
+
+        const validProduct = product.types.find(({ quantity }) => quantity > 0);
+
+        if (validProduct) setActiveType(validProduct?._id);
       })
       .catch(() => setHasError(true))
       .finally(() => setIsLoading(false));
   };
 
+  const handleChangeActiveType = (newTypeId) => {
+    const type = product.types.find(({ _id: id }) => id === newTypeId);
+    if (type.quantity > 0) setActiveType(newTypeId);
+  };
+
   const handleCreateOrder = (e) => {
     e.preventDefault();
-    if (isLoadingOrder) return;
+    if (isLoadingOrder || (isAvailableTypes && !activeType)) return;
 
     const {
       client_name: name,
@@ -150,10 +164,16 @@ const Product = () => {
     if (!(addressKey > 0 && addressKey < 15))
       return notification.error("Manzil kodi xato");
 
+    const formattedFormData = formData;
+
+    if (isAvailableTypes) {
+      formattedFormData.type_id = activeType;
+    }
+
     setIsLoadingOrder(true);
 
     orderService
-      .createOrder(productId, formData)
+      .createOrder(productId, formattedFormData)
       .then(() => navigate("/success"))
       .catch(() => notification.error("Nimadir xato ketdi"))
       .finally(() => setIsLoadingOrder(false));
@@ -237,7 +257,6 @@ const Product = () => {
               <div className="flex flex-col gap-6 md:flex-row">
                 {/* Product images */}
                 <div className="flex gap-5 w-full h-96 sm:h-[425px] md:h-auto">
-                  {/* Swiper */}
                   <Swiper
                     loop={true}
                     navigation={true}
@@ -254,7 +273,7 @@ const Product = () => {
                       el: ".main-swiper-pagination",
                       clickable: true,
                     }}
-                    className="product-page-swiper default-swiper-navigation-buttons size-full rounded-xl"
+                    className="product-page-swiper default-swiper-navigation-buttons size-full rounded-xl md:max-h-[482px]"
                   >
                     {images?.map((img, index) => (
                       <SwiperSlide
@@ -361,6 +380,35 @@ const Product = () => {
                     </div>
                   </div>
 
+                  {/* Product types */}
+                  {isAvailableTypes ? (
+                    <div className="space-y-1.5">
+                      <b className="block text-lg font-normal">
+                        Mahsulot turi:
+                      </b>
+
+                      <div className="flex flex-wrap gap-x-3.5">
+                        {types.map(({ _id: id, title, quantity: amount }) => {
+                          const isActive = id === activeType;
+                          return (
+                            <button
+                              disabled={amount === 0}
+                              onClick={() => handleChangeActiveType(id)}
+                              key={id}
+                              className={`${
+                                isActive
+                                  ? "btn-primary font-normal"
+                                  : "bg-gray-light"
+                              } h-11 rounded-lg px-5 disabled:opacity-30 sm:rounded-xl`}
+                            >
+                              {title}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ) : null}
+
                   {/* Form */}
                   <form onSubmit={handleCreateOrder} className="space-y-5">
                     {/* First name */}
@@ -415,11 +463,17 @@ const Product = () => {
 
                     {/* submit btn */}
                     <button
-                      disabled={isLoadingOrder}
+                      disabled={
+                        isLoadingOrder || (isAvailableTypes && !activeType)
+                      }
                       className="btn-primary h-11 w-full rounded-xl font-normal xs:font-medium"
                     >
                       <LoadingText
-                        text="Buyurtma berish"
+                        text={
+                          isAvailableTypes && !activeType
+                            ? "Mahsulot qolmagan!"
+                            : "Buyurtma berish"
+                        }
                         loader={isLoadingOrder}
                       />
                     </button>

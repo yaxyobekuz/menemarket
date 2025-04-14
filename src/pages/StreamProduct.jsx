@@ -15,8 +15,7 @@ import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Services
-import orderService from "../api/services/orderService";
-import productService from "../api/services/productService";
+import streamService from "@/api/services/streamService";
 
 // Components
 import Icon from "../components/Icon";
@@ -35,7 +34,6 @@ import reloadIcon from "../assets/images/icons/reload.svg";
 import complaintIcon from "../assets/images/icons/complaint.svg";
 import yellowStarIcon from "../assets/images/icons/mono-star-filled.svg";
 import grayStarIcon from "../assets/images/icons/mono-gray-star-filled.svg";
-import streamService from "@/api/services/streamService";
 
 const renderStars = (rating = 0, showRatingValue = true, size = 16) => {
   return (
@@ -85,6 +83,7 @@ const StreamProduct = () => {
   const [comments, setComments] = useState(null);
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [activeType, setActiveType] = useState(null);
   const [isLoadingOrder, setIsLoadingOrder] = useState(false);
   const [formData, setFormData] = useState({ client_address: 1 });
   const [recommendedProducts, setRecommendedProducts] = useState([]);
@@ -92,6 +91,7 @@ const StreamProduct = () => {
   const {
     title,
     price,
+    types,
     images,
     _id: id,
     desc: description,
@@ -99,6 +99,7 @@ const StreamProduct = () => {
   } = product || {};
 
   const isValidDiscountPrice = Number(discountPrice) > price;
+  const isAvailableTypes = product?.types?.length && product?.types?.length > 0;
 
   useEffect(() => {
     document.title = "Mene Market | Mahsulot";
@@ -127,14 +128,25 @@ const StreamProduct = () => {
         setStream(stream || {});
         setRecommendedProducts(recommendedProducts);
         document.title = `Mene Market | Mahsulot: ${product?.title}`;
+
+        if (!product?.types?.length || product?.types?.length === 0) return;
+
+        const validProduct = product.types.find(({ quantity }) => quantity > 0);
+
+        if (validProduct) setActiveType(validProduct?._id);
       })
       .catch(() => setHasError(true))
       .finally(() => setIsLoading(false));
   };
 
+  const handleChangeActiveType = (newTypeId) => {
+    const type = product.types.find(({ _id: id }) => id === newTypeId);
+    if (type.quantity > 0) setActiveType(newTypeId);
+  };
+
   const handleCreateOrder = (e) => {
     e.preventDefault();
-    if (isLoadingOrder) return;
+    if (isLoadingOrder || (isAvailableTypes && !activeType)) return;
 
     const {
       client_name: name,
@@ -151,10 +163,16 @@ const StreamProduct = () => {
     if (!(addressKey > 0 && addressKey < 15))
       return notification.error("Manzil kodi xato");
 
+    const formattedFormData = formData;
+
+    if (isAvailableTypes) {
+      formattedFormData.type_id = activeType;
+    }
+
     setIsLoadingOrder(true);
 
     streamService
-      .createStreamOrder(streamId, formData)
+      .createStreamOrder(streamId, formattedFormData)
       .then(() => navigate("/success"))
       .catch(() => notification.error("Nimadir xato ketdi"))
       .finally(() => setIsLoadingOrder(false));
@@ -254,7 +272,7 @@ const StreamProduct = () => {
                       el: ".main-swiper-pagination",
                       clickable: true,
                     }}
-                    className="product-page-swiper default-swiper-navigation-buttons size-full rounded-xl"
+                    className="product-page-swiper default-swiper-navigation-buttons size-full rounded-xl md:max-h-[482px]"
                   >
                     {images?.map((img, index) => (
                       <SwiperSlide
@@ -360,6 +378,37 @@ const StreamProduct = () => {
                       </p>
                     </div>
                   </div>
+
+                  {/* Product types */}
+                  {isAvailableTypes ? (
+                    <div className="space-y-1.5">
+                      <b className="block text-lg font-normal">
+                        Mahsulot turi:
+                      </b>
+
+                      <div className="flex flex-wrap gap-x-3.5">
+                        {types.map(
+                          ({ _id: id, title, quantity: amount }, index) => {
+                            const isActive = id === activeType;
+                            return (
+                              <button
+                                key={id || index}
+                                disabled={amount === 0}
+                                onClick={() => handleChangeActiveType(id)}
+                                className={`${
+                                  isActive
+                                    ? "btn-primary font-normal"
+                                    : "bg-gray-light"
+                                } h-11 rounded-lg px-5 disabled:opacity-30 sm:rounded-xl`}
+                              >
+                                {title || "Noma'lum"}
+                              </button>
+                            );
+                          }
+                        )}
+                      </div>
+                    </div>
+                  ) : null}
 
                   {/* Form */}
                   <form onSubmit={handleCreateOrder} className="space-y-5">
