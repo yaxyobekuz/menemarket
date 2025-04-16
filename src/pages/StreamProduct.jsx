@@ -386,7 +386,7 @@ const StreamProduct = () => {
                         Mahsulot turi:
                       </b>
 
-                      <div className="flex flex-wrap gap-x-3.5">
+                      <div className="flex flex-wrap gap-3.5">
                         {types.map(
                           ({ _id: id, title, quantity: amount }, index) => {
                             const isActive = id === activeType;
