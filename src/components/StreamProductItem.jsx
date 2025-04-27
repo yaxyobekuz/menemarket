@@ -12,6 +12,7 @@ import starIcon from "../assets/images/icons/mono-star-filled.svg";
 
 const StreamProductItem = ({ data = {}, onBtnClick = () => {} }) => {
   const {
+    sold,
     title,
     price,
     images,
@@ -93,7 +94,7 @@ const StreamProductItem = ({ data = {}, onBtnClick = () => {} }) => {
           <span className="text-sm text-neutral-400">Mavjud</span>
           <span className="block grow pb-1 border-t-2 border-neutral-400 border-dotted" />
           <span className="text-sm text-neutral-400">
-            {count?.toLocaleString() || 0}
+            {(count - sold || 0)?.toLocaleString() || 0}
           </span>
         </div>
 

@@ -10,7 +10,7 @@ const statuses = [
     icon: timeIcon,
   },
   {
-    label: "Bekor qilingan",
+    label: "Atkaz",
     value: "canceled",
     color: "red",
     icon: crossIcon,
@@ -22,7 +22,7 @@ const statuses = [
     icon: crossIcon,
   },
   {
-    label: "Muvaffaqiyatli",
+    label: "Yetkazib berildi",
     value: "success",
     color: "#27d627",
     icon: successIcon,

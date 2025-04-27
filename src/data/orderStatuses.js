@@ -5,7 +5,7 @@ export default [
     color: "#a3a3a3",
   },
   {
-    label: "Tekshirilgan",
+    label: "Qabul qilindi",
     value: "checked",
     color: "#4ade80",
   },
@@ -15,22 +15,22 @@ export default [
     color: "#333333",
   },
   {
-    label: "Muvaffaqiyatli",
+    label: "Yetkazib berildi",
     value: "success",
     color: "#16a34a",
   },
   {
-    label: "Bekor qilingan",
+    label: "Atkaz",
     value: "canceled",
     color: "#f87171",
   },
   {
-    label: "Qaytarilgan",
+    label: "Qaytib keldi",
     value: "rejected",
     color: "#dc2626",
   },
   {
-    label: "Qaytarilgan",
+    label: "Qaytib keldi",
     value: "returned",
     color: "#dc2626",
   },
