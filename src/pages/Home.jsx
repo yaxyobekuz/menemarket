@@ -169,11 +169,19 @@ const Home = () => {
       </section>
 
       <div className="container pb-6 sm:pt-10 sm:pb-8">
-        <img
-          src={topProductsBg}
-          alt=""
-          className="w-full rounded-xl object-cover h-12 xs:h-16 sm:h-20 md:h-24 lg:h-28"
-        />
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://t.me/menemarket_uz"
+        >
+          <img
+            width={1240}
+            height={112}
+            src={topProductsBg}
+            alt="Mene Market mahsulotlarining reklama banneri"
+            className="w-full rounded-xl object-cover h-12 xs:h-16 sm:h-20 md:h-24 lg:h-28"
+          />
+        </a>
       </div>
 
       {/* New products */}

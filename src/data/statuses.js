@@ -1,5 +1,5 @@
-import timeIcon from "../assets/images/icons/pending-gradient.svg";
 import crossIcon from "../assets/images/icons/cross-gradient.svg";
+import timeIcon from "../assets/images/icons/pending-gradient.svg";
 import successIcon from "../assets/images/icons/success-gradient.svg";
 
 const statuses = [
@@ -10,19 +10,19 @@ const statuses = [
     icon: timeIcon,
   },
   {
-    label: "Atkaz",
+    label: "Bekor qilingan",
     value: "canceled",
     color: "red",
     icon: crossIcon,
   },
   {
-    label: "Qaytarilgan",
+    label: "Qayarilgan",
     value: "rejected",
     color: "red",
     icon: crossIcon,
   },
   {
-    label: "Yetkazib berildi",
+    label: "Muvaffaqiyatli",
     value: "success",
     color: "#27d627",
     icon: successIcon,
