@@ -33,6 +33,7 @@ import Product from "./pages/Product";
 import Streams from "./pages/Streams";
 import Payment from "./pages/Payment";
 import Profile from "./pages/Profile";
+import Page404 from "./pages/Page404";
 import Products from "./pages/Products";
 import Register from "./pages/Register";
 import Contests from "./pages/Contests";
@@ -103,6 +104,9 @@ const App = () => {
             path="profile/connect-telegram"
           />
         </Route>
+
+        {/* Page 404 */}
+        <Route path="*" element={<Page404 />} />
       </Route>
     )
   );
