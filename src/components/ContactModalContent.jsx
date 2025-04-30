@@ -56,10 +56,10 @@ const ContactModalContent = () => {
             <div>
               <h3 className="font-medium xs:text-lg">E-pochta</h3>
               <a
-                href="mailto:menemarket.main@gmail.com"
+                href="mailto:info@menemarket.uz"
                 className="text-sm text-neutral-500 xs:text-base"
               >
-                menemarket.main@gmail.com
+                info@menemarket.uz
               </a>
             </div>
           </li>
@@ -81,7 +81,7 @@ const ContactModalContent = () => {
                 href="tel:+998990000000"
                 className="text-sm text-neutral-500 xs:text-base"
               >
-                +998 (99) 000-00-00
+                +998 (50) 997 83 93
               </a>
             </div>
           </li>
@@ -123,7 +123,7 @@ const ContactModalContent = () => {
             <div>
               <h3 className="font-medium xs:text-lg">Manzil</h3>
               <address className="text-sm text-neutral-500 not-italic xs:text-base">
-                Chilonzor, Toshkent
+                O'zbekiston, Samarqand
               </address>
             </div>
           </li>

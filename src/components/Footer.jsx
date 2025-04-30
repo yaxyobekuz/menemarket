@@ -47,7 +47,7 @@ const Footer = () => {
                   className="size-5"
                 />
                 <a href="tel:+998990000000" className="font-medium">
-                  +998 (99) 000-00-00
+                  +998 (50) 997 83 93
                 </a>
               </div>
 
@@ -61,9 +61,9 @@ const Footer = () => {
                 />
                 <a
                   className="text-neutral-500"
-                  href="mailto:menemarket.main@gmail.com"
+                  href="mailto:info@menemarket.uz"
                 >
-                  menemarket.main@gmail.com
+                  info@menemarket.uz
                 </a>
               </div>
 
@@ -77,7 +77,7 @@ const Footer = () => {
                 />
 
                 <address className="text-neutral-500 not-italic">
-                  O'zbekiston, Toshkent
+                  O'zbekiston, Samarqand
                 </address>
               </div>
             </div>
@@ -155,7 +155,7 @@ const Footer = () => {
                   <li>
                     <a
                       target="_blank"
-                      href="https://t.me/menemarket"
+                      href="https://t.me/info_menemarket"
                       className="text-primary-default hover:underline"
                     >
                       Bizda mahsulotlaringizni soting

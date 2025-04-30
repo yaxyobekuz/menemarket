@@ -239,7 +239,7 @@ const Dashboard = () => {
           <li>
             <a
               target="_blank"
-              href="https://t.me/menemarket"
+              href="https://t.me/info_menemarket"
               className="flex flex-col items-center gap-3.5 bg-gradient-gray rounded-xl px-3.5 py-4 sm:px-4 sm:py-5"
             >
               {/* icon */}
@@ -283,7 +283,7 @@ const Dashboard = () => {
           <li>
             <a
               target="_blank"
-              href="https://t.me/menemarket"
+              href="https://t.me/info_menemarket"
               className="flex flex-col items-center gap-3.5 bg-gradient-gray rounded-xl px-3.5 py-4 sm:px-4 sm:py-5"
             >
               {/* icon */}
