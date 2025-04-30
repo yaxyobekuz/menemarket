@@ -26,11 +26,6 @@ export default [
   },
   {
     label: "Qaytib keldi",
-    value: "rejected",
-    color: "#dc2626",
-  },
-  {
-    label: "Qaytib keldi",
     value: "returned",
     color: "#dc2626",
   },

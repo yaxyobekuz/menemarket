@@ -15,12 +15,25 @@ import { updateOrders } from "@/store/features/ordersSlice";
 // Images
 import reloadIcon from "../assets/images/icons/reload.svg";
 
-const OrdersTable = () => {
+const OrdersTable = ({ currentActiveStatus }) => {
+  const filterOrders = (data) => {
+    if (!currentActiveStatus) {
+      return data;
+    } else {
+      const filtered = data.filter(({ status }) => {
+        return status?.toLowerCase() === currentActiveStatus?.toLowerCase();
+      });
+
+      return filtered;
+    }
+  };
+
   const dispatch = useDispatch();
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
-  const orders = useSelector((state) => state.orders.data);
+  const allOrders = useSelector((state) => state.orders.data);
+  const [orders, setOrders] = useState(filterOrders(allOrders) || []);
 
   const handleScroll = (e) => {
     setIsScrolled(e.target.scrollLeft > 1);
@@ -32,10 +45,17 @@ const OrdersTable = () => {
 
     orderService
       .getStreamsOrders()
-      .then((orders) => dispatch(updateOrders(orders)))
+      .then((orders) => {
+        dispatch(updateOrders(orders));
+        setOrders(filterOrders(orders));
+      })
       .catch(() => setHasError(true))
       .finally(() => setIsLoading(false));
   };
+
+  useEffect(() => {
+    if (!isLoading) setOrders(filterOrders(allOrders));
+  }, [currentActiveStatus]);
 
   useEffect(() => {
     if (orders?.length === 0) loadOrders();
@@ -48,7 +68,7 @@ const OrdersTable = () => {
       className="w-full max-w-full overflow-x-auto scroll-x-primary"
     >
       {/* Table */}
-      {!isLoading && !hasError && orders?.length && (
+      {!isLoading && !hasError && orders?.length ? (
         <table className="min-w-[1540px] max-w-full w-full table-auto">
           {/* Head */}
           <thead className="bg-neutral-50">
@@ -83,6 +103,12 @@ const OrdersTable = () => {
             ))}
           </tbody>
         </table>
+      ) : null}
+
+      {!isLoading && !hasError && orders?.length === 0 && (
+        <b className="block mt-12 mb-9 text-center font-medium">
+          Buyurtmalar mavjud emas!
+        </b>
       )}
 
       {/* Loader */}
